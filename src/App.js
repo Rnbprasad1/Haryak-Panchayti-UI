@@ -7,10 +7,12 @@ import Query from './Components/Query';
 import Status from './Components/Status';
 import bannerImage from './Assets/AP.png'; // Make sure to replace 'Aadhra Pradesh.png' with your actual image file name
 import Navbar from './Components/NavBar';
+import { DataProvider } from './Components/DataContext';
 
 function App() {
   console.log(bannerImage); // Log the image path to check if it's resolved correctly
   return (
+    <DataProvider>
     <Router>
       <div className="App">
         <header className="App-header" style={{ backgroundImage: `url(${bannerImage})` }}>
@@ -27,6 +29,7 @@ function App() {
         </div>
       </div>
     </Router>
+    </DataProvider>
   );
 }
 

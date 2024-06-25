@@ -15,3 +15,10 @@
   color: white;
   padding: 20px;
 }
+
+input[type="file"] {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 1rem;
+  padding: 1rem;
+}
