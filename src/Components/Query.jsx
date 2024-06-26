@@ -1,24 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form, Container, Row, Col, Button, Alert } from 'react-bootstrap';
 import { DataContext } from './DataContext';
-
-const districts = {
-  'Palnadu': ['Chilakaluripet', 'Narsaraopet'],
-  'Guntur': ['Tenali', 'Amaravathi'],
-  // Add more districts and mandals here
-};
-
-const mandals = {
-  'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
-  'Narsarsaopet': ['Jonnalagadda', 'Palapadu'],
-  'Tenali': ['Burripalem', 'Nelapadu'],
-  'Amaravathi': ['Lingapuram', 'Unguturu'],
-  // Add more mandals and villages here
-};
 
 const Query = () => {
   const { handleQuerySubmit } = useContext(DataContext);
 
+  const [districts, setDistricts] = useState({});
+  const [mandals, setMandals] = useState({});
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedMandal, setSelectedMandal] = useState('');
   const [availableMandals, setAvailableMandals] = useState([]);
@@ -37,6 +25,46 @@ const Query = () => {
   const [token, setToken] = useState('');
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
+
+  // Load JSON data dynamically
+
+  useEffect(() => {
+    const loadJsonData = async () => {
+      const districtFiles = ['palnadu', 'allurisitharamaraju', 'Eluru', 'Prakasam']; // Add more districts as needed
+      const districtsData = {};
+      const mandalsData = {};
+
+      for (const district of districtFiles) {
+        try {
+          const districtData = await import(`../Components/Data/mandal/${district}.json`);
+          const mandalList = districtData.default.Get_mandals;
+          districtsData[district] = mandalList.map(mandal => mandal.MandalName.trim());
+
+          for (const mandal of mandalList) {
+            const manDalName = mandal.MandalName.trim();
+            try {
+              const mandalData = await import(`../Components/Data/villages/${manDalName}.json`);
+              mandalsData[manDalName] = mandalData.Lgdrvmaster.map(village => village.Revenue_Name.trim());
+            } catch (mandalError) {
+              mandalsData[manDalName] = ["TEST VILLAGE"];
+              console.error(`Error loading mandal data for ${manDalName}:`, mandalError);
+             
+             }
+          }
+        } catch (districtError) {
+          console.error(`Error loading district data for ${district}:`, districtError);
+          // Handle the error or continue
+        }
+      }
+
+      setDistricts(districtsData);
+      setMandals(mandalsData);
+    };
+
+    loadJsonData();
+  }, []);
+
+
 
   const handleDistrictChange = (e) => {
     const district = e.target.value;
@@ -80,8 +108,8 @@ const Query = () => {
 
   const generateToken = (district, mandal, village) => {
     const stateCode = 'AP';
-    const districtCode = district === 'Palnadu' ? 'PAL' : 'GUN'; // Example district codes
-    const mandalCode = mandal === 'Chilakaluripet' ? '96' : '97'; // Example mandal codes
+    const districtCode = district.substring(0, 3).toUpperCase(); // Adjust based on your logic
+    const mandalCode = mandal.substring(0, 3).toUpperCase(); // Adjust based on your logic
     const areaType = 'RU'; // Example area type
     const villageCode = village.substring(0, 3).toUpperCase();
     const randomDigits = Math.floor(1000 + Math.random() * 9000);
