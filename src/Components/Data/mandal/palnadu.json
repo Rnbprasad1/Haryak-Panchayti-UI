@@ -1,0 +1,118 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5050",
+            "MandalName": "Achampeta "
+        },
+        {
+            "Mandal_Code": "5052",
+            "MandalName": "Amaravathi "
+        },
+        {
+            "Mandal_Code": "5049",
+            "MandalName": "Bellamkonda  "
+        },
+        {
+            "Mandal_Code": "5061",
+            "MandalName": "Bollapalle  "
+        },
+        {
+            "Mandal_Code": "5070",
+            "MandalName": "Chilakaluripet"
+        },
+        {
+            "Mandal_Code": "5045",
+            "MandalName": "Dachepalle )"
+        },
+        {
+            "Mandal_Code": "5042",
+            "MandalName": "Durgi  "
+        },
+        {
+            "Mandal_Code": "5071",
+            "MandalName": "Edlapadu "
+        },
+        {
+            "Mandal_Code": "5044",
+            "MandalName": "Gurazala  "
+        },
+        {
+            "Mandal_Code": "5065",
+            "MandalName": "Ipuru  "
+        },
+        {
+            "Mandal_Code": "5046",
+            "MandalName": "Karempudi  "
+        },
+        {
+            "Mandal_Code": "5051",
+            "MandalName": "Krosuru  "
+        },
+        {
+            "Mandal_Code": "5048",
+            "MandalName": "Machavaram  "
+        },
+        {
+            "Mandal_Code": "5040",
+            "MandalName": "Macherla  "
+        },
+        {
+            "Mandal_Code": "5068",
+            "MandalName": "Muppalla  "
+        },
+        {
+            "Mandal_Code": "5069",
+            "MandalName": "Nadendla  "
+        },
+        {
+            "Mandal_Code": "5060",
+            "MandalName": "Nakarikallu  "
+        },
+        {
+            "Mandal_Code": "5067",
+            "MandalName": "Narasaraopeta  "
+        },
+        {
+            "Mandal_Code": "5063",
+            "MandalName": "Nuzendla (నూజెండ్ల)"
+        },
+        {
+            "Mandal_Code": "5057",
+            "MandalName": "Pedakurapadu (పెదకూరపాడు)"
+        },
+        {
+            "Mandal_Code": "5047",
+            "MandalName": "Piduguralla (పిడుగురాళ్ళ)"
+        },
+        {
+            "Mandal_Code": "5059",
+            "MandalName": "Rajupalem (రాజుపాలెం)"
+        },
+        {
+            "Mandal_Code": "5043",
+            "MandalName": "Rentachintala (రెంటచింతల)"
+        },
+        {
+            "Mandal_Code": "5066",
+            "MandalName": "Rompicherla (రొంపిచెర్ల)"
+        },
+        {
+            "Mandal_Code": "5058",
+            "MandalName": "Sattenapalle (సత్తెనపల్లి)"
+        },
+        {
+            "Mandal_Code": "5064",
+            "MandalName": "Savalyapuram (శ్యావల్యాపురం)"
+        },
+        {
+            "Mandal_Code": "5041",
+            "MandalName": "Veldurthi (వలుదుర్తి)"
+        },
+        {
+            "Mandal_Code": "5062",
+            "MandalName": "Vinukonda (వినుకొండ)"
+        }
+    ]
+}

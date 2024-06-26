@@ -1,0 +1,94 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "4887",
+            "MandalName": "Addateegala"
+        },
+        {
+            "Mandal_Code": "4845",
+            "MandalName": "Ananthagiri"
+        },
+        {
+            "Mandal_Code": "4844",
+            "MandalName": "Araku Valley"
+        },
+        {
+            "Mandal_Code": "4849",
+            "MandalName": "Chintapalle " 
+        },
+        {
+            "Mandal_Code": "4732",
+            "MandalName": "Chintur  "
+        },
+        {
+            "Mandal_Code": "4885",
+            "MandalName": "Devipatnam  "
+        },
+        {
+            "Mandal_Code": "4843",
+            "MandalName": "Dumbriguda (డుంబ్రిగుడ)"
+        },
+        {
+            "Mandal_Code": "4848",
+            "MandalName": "Gangaraju Madugula (జి.మాడుగుల)"
+        },
+        {
+            "Mandal_Code": "4894",
+            "MandalName": "Gangavaram (గంగవరం)"
+        },
+        {
+            "Mandal_Code": "4850",
+            "MandalName": "Gudem Kothaveedhi (జి.కె.వీది)"
+        },
+        {
+            "Mandal_Code": "4846",
+            "MandalName": "Hukumpeta (హుక్కుంపేట)"
+        },
+        {
+            "Mandal_Code": "4851",
+            "MandalName": "Koyyuru ( కొయ్యూరు)"
+        },
+        {
+            "Mandal_Code": "4731",
+            "MandalName": "Kunavaram (కూనవరం)"
+        },
+        {
+            "Mandal_Code": "4884",
+            "MandalName": "Maredumilli (మారేడుమిల్లి)"
+        },
+        {
+            "Mandal_Code": "4841",
+            "MandalName": "Munchingput (ముంచంగిపుట్టు)"
+        },
+        {
+            "Mandal_Code": "6063",
+            "MandalName": "Nellipaka (నెల్లిపాక)"
+        },
+        {
+            "Mandal_Code": "4847",
+            "MandalName": "Paderu (పాడేరు)"
+        },
+        {
+            "Mandal_Code": "4842",
+            "MandalName": "Pedabayalu (పెదబయలు)"
+        },
+        {
+            "Mandal_Code": "4888",
+            "MandalName": "Rajavommangi (రాజఒమ్మంగి)"
+        },
+        {
+            "Mandal_Code": "4895",
+            "MandalName": "Rampachodavaram (రంపచోడవరం)"
+        },
+        {
+            "Mandal_Code": "4733",
+            "MandalName": "Vararamachandrapuram (వి ఆర్ పురం)"
+        },
+        {
+            "Mandal_Code": "4886",
+            "MandalName": "Y Ramavaram (వై. రామవరం)"
+        }
+    ]
+}

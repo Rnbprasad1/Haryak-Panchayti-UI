@@ -1,0 +1,162 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5116",
+            "MandalName": "Ardhaveedu (అర్థవీడు)"
+        },
+        {
+            "Mandal_Code": "5131",
+            "MandalName": "Bestavaripeta (బెస్తవారిపేట)"
+        },
+        {
+            "Mandal_Code": "5145",
+            "MandalName": "Chadrasekarapuram (చంద్రశేఖరపురం)"
+        },
+        {
+            "Mandal_Code": "5128",
+            "MandalName": "Chimakurthi (చీమకుర్తి)"
+        },
+        {
+            "Mandal_Code": "5117",
+            "MandalName": "Cumbum (కంభం)"
+        },
+        {
+            "Mandal_Code": "5114",
+            "MandalName": "Darsi (దరిశి)"
+        },
+        {
+            "Mandal_Code": "5102",
+            "MandalName": "Donakonda (దొనకొండ)"
+        },
+        {
+            "Mandal_Code": "5100",
+            "MandalName": "Dornala (దోర్నాల)"
+        },
+        {
+            "Mandal_Code": "5133",
+            "MandalName": "Giddaluru (గిద్దలూరు)"
+        },
+        {
+            "Mandal_Code": "5130",
+            "MandalName": "Hanumanthunipadu (హనుమంతునిపాడు)"
+        },
+        {
+            "Mandal_Code": "5136",
+            "MandalName": "Kanigiri (కనిగిరి)"
+        },
+        {
+            "Mandal_Code": "5134",
+            "MandalName": "Komarolu (కొమరోలు)"
+        },
+        {
+            "Mandal_Code": "5119",
+            "MandalName": "Konakanamitla (కొనకనమిట్ట)"
+        },
+        {
+            "Mandal_Code": "5137",
+            "MandalName": "Kondapi (కొండపి)"
+        },
+        {
+            "Mandal_Code": "5140",
+            "MandalName": "Kothapatnam (కొత్తపట్టణం)"
+        },
+        {
+            "Mandal_Code": "5103",
+            "MandalName": "Kurichedu (కురిచేడు)"
+        },
+        {
+            "Mandal_Code": "5127",
+            "MandalName": "Maddipadu (మద్దిపాడు)"
+        },
+        {
+            "Mandal_Code": "5115",
+            "MandalName": "Markapur (మార్కాపురం)"
+        },
+        {
+            "Mandal_Code": "5129",
+            "MandalName": "Marripudi (మర్రిపూడి)"
+        },
+        {
+            "Mandal_Code": "5113",
+            "MandalName": "Mundlamuru (ముండ్లమూరు)"
+        },
+        {
+            "Mandal_Code": "5126",
+            "MandalName": "Naguluppalapadu (నాగలుప్పలపాడు)"
+        },
+        {
+            "Mandal_Code": "5139",
+            "MandalName": "Ongole (ఒంగోలు)"
+        },
+        {
+            "Mandal_Code": "5146",
+            "MandalName": "Pamur (పామూరు)"
+        },
+        {
+            "Mandal_Code": "5101",
+            "MandalName": "Pedaaraveedu (పెద్దారవీడు)"
+        },
+        {
+            "Mandal_Code": "5144",
+            "MandalName": "Pedacherlopalle (పెదచెర్లోపల్లి)"
+        },
+        {
+            "Mandal_Code": "5120",
+            "MandalName": "Podili (పోదిలి)"
+        },
+        {
+            "Mandal_Code": "5143",
+            "MandalName": "Ponnaluru (పొన్నలూరు)"
+        },
+        {
+            "Mandal_Code": "5098",
+            "MandalName": "Pullalacheruvu (పుల్లలచెరువు)"
+        },
+        {
+            "Mandal_Code": "5132",
+            "MandalName": "Racherla (రాచర్ల)"
+        },
+        {
+            "Mandal_Code": "5138",
+            "MandalName": "Santhanuthlapadu (సంతనూతలపాడు)"
+        },
+        {
+            "Mandal_Code": "5149",
+            "MandalName": "Singarayakonda (శింగరాయకొండ)"
+        },
+        {
+            "Mandal_Code": "5141",
+            "MandalName": "Tangutur (టంగుటూరు)"
+        },
+        {
+            "Mandal_Code": "5118",
+            "MandalName": "Tarlapadu (తర్లుపాడు)"
+        },
+        {
+            "Mandal_Code": "5121",
+            "MandalName": "Thallur (తాళ్లూరు)"
+        },
+        {
+            "Mandal_Code": "5099",
+            "MandalName": "Tripuranthakam (త్రిపురాంతకం)"
+        },
+        {
+            "Mandal_Code": "5152",
+            "MandalName": "Ulavapadu (ఉలవపాడు)"
+        },
+        {
+            "Mandal_Code": "5135",
+            "MandalName": "Veligandla (వెలిగండ్ల)"
+        },
+        {
+            "Mandal_Code": "5097",
+            "MandalName": "Yerragondapalem (యర్రగొండపాలెం)"
+        },
+        {
+            "Mandal_Code": "5142",
+            "MandalName": "Zarugumilli (జరుగుమల్లి)"
+        }
+    ]
+}

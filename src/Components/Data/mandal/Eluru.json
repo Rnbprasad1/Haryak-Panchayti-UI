@@ -1,0 +1,122 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5005",
+            "MandalName": "Agiripalle (అగిరిపల్లి)"
+        },
+        {
+            "Mandal_Code": "4963",
+            "MandalName": "Bhimadole (భీమడోలు)"
+        },
+        {
+            "Mandal_Code": "4948",
+            "MandalName": "Buttayagudem (బుట్టాయిగూడెం)"
+        },
+        {
+            "Mandal_Code": "5001",
+            "MandalName": "Chatrai (చాట్రాయ్)"
+        },
+        {
+            "Mandal_Code": "4944",
+            "MandalName": "Chintalapudi (చింతలపూడి)"
+        },
+        {
+            "Mandal_Code": "4967",
+            "MandalName": "Denduluru (దెందులూరు)"
+        },
+        {
+            "Mandal_Code": "4955",
+            "MandalName": "Dwaraka Tirumala (ద్వారకా తిరుమల)"
+        },
+        {
+            "Mandal_Code": "4966",
+            "MandalName": "Eluru (ఏలూరు)"
+        },
+        {
+            "Mandal_Code": "4974",
+            "MandalName": "Ganapavaram (గణపవరం)"
+        },
+        {
+            "Mandal_Code": "4953",
+            "MandalName": "Jangareddigudem (జంగారెడ్డిగూడెం)"
+        },
+        {
+            "Mandal_Code": "4947",
+            "MandalName": "Jeelugumilli (జీలుగుమిల్లి)"
+        },
+        {
+            "Mandal_Code": "5016",
+            "MandalName": "Kaikalur (కైకలూరు)"
+        },
+        {
+            "Mandal_Code": "5017",
+            "MandalName": "Kalidindi (కలిదిండి)"
+        },
+        {
+            "Mandal_Code": "4954",
+            "MandalName": "Kamavarapukota (కామవరపుకోట)"
+        },
+        {
+            "Mandal_Code": "4952",
+            "MandalName": "Koyyalagudem (కౌయ్యలగూడెం)"
+        },
+        {
+            "Mandal_Code": "4735",
+            "MandalName": "Kukunoor (కుకునూరు)"
+        },
+        {
+            "Mandal_Code": "4945",
+            "MandalName": "Lingapalem (లింగపాలెం)"
+        },
+        {
+            "Mandal_Code": "5015",
+            "MandalName": "Mandavalli (మండవల్లి)"
+        },
+        {
+            "Mandal_Code": "5020",
+            "MandalName": "Mudinepalli (ముదినేపల్లి)"
+        },
+        {
+            "Mandal_Code": "5002",
+            "MandalName": "Musunuru (ముసునూరు)"
+        },
+        {
+            "Mandal_Code": "4968",
+            "MandalName": "Nidamarru (నిడమర్రు)"
+        },
+        {
+            "Mandal_Code": "5003",
+            "MandalName": "Nuzvid (నూజివీడు)"
+        },
+        {
+            "Mandal_Code": "4965",
+            "MandalName": "Pedapadu (పెదపాడు)"
+        },
+        {
+            "Mandal_Code": "4966",
+            "MandalName": "Pedapadu (పెదపాడు)"
+        },
+        {
+            "Mandal_Code": "4964",
+            "MandalName": "Pedavegi (పెదవేగి)"
+        },
+        {
+            "Mandal_Code": "4949",
+            "MandalName": "Polavaram (పోలవరం)"
+        },
+        {
+            "Mandal_Code": "4946",
+            "MandalName": "T Narasapuram (టి.నరసాపురం)"
+        },
+        {
+            "Mandal_Code": "4962",
+            "MandalName": "Unguturu (ఉంగుటూరు)"
+        },
+        {
+            "Mandal_Code": "4734",
+            "MandalName": "Velairpad (వేలేరుపాడు)"
+        }
+    ]
+}
