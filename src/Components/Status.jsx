@@ -182,7 +182,7 @@ const Status = () => {
                   ))}
                 </ul>
               ) : (
-                <p>No previous comments.</p>
+                <p>No Previous comments.</p>
               )}
             </div>
           </Modal.Body>
