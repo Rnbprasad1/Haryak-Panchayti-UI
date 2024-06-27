@@ -1,0 +1,106 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5271",
+            "MandalName": "Adoni"
+        },
+        {
+            "Mandal_Code": "5274",
+            "MandalName": "Alur "
+        },
+        {
+            "Mandal_Code": "5275",
+            "MandalName": "Aspari "
+        },
+        {
+            "Mandal_Code": "5256",
+            "MandalName": "C.BELAGAL "
+        },
+        {
+            "Mandal_Code": "5291",
+            "MandalName": "CHIPPAGIRI "
+        },
+        {
+            "Mandal_Code": "5276",
+            "MandalName": "DEVANAKONDA "
+        },
+        {
+            "Mandal_Code": "5270",
+            "MandalName": "GONEGANDLA "
+        },
+        {
+            "Mandal_Code": "5257",
+            "MandalName": "GUDUR "
+        },
+        {
+            "Mandal_Code": "5273",
+            "MandalName": "HALAHARVI "
+        },
+        {
+            "Mandal_Code": "5272",
+            "MandalName": "HOLAGUNDA"
+        },
+        {
+            "Mandal_Code": "5258",
+            "MandalName": "KALLUR (కల్లూరు .)"
+        },
+        {
+            "Mandal_Code": "5269",
+            "MandalName": "KODUMUR (కోడుమూరు)"
+        },
+        {
+            "Mandal_Code": "5251",
+            "MandalName": "KOSIGI (కోసిగి)"
+        },
+        {
+            "Mandal_Code": "5252",
+            "MandalName": "KOWTHALAM (కౌతాళం)"
+        },
+        {
+            "Mandal_Code": "5277",
+            "MandalName": "KRISHNAGIRI (క్రిష్ణగిరి)"
+        },
+        {
+            "Mandal_Code": "5259",
+            "MandalName": "KURNOOL (కర్నూలు)"
+        },
+        {
+            "Mandal_Code": "5292",
+            "MandalName": "Maddikera East (మద్దికెర)"
+        },
+        {
+            "Mandal_Code": "5250",
+            "MandalName": "Mantralayam (మంత్రాలయం)"
+        },
+        {
+            "Mandal_Code": "5255",
+            "MandalName": "Nandavaram (నందవరం)"
+        },
+        {
+            "Mandal_Code": "5268",
+            "MandalName": "Orvakal (ఓర్వకల్లు)"
+        },
+        {
+            "Mandal_Code": "5290",
+            "MandalName": "Pattikonda (పత్తికొండ )"
+        },
+        {
+            "Mandal_Code": "5253",
+            "MandalName": "Pedda Kadubur (పెద్ద కడుబూరు)"
+        },
+        {
+            "Mandal_Code": "5293",
+            "MandalName": "Tuggali (తుగ్గలి)"
+        },
+        {
+            "Mandal_Code": "5278",
+            "MandalName": "Veldurthi (వెల్దుర్తి)"
+        },
+        {
+            "Mandal_Code": "5254",
+            "MandalName": "Yemmiganur (ఎమ్మిగనూరు)"
+        }
+    ]
+}

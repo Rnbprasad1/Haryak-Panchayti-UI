@@ -30,7 +30,9 @@ const Query = () => {
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam'];  
+      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam','Kurnool','Guntur','Visakhapatnam',
+        'Srikakulam','Tirupati','West Godavari','Bapatla'
+      ] ;
       const districtsData = {};
       const mandalsData = {};
 
