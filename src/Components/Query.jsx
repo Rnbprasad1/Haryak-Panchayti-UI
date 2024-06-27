@@ -31,7 +31,7 @@ const Query = () => {
   useEffect(() => {
     const loadJsonData = async () => {
       const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam','Kurnool','Guntur','Visakhapatnam',
-        'Srikakulam','Tirupati','West Godavari','Bapatla'
+        'Srikakulam','Tirupati','West Godavari','Bapatla','Chittoor','NTR','Kakinada',
       ] ;
       const districtsData = {};
       const mandalsData = {};

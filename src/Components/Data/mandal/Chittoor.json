@@ -1,0 +1,134 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5423",
+            "MandalName": "BAIREDDIPALLE"
+        },
+        {
+            "Mandal_Code": "5429",
+            "MandalName": "Bangarupalem"
+        },
+        {
+            "Mandal_Code": "5421",
+            "MandalName": "Chittoor"
+        },
+        {
+            "Mandal_Code": "5413",
+            "MandalName": "Chowdepalle"
+        },
+        {
+            "Mandal_Code": "5420",
+            "MandalName": "Gangadhara Nellore"
+        },
+        {
+            "Mandal_Code": "5417",
+            "MandalName": "Gangavaram "
+        },
+        {
+            "Mandal_Code": "5426",
+            "MandalName": "Gudi Palle"
+        },
+        {
+            "Mandal_Code": "5431",
+            "MandalName": "Gudipala "
+        },
+        {
+            "Mandal_Code": "5411",
+            "MandalName": "Irala "
+        },
+        {
+            "Mandal_Code": "5408",
+            "MandalName": "Karvetinagar"
+        },
+        {
+            "Mandal_Code": "5427",
+            "MandalName": "Kuppam (కుప్పం)"
+        },
+        {
+            "Mandal_Code": "5428",
+            "MandalName": "Kuppam (కుప్పం)"
+        },
+        {
+            "Mandal_Code": "5406",
+            "MandalName": "Nagari (నగరి)"
+        },
+        {
+            "Mandal_Code": "5404",
+            "MandalName": "Nindra (నిండ్ర)"
+        },
+        {
+            "Mandal_Code": "5422",
+            "MandalName": "Palamaner (పలమనేరు)"
+        },
+        {
+            "Mandal_Code": "5432",
+            "MandalName": "Palasamudram (పాలసముద్రం)"
+        },
+        {
+            "Mandal_Code": "5416",
+            "MandalName": "Pedda Panjani (పెద్దపంజాణి)"
+        },
+        {
+            "Mandal_Code": "5409",
+            "MandalName": "Penumuru (పెనుమూరు)"
+        },
+        {
+            "Mandal_Code": "5395",
+            "MandalName": "Pulicherla (పులిచెర్ల)"
+        },
+        {
+            "Mandal_Code": "5415",
+            "MandalName": "Punganur (పుంగనూరు)"
+        },
+        {
+            "Mandal_Code": "5410",
+            "MandalName": "Puthalapattu (పూతలపట్టు)"
+        },
+        {
+            "Mandal_Code": "5428",
+            "MandalName": "Rama Kuppam (రామకుప్పం)"
+        },
+        {
+            "Mandal_Code": "5373",
+            "MandalName": "Rompicherla (రొంపిచెర్ల)"
+        },
+        {
+            "Mandal_Code": "5425",
+            "MandalName": "Santhi Puram (శాంతిపురం)"
+        },
+        {
+            "Mandal_Code": "5394",
+            "MandalName": "Sodam (సదుం)"
+        },
+        {
+            "Mandal_Code": "5412",
+            "MandalName": "Somala (సోమల)"
+        },
+        {
+            "Mandal_Code": "5419",
+            "MandalName": "Srirangarajapuram (ఎస్.ఆర్.పురం)"
+        },
+        {
+            "Mandal_Code": "5418",
+            "MandalName": "Thavanampalle (తవణంపల్లి)"
+        },
+        {
+            "Mandal_Code": "5397",
+            "MandalName": "Veduru Kuppam (వెదురుకుప్పం)"
+        },
+        {
+            "Mandal_Code": "5424",
+            "MandalName": "Venkatagiri Kota (వి.కోట)"
+        },
+        {
+            "Mandal_Code": "5405",
+            "MandalName": "Vijaya Puram (విజయపురం)"
+        },
+        {
+            "Mandal_Code": "5430",
+            "MandalName": "Yadamari (యాదమరి)"
+        }
+    ]
+}

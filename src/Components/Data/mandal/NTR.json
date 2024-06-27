@@ -1,0 +1,90 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "4998",
+            "MandalName": "A Konduru"
+        },
+        {
+            "Mandal_Code": "4998",
+            "MandalName": "A.Konduru"
+        },
+        {
+            "Mandal_Code": "5008",
+            "MandalName": "Chandarlapadu"
+        },
+        {
+            "Mandal_Code": "5006",
+            "MandalName": "G Konduru"
+        },
+        {
+            "Mandal_Code": "4996",
+            "MandalName": "Gampalagudem"
+        },
+        {
+            "Mandal_Code": "5009",
+            "MandalName": "Ibrahimpatnam"
+        },
+        {
+            "Mandal_Code": "4991",
+            "MandalName": "Jaggayyapeta"
+        },
+        {
+            "Mandal_Code": "5007",
+            "MandalName": "Kanchikacherla"
+        },
+        {
+            "Mandal_Code": "4995",
+            "MandalName": "Mylavaram"
+        },
+        {
+            "Mandal_Code": "4993",
+            "MandalName": "Nandigama"
+        },
+        {
+            "Mandal_Code": "4992",
+            "MandalName": "Penuganchiprolu"
+        },
+        {
+            "Mandal_Code": "4999",
+            "MandalName": "Reddigudem"
+        },
+        {
+            "Mandal_Code": "4997",
+            "MandalName": "Tiruvuru"
+        },
+        {
+            "Mandal_Code": "4990",
+            "MandalName": "Vatsavai (వత్సవాయ్)"
+        },
+        {
+            "Mandal_Code": "4994",
+            "MandalName": "Veerullapadu (వీరుల్లపాడు)"
+        },
+        {
+            "Mandal_Code": "5010",
+            "MandalName": "Vijayawada Central (విజయవాడ సెంట్రల్)"
+        },
+        {
+            "Mandal_Code": "6863",
+            "MandalName": "VIJAYAWADA EAST (విజయవాడ తూర్పు)"
+        },
+        {
+            "Mandal_Code": "6864",
+            "MandalName": "VIJAYAWADA NORTH (విజయవాడ నార్త్)"
+        },
+        {
+            "Mandal_Code": "5011",
+            "MandalName": "Vijayawada Rural (విజయవాడ రూరల్)"
+        },
+        {
+            "Mandal_Code": "6865",
+            "MandalName": "VIJAYAWADA WEST (విజయవాడ వెస్ట్)"
+        },
+        {
+            "Mandal_Code": "5000",
+            "MandalName": "Vissannapet (విస్సన్నపేట)"
+        }
+    ]
+}
