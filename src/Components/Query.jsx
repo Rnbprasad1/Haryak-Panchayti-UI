@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Form, Container, Row, Col, Button, Alert } from 'react-bootstrap';
-import { DataContext } from './DataContext';
+import { DataContext } from '../Components/AdminComponents/DataContext';
 
 const Query = () => {
   const { handleQuerySubmit } = useContext(DataContext);
