@@ -1,7 +1,7 @@
 
 import React, { useState, useContext } from 'react';
 import { Form, Button, Table, Modal } from 'react-bootstrap';
-import { DataContext } from './DataContext';
+import { DataContext } from '../Components/AdminComponents/DataContext';
 
 const Status = () => {
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const DataContext = createContext();
 
@@ -8,20 +8,45 @@ export const DataProvider = ({ children }) => {
       // other properties
       actionTakenDate: null,
       actionTakenBy: null,
+      status: 'open',
+      role: 'MRO',
+      timer: null,
+      iasResponse: null,
     },
     // other objects
   ];
 
   const [formDataArray, setFormDataArray] = useState(initialFormDataArray);
 
-  // In the DataContext
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFormDataArray((prevData) => {
+        return prevData.map((data) => {
+          if (data.role === 'MRO' && data.status === 'open') {
+            const newTimer = data.timer ? data.timer + 1 : 1;
+            if (newTimer >= 60) {
+              return { ...data, role: 'IAS', timer: null };
+            }
+            return { ...data, timer: newTimer };
+          }
+          return data;
+        });
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const updateFormDataArray = (updatedFormDataArray) => {
     setFormDataArray(updatedFormDataArray);
   };
 
   const handleQuerySubmit = (data) => {
     const { selectedDistrict, selectedMandal, file, fileName, ...formData } = data;
-    setFormDataArray((prevData) => [...prevData, { ...formData, district: selectedDistrict, mandal: selectedMandal, file, fileName }]);
+    setFormDataArray((prevData) => [
+      ...prevData,
+      { ...formData, district: selectedDistrict, mandal: selectedMandal, file, fileName, role: 'MRO', status: 'open', timer: 0 },
+    ]);
   };
 
   const updateStatus = (index, newStatus, adminResponse) => {
@@ -61,8 +86,27 @@ export const DataProvider = ({ children }) => {
     });
   };
 
+  const updateIASResponse = (index, iasResponse) => {
+    setFormDataArray((prevData) => {
+      const updatedData = [...prevData];
+      updatedData[index].iasResponse = iasResponse;
+      return updatedData;
+    });
+  };
+
   return (
-    <DataContext.Provider value={{ formDataArray, handleQuerySubmit, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray }}>
+    <DataContext.Provider
+      value={{
+        formDataArray,
+        handleQuerySubmit,
+        updateStatus,
+        updateAdminResponse,
+        updateActionTakenDate,
+        updateActionTakenBy,
+        updateFormDataArray,
+        updateIASResponse,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );
