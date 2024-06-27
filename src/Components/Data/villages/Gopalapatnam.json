@@ -1,0 +1,81 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Lgdrvmaster": [
+        {
+            "District_Code": null,
+            "District_Name": null,
+            "District_Name_Tel": null,
+            "Mandal_Code": null,
+            "Mandal_Name": null,
+            "Mandal_Name_Tel": null,
+            "Revenue_Code": "929911",
+            "Revenue_Name": "Kancharapalem (కంచరపాలెం)",
+            "Revenue_Name_Tel": "కంచరపాలెం",
+            "Captureby": null,
+            "CreatedDate": null,
+            "LastmodifedDate": null,
+            "Isactive": null
+        },
+        {
+            "District_Code": null,
+            "District_Name": null,
+            "District_Name_Tel": null,
+            "Mandal_Code": null,
+            "Mandal_Name": null,
+            "Mandal_Name_Tel": null,
+            "Revenue_Code": "929906",
+            "Revenue_Name": "Kapparala (కప్పరాడ)",
+            "Revenue_Name_Tel": "కప్పరాడ",
+            "Captureby": null,
+            "CreatedDate": null,
+            "LastmodifedDate": null,
+            "Isactive": null
+        },
+        {
+            "District_Code": null,
+            "District_Name": null,
+            "District_Name_Tel": null,
+            "Mandal_Code": null,
+            "Mandal_Name": null,
+            "Mandal_Name_Tel": null,
+            "Revenue_Code": "929907",
+            "Revenue_Name": "Madhavadhara (మాధవధార)",
+            "Revenue_Name_Tel": "మాధవధార",
+            "Captureby": null,
+            "CreatedDate": null,
+            "LastmodifedDate": null,
+            "Isactive": null
+        },
+        {
+            "District_Code": null,
+            "District_Name": null,
+            "District_Name_Tel": null,
+            "Mandal_Code": null,
+            "Mandal_Name": null,
+            "Mandal_Name_Tel": null,
+            "Revenue_Code": "929905",
+            "Revenue_Name": "Marripalem (మర్రిపాలెం)",
+            "Revenue_Name_Tel": "మర్రిపాలెం",
+            "Captureby": null,
+            "CreatedDate": null,
+            "LastmodifedDate": null,
+            "Isactive": null
+        },
+        {
+            "District_Code": null,
+            "District_Name": null,
+            "District_Name_Tel": null,
+            "Mandal_Code": null,
+            "Mandal_Name": null,
+            "Mandal_Name_Tel": null,
+            "Revenue_Code": "929901",
+            "Revenue_Name": "Venkatapuram (వెంకటాపురం(I))",
+            "Revenue_Name_Tel": "వెంకటాపురం(I)",
+            "Captureby": null,
+            "CreatedDate": null,
+            "LastmodifedDate": null,
+            "Isactive": null
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5112",
+            "MandalName": "Addanki"
+        },
+        {
+            "Mandal_Code": "5086",
+            "MandalName": "Amruthalur"
+        },
+        {
+            "Mandal_Code": "5105",
+            "MandalName": "Ballikuruva"
+        },
+        {
+            "Mandal_Code": "5093",
+            "MandalName": "Bapatla"
+        },
+        {
+            "Mandal_Code": "5089",
+            "MandalName": "Bhattiprolu"
+        },
+        {
+            "Mandal_Code": "5090",
+            "MandalName": "Cherukupalle"
+        },
+        {
+            "Mandal_Code": "5125",
+            "MandalName": "Chinaganjam"
+        },
+        {
+            "Mandal_Code": "5123",
+            "MandalName": "Chirala"
+        },
+        {
+            "Mandal_Code": "5110",
+            "MandalName": "Inkollu"
+        },
+        {
+            "Mandal_Code": "5111",
+            "MandalName": "Janakavarampanguluru (జనకవరం పంగులూరు)"
+        },
+        {
+            "Mandal_Code": "5109",
+            "MandalName": "Karamchedu (కారంచేడు)"
+        },
+        {
+            "Mandal_Code": "5092",
+            "MandalName": "Karlapalem (కర్లపాలెం)"
+        },
+        {
+            "Mandal_Code": "5088",
+            "MandalName": "Kollur (కోల్లూరు)"
+        },
+        {
+            "Mandal_Code": "5122",
+            "MandalName": "Korisapadu (కొరిశపాడు)"
+        },
+        {
+            "Mandal_Code": "5106",
+            "MandalName": "Martur (మార్టూరు)"
+        },
+        {
+            "Mandal_Code": "5095",
+            "MandalName": "Nagaram (నగరం)"
+        },
+        {
+            "Mandal_Code": "5094",
+            "MandalName": "Nizampatnam (నిజాంపట్నం)"
+        },
+        {
+            "Mandal_Code": "5108",
+            "MandalName": "Parchur (పర్చూరు)"
+        },
+        {
+            "Mandal_Code": "5091",
+            "MandalName": "Pittalavanipalem (పిట్టలవారిపాలెం)"
+        },
+        {
+            "Mandal_Code": "5096",
+            "MandalName": "Repalle (రేపల్లె)"
+        },
+        {
+            "Mandal_Code": "5104",
+            "MandalName": "Santhamaguluru (సంతమాగులూరు)"
+        },
+        {
+            "Mandal_Code": "5085",
+            "MandalName": "Tsundur (చుండూరు)"
+        },
+        {
+            "Mandal_Code": "5087",
+            "MandalName": "Vemuru (వేమూరు)"
+        },
+        {
+            "Mandal_Code": "5124",
+            "MandalName": "Vetapalem (వేటపాలెం)"
+        },
+        {
+            "Mandal_Code": "5107",
+            "MandalName": "Yeddanapudi (యద్దనపూడి)"
+        }
+    ]
+}

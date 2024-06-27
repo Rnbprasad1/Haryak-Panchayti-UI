@@ -1,0 +1,74 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "5079",
+            "MandalName": "Chebrole"
+        },
+        {
+            "Mandal_Code": "5076",
+            "MandalName": "Duggirala"
+        },
+        {
+            "Mandal_Code": "5074",
+            "MandalName": "Guntur"
+        },
+        {
+            "Mandal_Code": "5083",
+            "MandalName": "Kakumanu"
+        },
+        {
+            "Mandal_Code": "5077",
+            "MandalName": "Kollipara"
+        },
+        {
+            "Mandal_Code": "5055",
+            "MandalName": "Mangalagiri"
+        },
+        {
+            "Mandal_Code": "5073",
+            "MandalName": "Medikonduru (మేడికొండూరు)"
+        },
+        {
+            "Mandal_Code": "5075",
+            "MandalName": "Pedakakani (పెదకాకాని)"
+        },
+        {
+            "Mandal_Code": "5082",
+            "MandalName": "Pedanandipadu (పెదనందిపాడు)"
+        },
+        {
+            "Mandal_Code": "5072",
+            "MandalName": "Phirangipuram (ఫిరంగిపురం)"
+        },
+        {
+            "Mandal_Code": "5084",
+            "MandalName": "Ponnur (పొన్నూరు)"
+        },
+        {
+            "Mandal_Code": "5081",
+            "MandalName": "Prathipadu (ప్రత్తిపాడు)"
+        },
+        {
+            "Mandal_Code": "5054",
+            "MandalName": "Tadepalli (తాడేపల్లి)"
+        },
+        {
+            "Mandal_Code": "5056",
+            "MandalName": "Tadikonda (తాడికొండ)"
+        },
+        {
+            "Mandal_Code": "5078",
+            "MandalName": "Tenali (తెనాలి)"
+        },
+        {
+            "Mandal_Code": "5053",
+            "MandalName": "Thullur (తుళ్ళూరు)"
+        },
+        {
+            "Mandal_Code": "5080",
+            "MandalName": "Vatticherukuru (వట్టిచెరుకూరు)"
+        }
+    ]
+}
