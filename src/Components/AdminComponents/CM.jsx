@@ -12,10 +12,18 @@ const CM = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [adminComment, setAdminComment] = useState('');
-  const [isUpdateDisabled, setIsUpdateDisabled] = useState(false);
   const [previousComments, setPreviousComments] = useState([]);
+  const [isUpdateDisabled, setIsUpdateDisabled] = useState(false);
 
-  const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
+  const {
+    iasDataArray,
+    updateStatus,
+    updateAdminResponse,
+    updateActionTakenDate,
+    updateActionTakenBy,
+    setIasDataArray,
+    updateIASResponse
+  } = useContext(DataContext);
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -34,7 +42,7 @@ const CM = () => {
     }
   };
 
-  const filteredData = formDataArray.filter((data) => {
+  const filteredData = iasDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
 
     if (filterDistrict && filterMandal && filterVillage) {
@@ -42,52 +50,33 @@ const CM = () => {
         data.district === filterDistrict &&
         data.mandal === filterMandal &&
         data.village === filterVillage &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.includes(searchQuery) ||
-          data.submittedDate?.includes(searchQuery))
+        (data.token?.match(searchRegex) ||
+          data.mobile?.match(searchRegex) ||
+          data.name?.match(searchRegex) ||
+          data.aadhar?.match(searchRegex) ||
+          data.issueDescription?.match(searchRegex) ||
+          data.submittedDate?.match(searchRegex))
       );
     } else if (filterDistrict && filterMandal) {
       return (
         data.district === filterDistrict &&
         data.mandal === filterMandal &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.includes(searchQuery) ||
-          data.submittedDate?.includes(searchQuery))
+        (data.token?.match(searchRegex) ||
+          data.mobile?.match(searchRegex) ||
+          data.name?.match(searchRegex) ||
+          data.aadhar?.match(searchRegex) ||
+          data.issueDescription?.match(searchRegex) ||
+          data.submittedDate?.match(searchRegex))
       );
     } else if (filterDistrict) {
       return (
         data.district === filterDistrict &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.includes(searchQuery) ||
-          data.submittedDate?.includes(searchQuery))
-      );
-    } else if (filterMandal) {
-      return (
-        data.mandal === filterMandal &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.includes(searchQuery) ||
-          data.submittedDate?.includes(searchQuery))
-      );
-    } else if (filterVillage) {
-      return (
-        data.village === filterVillage &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.submittedDate?.includes(searchQuery))
+        (data.token?.match(searchRegex) ||
+          data.mobile?.match(searchRegex) ||
+          data.name?.match(searchRegex) ||
+          data.aadhar?.match(searchRegex) ||
+          data.issueDescription?.match(searchRegex) ||
+          data.submittedDate?.match(searchRegex))
       );
     }
     return (
@@ -106,7 +95,6 @@ const CM = () => {
     setAvailableMandals(districts[district] || []);
     setFilterMandal('');
     setFilterVillage('');
-    setAvailableVillages([]);
   };
 
   const handleMandalChange = (e) => {
@@ -138,7 +126,6 @@ const CM = () => {
     setAdminComment('');
     setPreviousComments(data.adminComments || []);
     setShowModal(true);
-    setIsUpdateDisabled(data.status === 'completed');
   };
 
   const handleCloseModal = () => {
@@ -148,34 +135,38 @@ const CM = () => {
     setPreviousComments([]);
   };
 
-  const handleUpdateStatus = (status, adminResponse) => {
+  const handleUpdateStatus = (status) => {
     if (selectedData) {
-      const index = formDataArray.findIndex((data) => data.token === selectedData.token);
+      const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
       const currentActionTakenDate = new Date().toISOString();
       const currentComment = {
-        comment: adminResponse,
+        comment: adminComment,
         role: 'CM',
         timestamp: new Date().toLocaleString(),
       };
 
-      updateStatus(index, status, adminResponse);
-      updateAdminResponse(index, adminResponse);
-      updateActionTakenBy(index, 'CM');
-      if (status === 'completed' || status === 'In Progress') {
-        updateActionTakenDate(index, currentActionTakenDate);
-        sendMessageToUser(selectedData.mobile, adminResponse);
-      }
+      updateStatus(index, status, adminComment, true);
+      updateAdminResponse(index, adminComment, true);
+      updateActionTakenBy(index, 'IAS', true);
+      updateActionTakenDate(index, currentActionTakenDate, true);
+      updateIASResponse(index, adminComment);
+
+      sendMessageToUser(selectedData.mobile, adminComment);
 
       const updatedComments = [...previousComments, currentComment];
-      const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'CM/IAS' };
-      const updatedFormDataArray = [...formDataArray];
-      updatedFormDataArray[index] = updatedData;
+      const updatedData = {
+        ...selectedData,
+        adminComments: updatedComments,
+        actionTakenDate: currentActionTakenDate,
+        actionTakenBy: 'CM',
+        status: status,
+        iasResponse: adminComment
+      };
 
-      updateFormDataArray(updatedFormDataArray);
+      const updatedIasDataArray = [...iasDataArray];
+      updatedIasDataArray[index] = updatedData;
 
-      if (status === 'completed') {
-        setIsUpdateDisabled(true);
-      }
+      setIasDataArray(updatedIasDataArray);
 
       setSelectedData(updatedData);
       setPreviousComments(updatedComments);
@@ -197,9 +188,7 @@ const CM = () => {
 
   return (
     <Container>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Submitted Queries</h2>
-      </div>
+      <h2>CM Dashboard - Escalated Queries</h2>
       <Row>
         <Col>
           <Form.Group controlId="formDistrict">

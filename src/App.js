@@ -11,7 +11,8 @@ import Status from './Components/Status';
 import bannerImage from './Assets/AP.png'; // Make sure to replace 'Aadhra Pradesh.png' with your actual image file name
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
-import MROAdmin from './Components/AdminComponents/MRO';
+
+
 
 function App() {
   console.log(bannerImage); // Log the image path to check if it's resolved correctly
@@ -26,6 +27,7 @@ function App() {
           <div className="content">
             <Routes>
               <Route exact path="/" element={<Home />} />
+
               <Route path='/cm' element={<CM />} />
               <Route path="/mro" element={<MRO />} />
               <Route path="/ias" element={<IAS />} />
