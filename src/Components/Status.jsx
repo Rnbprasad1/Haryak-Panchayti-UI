@@ -1,9 +1,8 @@
-
 import React, { useState, useContext } from 'react';
 import { Form, Button, Table, Modal } from 'react-bootstrap';
 import { DataContext } from './DataContext';
 
-const Status = () => {
+const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a prop
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -11,7 +10,6 @@ const Status = () => {
   const [selectedData, setSelectedData] = useState(null);
   const [adminComment, setAdminComment] = useState('');
   const [isUpdateDisabled, setIsUpdateDisabled] = useState(false);
-  const [previousComments, setPreviousComments] = useState([]);
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -38,7 +36,6 @@ const Status = () => {
   const handleShowModal = (data) => {
     setSelectedData(data);
     setAdminComment('');
-    setPreviousComments(data.adminComments || []);
     setShowModal(true);
     setIsUpdateDisabled(data.status === 'completed');
   };
@@ -47,7 +44,6 @@ const Status = () => {
     setShowModal(false);
     setSelectedData(null);
     setAdminComment('');
-    setPreviousComments([]);
   };
 
   const handleUpdateStatus = (status, adminResponse) => {
@@ -56,8 +52,9 @@ const Status = () => {
       const currentActionTakenDate = new Date().toISOString();
       const currentComment = {
         comment: adminResponse,
-        role: 'Admin',
+        name: enteredByName, // Displaying the name of the person who entered details
         timestamp: new Date().toLocaleString(),
+        role: 'User', // Role indicating where the message originated
       };
 
       updateStatus(index, status, adminResponse);
@@ -68,7 +65,7 @@ const Status = () => {
         sendMessageToUser(selectedData.mobile, adminResponse);
       }
 
-      const updatedComments = [...previousComments, currentComment];
+      const updatedComments = [...(selectedData.adminComments || []), currentComment];
       const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'Admin' };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
@@ -80,10 +77,9 @@ const Status = () => {
       }
 
       setSelectedData(updatedData);
-      setPreviousComments(updatedComments);
-
-      handleCloseModal();
     }
+
+    handleCloseModal();
   };
 
   const parseDate = (dateString) => {
@@ -135,7 +131,7 @@ const Status = () => {
                     {data.adminComments && data.adminComments.length > 0 ? (
                       data.adminComments.map((comment, index) => (
                         <li key={index}>
-                          <strong>{comment.role}:</strong> {comment.comment} <em>({comment.timestamp})</em>
+                          <strong>{comment.name} ({comment.role}):</strong> {comment.comment} <em>({comment.timestamp})</em>
                         </li>
                       ))
                     ) : (
@@ -169,20 +165,32 @@ const Status = () => {
               <Form.Label>Admin Comment</Form.Label>
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
-            <Button variant="success" onClick={() => handleUpdateStatus('completed', adminComment)} disabled={isUpdateDisabled}>Mark as Completed</Button>
-            <Button variant="warning" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled}>Mark as In Progress</Button>
+            <Button variant="success" onClick={() => handleUpdateStatus(' In Progess', adminComment)} disabled={isUpdateDisabled}> Update</Button>
+            
             <div>
               <h5>Previous Comments:</h5>
               {sortedComments.length > 0 ? (
-                <ul>
-                  {sortedComments.map((comment, index) => (
-                    <li key={index}>
-                      <strong>{comment.role}:</strong> {comment.comment} <em>({comment.timestamp})</em>
-                    </li>
-                  ))}
-                </ul>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                       
+                      <th>Role</th>
+                      <th>Comment</th>
+                      <th>Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedComments.map((comment, index) => (
+                      <tr key={index}>
+                        <strong>{comment.role ==="User" ?`       (${selectedData.name})`:comment.role}</strong>
+                        <td>{comment.comment}</td>
+                        <td>{comment.timestamp}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
               ) : (
-                <p>No Previous comments.</p>
+                <p>No previous comments.</p>
               )}
             </div>
           </Modal.Body>
@@ -196,6 +204,3 @@ const Status = () => {
 };
 
 export default Status;
-
- 
- 
