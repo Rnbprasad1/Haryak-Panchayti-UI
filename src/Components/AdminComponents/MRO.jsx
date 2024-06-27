@@ -384,7 +384,7 @@ const MROAdmin = () => {
           {isTimeExceeded && tokenSentToIAS && (
             <div>
               <p>Token sent to IAS for further action.</p>
-              <IAS data={{ ...selectedData, index: formDataArray.findIndex((data) => data.token === selectedData.token) }} onDataUpdate={handleDataUpdate} />
+            {/*  <IAS data={{ ...selectedData, index: formDataArray.findIndex((data) => data.token === selectedData.token) }} onDataUpdate={handleDataUpdate} />*/}
             </div>
 )}
 </Modal.Body>
