@@ -26,11 +26,13 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-  // Load JSON data dynamically
+   
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['palnadu', 'allurisitharamaraju', 'Eluru', 'Prakasam']; // Add more districts as needed
+      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam','Kurnool','Guntur','Visakhapatnam',
+        'Srikakulam','Tirupati','West Godavari','Bapatla'
+      ] ;
       const districtsData = {};
       const mandalsData = {};
 
@@ -108,9 +110,9 @@ const Query = () => {
 
   const generateToken = (district, mandal, village) => {
     const stateCode = 'AP';
-    const districtCode = district.substring(0, 3).toUpperCase(); // Adjust based on your logic
-    const mandalCode = mandal.substring(0, 3).toUpperCase(); // Adjust based on your logic
-    const areaType = 'RU'; // Example area type
+    const districtCode = district.substring(0, 3).toUpperCase();  
+    const mandalCode = mandal.substring(0, 3).toUpperCase();  
+    const areaType = 'RU'; 
     const villageCode = village.substring(0, 3).toUpperCase();
     const randomDigits = Math.floor(1000 + Math.random() * 9000);
     return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;
