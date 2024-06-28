@@ -3,9 +3,6 @@ import React, { createContext, useState, useEffect } from 'react';
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-<<<<<<< HEAD
-  const initialFormDataArray = [];
-=======
   const initialFormDataArray = [
     {
       actionTakenDate: null,
@@ -20,7 +17,6 @@ export const DataProvider = ({ children }) => {
     },
     // Additional objects can be added here
   ];
->>>>>>> origin/main
 
   const [formDataArray, setFormDataArray] = useState(initialFormDataArray);
   const [iasDataArray, setIasDataArray] = useState([]);
@@ -129,7 +125,7 @@ export const DataProvider = ({ children }) => {
           ) {
             updatedData[iasIndex].adminComments.push({
               comment: adminResponse,
-              role: 'IAS',
+              role: 'IAS' ,
               timestamp: new Date().toLocaleString(),
             });
           }

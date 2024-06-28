@@ -8,6 +8,7 @@ import MRO from './Components/AdminComponents/MRO';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Query from './Components/Query';
 import Status from './Components/Status';
+import Dashboard from './Components/Dashboard';
 import bannerImage from './Assets/AP.png'; 
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
@@ -29,6 +30,7 @@ function App() {
               <Route path="/ias" element={<IAS />} />
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/form" element={<FormComponent />} />
             </Routes>
           </div>

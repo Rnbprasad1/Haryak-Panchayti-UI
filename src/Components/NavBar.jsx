@@ -1,10 +1,5 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/main
 import { Link } from 'react-router-dom';
 
 function Navbar() {
@@ -19,7 +14,6 @@ function Navbar() {
           <Link className="nav-item nav-link" to="/">Home</Link>
           <Link className="nav-item nav-link" to="/status">Status</Link>
           <Link className="nav-item nav-link" to="/query">Query</Link>
-<<<<<<< HEAD
           <Link className="nav-item nav-link" to="/dashboard">Dashboard</Link> {/* Move Dashboard link here */}
           <div className="nav-item dropdown">
             <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,11 +25,6 @@ function Navbar() {
               <Link className="dropdown-item" to="/cm">CM</Link>
             </div>
           </div>
-=======
-         
-         <Link className="nav-item nav-link" to="/admin">Login </Link>
-          
->>>>>>> origin/main
         </div>
         <div />
 

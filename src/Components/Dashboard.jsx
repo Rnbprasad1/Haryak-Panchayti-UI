@@ -1,22 +1,16 @@
 import React, { useContext } from 'react';
-import { DataContext } from './AdminComponents/DataContext';
+import { Container, Table } from 'react-bootstrap';
+import { DataContext } from '../Components/AdminComponents/DataContext';
 
 const Dashboard = () => {
   const { formDataArray } = useContext(DataContext);
 
-  console.log('formDataArray in Dashboard:', formDataArray);
-
-  if (!formDataArray || formDataArray.length === 0) {
-    return <div>No queries available</div>;
-  }
-
   return (
-    <div>
+    <Container>
       <h1>Dashboard</h1>
-      <table className="table">
+      <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Token</th>
             <th>Name</th>
             <th>Mobile</th>
             <th>Email</th>
@@ -25,27 +19,30 @@ const Dashboard = () => {
             <th>District</th>
             <th>Mandal</th>
             <th>Village</th>
-            <th>Date</th>
+            <th>Status</th>
+            <th>Submitted Date</th>
+            <th>Token</th>
           </tr>
         </thead>
         <tbody>
-          {formDataArray.map((query, index) => (
+          {formDataArray.map((data, index) => (
             <tr key={index}>
-              <td>{query.token}</td>
-              <td>{query.name}</td>
-              <td>{query.mobile}</td>
-              <td>{query.email}</td>
-              <td>{query.aadhar}</td>
-              <td>{query.issueDescription}</td>
-              <td>{query.district}</td>
-              <td>{query.mandal}</td>
-              <td>{query.village}</td>
-              <td>{query.submittedDate}</td>
+              <td>{data.name}</td>
+              <td>{data.mobile}</td>
+              <td>{data.email}</td>
+              <td>{data.aadhar}</td>
+              <td>{data.issueDescription}</td>
+              <td>{data.selectedDistrict}</td>
+              <td>{data.selectedMandal}</td>
+              <td>{data.village}</td>
+              <td>{data.status}</td>
+              <td>{new Date(data.submittedDate).toLocaleString()}</td>
+              <td>{data.token}</td>
             </tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
   );
 };
 
