@@ -8,19 +8,17 @@ import MRO from './Components/AdminComponents/MRO';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Query from './Components/Query';
 import Status from './Components/Status';
-import bannerImage from './Assets/AP.png'; // Make sure to replace 'Aadhra Pradesh.png' with your actual image file name
+import Dashboard from './Components/Dashboard';
+import bannerImage from './Assets/AP.png'; 
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
-import MROAdmin from './Components/AdminComponents/MRO';
 
 function App() {
-  console.log(bannerImage); // Log the image path to check if it's resolved correctly
   return (
     <DataProvider>
       <Router>
         <div className="App">
-          <header className="App-header" style={{ backgroundImage: `url(${bannerImage})` }}>
-            {/* Add your header content here */}
+          <header className="App-header" style={{ backgroundImage: `url(${bannerImage})`}}>
           </header>
           <Navbar />
           <div className="content">
@@ -31,10 +29,9 @@ function App() {
               <Route path="/ias" element={<IAS />} />
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
-
+              <Route path="/dashboard" element={<Dashboard />}></Route>
             </Routes>
           </div>
-         
         </div>
       </Router>
     </DataProvider>

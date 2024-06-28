@@ -12,11 +12,11 @@ const Query = () => {
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    aadhar: '',
-    issueDescription: '',
+    name: 'Harshith',
+    mobile: '9346329784',
+    email: 'dullavenkatesh7@gmail.com',
+    aadhar: '835299139393',
+    issueDescription: 'Test',
     village: '',
     status: 'open',
     submittedDate: new Date().toISOString(),

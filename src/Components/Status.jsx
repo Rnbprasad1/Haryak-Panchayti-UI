@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Form, Button, Table, Modal } from 'react-bootstrap';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 
-const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a prop
+const Status = ({ enteredByName }) => {
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -46,27 +46,40 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
     setAdminComment('');
   };
 
-  const handleUpdateStatus = (status, adminResponse) => {
+  const handleAddComment = () => {
+    if (selectedData) {
+      const index = formDataArray.findIndex((data) => data.token === selectedData.token);
+      const currentComment = {
+        comment: adminComment,
+        name: enteredByName,
+        timestamp: new Date().toLocaleString(),
+        role: 'User',
+      };
+
+      const updatedComments = [...(selectedData.adminComments || []), currentComment];
+      const updatedData = { ...selectedData, adminComments: updatedComments };
+      const updatedFormDataArray = [...formDataArray];
+      updatedFormDataArray[index] = updatedData;
+
+      updateFormDataArray(updatedFormDataArray);
+      setSelectedData(updatedData);
+      setAdminComment('');
+    }
+  };
+
+  const handleUpdateStatus = (status) => {
     if (selectedData) {
       const index = formDataArray.findIndex((data) => data.token === selectedData.token);
       const currentActionTakenDate = new Date().toISOString();
-      const currentComment = {
-        comment: adminResponse,
-        name: enteredByName, // Displaying the name of the person who entered details
-        timestamp: new Date().toLocaleString(),
-        role: 'User', // Role indicating where the message originated
-      };
 
-      updateStatus(index, status, adminResponse);
-      updateAdminResponse(index, adminResponse);
+      updateStatus(index, status);
       updateActionTakenBy(index, 'Admin');
       if (status === 'completed' || status === 'In Progress') {
         updateActionTakenDate(index, currentActionTakenDate);
-        sendMessageToUser(selectedData.mobile, adminResponse);
+        sendMessageToUser(selectedData.mobile, `Status updated to: ${status}`);
       }
 
-      const updatedComments = [...(selectedData.adminComments || []), currentComment];
-      const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'Admin' };
+      const updatedData = { ...selectedData, status, actionTakenDate: currentActionTakenDate, actionTakenBy: 'Admin' };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
 
@@ -131,7 +144,7 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
                     {data.adminComments && data.adminComments.length > 0 ? (
                       data.adminComments.map((comment, index) => (
                         <li key={index}>
-                          <strong>{comment.name} ({comment.role}):</strong> {comment.comment} <em>({comment.timestamp})</em>
+                          <strong>{comment.name} {comment.role}:</strong> {comment.comment} <em>({comment.timestamp})</em>
                         </li>
                       ))
                     ) : (
@@ -165,15 +178,13 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
               <Form.Label>Admin Comment</Form.Label>
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
-            <Button variant="success" onClick={() => handleUpdateStatus(' In Progess', adminComment)} disabled={isUpdateDisabled}> Update</Button>
-            
+            <Button variant="success" onClick={handleAddComment} disabled={isUpdateDisabled}>Update</Button>
             <div>
               <h5>Previous Comments:</h5>
               {sortedComments.length > 0 ? (
                 <Table striped bordered hover>
                   <thead>
                     <tr>
-                       
                       <th>Role</th>
                       <th>Comment</th>
                       <th>Timestamp</th>
@@ -182,7 +193,7 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
                   <tbody>
                     {sortedComments.map((comment, index) => (
                       <tr key={index}>
-                        <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
+                        <td><strong>{comment.role === "User" ? `${selectedData.name}` : comment.role}</strong></td>
                         <td>{comment.comment}</td>
                         <td>{comment.timestamp}</td>
                       </tr>

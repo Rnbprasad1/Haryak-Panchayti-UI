@@ -379,7 +379,7 @@ const CM = () => {
                     <tbody>
                       {sortedComments.map((comment, index) => (
                         <tr key={index}>
-                           <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
+                           <strong>{comment.role ==="User" ?`${selectedData.name}`:comment.role}</strong>
                           <td>{comment.comment}</td>
                           <td>{comment.timestamp}</td>
                         </tr>

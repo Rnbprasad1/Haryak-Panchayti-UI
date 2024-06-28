@@ -3,18 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const initialFormDataArray = [
-    {
-      // other properties
-      actionTakenDate: null,
-      actionTakenBy: null,
-      status: 'open',
-      role: 'MRO',
-      timer: null,
-      iasResponse: null,
-    },
-    // other objects
-  ];
+  const initialFormDataArray = [];
 
   const [formDataArray, setFormDataArray] = useState(initialFormDataArray);
 
