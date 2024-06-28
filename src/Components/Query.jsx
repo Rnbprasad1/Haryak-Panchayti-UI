@@ -18,7 +18,7 @@ const Query = () => {
     aadhar: '835299139393',
     issueDescription: 'Test',
     village: '',
-    status: 'open',
+    status: ' ',
     submittedDate: new Date().toISOString(),
   });
   const [showToken, setShowToken] = useState(false);
