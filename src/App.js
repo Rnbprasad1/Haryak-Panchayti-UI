@@ -11,6 +11,7 @@ import Status from './Components/Status';
 import bannerImage from './Assets/AP.png'; // Make sure to replace 'Aadhra Pradesh.png' with your actual image file name
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
+import FormComponent from './Components/FormComponent';
 
 
 
@@ -27,12 +28,15 @@ function App() {
           <div className="content">
             <Routes>
               <Route exact path="/" element={<Home />} />
+              
 
               <Route path='/cm' element={<CM />} />
               <Route path="/mro" element={<MRO />} />
               <Route path="/ias" element={<IAS />} />
+
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
+              <Route exact path='/admin' element={<FormComponent />} />
 
             </Routes>
           </div>

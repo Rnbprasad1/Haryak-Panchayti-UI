@@ -13,9 +13,9 @@ export const DataProvider = ({ children }) => {
       iasResponse: null,
       isEscalated: false,
       adminComments: [],
-      disabled: false, // Add disabled property
+      disabled: false,
     },
-    // other objects
+    // Additional objects can be added here
   ];
 
   const [formDataArray, setFormDataArray] = useState(initialFormDataArray);
@@ -27,14 +27,14 @@ export const DataProvider = ({ children }) => {
         return prevData.map((data) => {
           if (data.role === 'MRO' && data.status === 'open' && !data.isEscalated) {
             const newTimer = data.timer ? data.timer + 1 : 1;
-            if (newTimer >= 60) {
+            if (newTimer >= 60 && data.status !== 'complete') {
               const updatedIasDataArray = [
                 ...iasDataArray,
                 {
                   ...data,
                   isEscalated: true,
-                  adminComments: [],
-                  disabled: true, // Set disabled to true on escalation
+                  adminComments: [...data.adminComments], // Preserve comments
+                  disabled: true,
                 },
               ];
               setIasDataArray(updatedIasDataArray);
@@ -42,8 +42,8 @@ export const DataProvider = ({ children }) => {
                 ...data,
                 isEscalated: true,
                 timer: null,
-                adminComments: [],
-                disabled: true, // Set disabled to true on escalation
+                adminComments: [...data.adminComments], // Preserve comments
+                disabled: true,
               };
             }
             return { ...data, timer: newTimer };
@@ -81,17 +81,11 @@ export const DataProvider = ({ children }) => {
   };
 
   const updateStatus = (index, newStatus, adminResponse, isIAS = false) => {
-    if (newStatus === undefined) {
-      console.error('Invalid status provided');
-      return;
-    }
-
     setFormDataArray((prevData) => {
       const updatedData = [...prevData];
       updatedData[index].status = newStatus;
       updatedData[index].adminComments = updatedData[index].adminComments || [];
 
-      // Check if the comment already exists
       if (
         !updatedData[index].adminComments.find(
           (comment) => comment.comment === adminResponse && comment.role === (isIAS ? 'IAS' : 'MRO')
@@ -104,6 +98,17 @@ export const DataProvider = ({ children }) => {
         });
       }
 
+      // Disable data if status is complete
+      if (newStatus === 'complete') {
+        updatedData[index].disabled = true;
+      }
+
+      // Re-enable MRO if IAS responds and status is not complete
+      if (isIAS && updatedData[index].isEscalated && newStatus !== 'complete') {
+        updatedData[index].isEscalated = false;
+        updatedData[index].disabled = false;
+      }
+
       return updatedData;
     });
 
@@ -113,8 +118,6 @@ export const DataProvider = ({ children }) => {
         const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
         if (iasIndex !== -1) {
           updatedData[iasIndex].status = newStatus;
-
-          // Check if the comment already exists
           if (
             !updatedData[iasIndex].adminComments.find(
               (comment) => comment.comment === adminResponse && comment.role === 'IAS'
@@ -125,6 +128,11 @@ export const DataProvider = ({ children }) => {
               role: 'IAS',
               timestamp: new Date().toLocaleString(),
             });
+          }
+
+          // Disable data if status is complete
+          if (newStatus === 'complete') {
+            updatedData[iasIndex].disabled = true;
           }
         }
         return updatedData;
@@ -138,7 +146,6 @@ export const DataProvider = ({ children }) => {
       updatedData[index].adminResponse = adminResponse;
       updatedData[index].adminComments = updatedData[index].adminComments || [];
 
-      // Check if the comment already exists
       if (
         !updatedData[index].adminComments.find(
           (comment) => comment.comment === adminResponse && comment.role === (isIAS ? 'IAS' : 'MRO')
@@ -151,6 +158,11 @@ export const DataProvider = ({ children }) => {
         });
       }
 
+      if (isIAS && updatedData[index].isEscalated && updatedData[index].status !== 'complete') {
+        updatedData[index].isEscalated = false;
+        updatedData[index].disabled = false;
+      }
+
       return updatedData;
     });
 
@@ -160,8 +172,6 @@ export const DataProvider = ({ children }) => {
         const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
         if (iasIndex !== -1) {
           updatedData[iasIndex].adminResponse = adminResponse;
-
-          // Check if the comment already exists
           if (
             !updatedData[iasIndex].adminComments.find(
               (comment) => comment.comment === adminResponse && comment.role === 'IAS'
@@ -223,7 +233,6 @@ export const DataProvider = ({ children }) => {
       updatedData[index].iasResponse = iasResponse;
       updatedData[index].adminComments = updatedData[index].adminComments || [];
 
-      // Check if the comment already exists
       if (
         !updatedData[index].adminComments.find(
           (comment) => comment.comment === iasResponse && comment.role === 'IAS'
@@ -236,6 +245,9 @@ export const DataProvider = ({ children }) => {
         });
       }
 
+      updatedData[index].isEscalated = false;
+      updatedData[index].disabled = false;
+
       return updatedData;
     });
 
@@ -244,8 +256,6 @@ export const DataProvider = ({ children }) => {
       const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
       if (iasIndex !== -1) {
         updatedData[iasIndex].iasResponse = iasResponse;
-
-        // Check if the comment already exists
         if (
           !updatedData[iasIndex].adminComments.find(
             (comment) => comment.comment === iasResponse && comment.role === 'IAS'
