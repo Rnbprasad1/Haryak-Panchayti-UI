@@ -1,7 +1,7 @@
 // src/Navbar.js
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { NavDropdown } from 'react-bootstrap';
+
 
 import { Link } from 'react-router-dom';
 
@@ -17,18 +17,12 @@ function Navbar() {
           <Link className="nav-item nav-link" to="/">Home</Link>
           <Link className="nav-item nav-link" to="/status">Status</Link>
           <Link className="nav-item nav-link" to="/query">Query</Link>
-<div className="nav-item dropdown">
-  <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Admin
-  </Link>
-  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-    <Link className="dropdown-item" to="/mro">MRO</Link>
-    <Link className="dropdown-item" to="/ias">IAS</Link>
-    <Link className="dropdown-item" to="/cm">CM</Link>
-  </div>
-</div>
-<div/>
+         
+         <Link className="nav-item nav-link" to="/admin">Login </Link>
+          
         </div>
+        <div />
+
       </div>
     </nav>
   );

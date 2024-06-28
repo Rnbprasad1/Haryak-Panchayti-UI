@@ -1,7 +1,11 @@
+
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
+
+
+
 
 const MROAdmin = () => {
   const [filterMandal, setFilterMandal] = useState('');
@@ -15,13 +19,18 @@ const MROAdmin = () => {
   const [previousComments, setPreviousComments] = useState([]);
   const [isTimeExceeded, setIsTimeExceeded] = useState(false);
   const [tokenSentToIAS, setTokenSentToIAS] = useState(false);
+  const [hasResponded, setHasResponded] = useState(false);
+  const [updateIasDataArray] =useState([])
+  const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const loggedInMandal = 'Chilakaluripet'; // Replace with the actual logged-in mandal
 
+
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
   };
+
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -36,8 +45,10 @@ const MROAdmin = () => {
     }
   };
 
+
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
+
 
     if (filterMandal && filterVillage) {
       return (
@@ -81,6 +92,7 @@ const MROAdmin = () => {
     );
   });
 
+
   const handleMandalChange = (e) => {
     const mandal = e.target.value;
     setFilterMandal(mandal);
@@ -88,10 +100,12 @@ const MROAdmin = () => {
     setFilterVillage('');
   };
 
+
   const handleVillageChange = (e) => {
     const village = e.target.value;
     setFilterVillage(village);
   };
+
 
   const mandals = {
     'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
@@ -100,35 +114,59 @@ const MROAdmin = () => {
     'Amaravathi': ['Lingapuram', 'Unguturu'],
   };
 
+
   const handleShowModal = (data) => {
     setSelectedData(data);
     setAdminComment('');
     setPreviousComments(data.adminComments || []);
     setShowModal(true);
-    setIsUpdateDisabled(data.status === 'completed');
-    setTokenSentToIAS(false); // Reset the tokenSentToIAS flag
+    setHasResponded(data.adminComments && data.adminComments.length > 0);
+    setTokenSentToIAS(false);
 
-    // Check if 1 minute has elapsed since the submission
+    //Justs Updated
+
+
+    const updateIasDataArray = (updatedIasDataArray) => {
+      setIasDataArray(updatedIasDataArray);
+    };
+    
+
+
+    {/*const updatedIasDataArray = [...iasDataArray, data];
+    updateIasDataArray(updatedIasDataArray);*/}
     const submittedTime = new Date(data.submittedDate);
     const currentTime = new Date();
     const timeDiff = currentTime - submittedTime;
-    const oneMinute = 60 * 1000; // 1 minute in milliseconds
+    const oneMinute = 60 * 1000;
 
-    if (timeDiff > oneMinute) {
-      setIsTimeExceeded(true);
-      setTokenSentToIAS(true); // Set the tokenSentToIAS flag to true
-    } else {
-      setIsTimeExceeded(false);
+    if (timeDiff > oneMinute && !data.adminResponse && data.status === 'open') {
+            setIsTimeExceeded(true);
+            setIsUpdateDisabled(true);
+            setTokenSentToIAS(true);
+      const updatedIasDataArray = [...iasDataArray, data];
+        setIasDataArray(updatedIasDataArray);
+      }
+
+    const timeExceeded = timeDiff > oneMinute && !data.adminResponse && data.status === 'open';
+    setIsTimeExceeded(timeExceeded);
+    setIsUpdateDisabled(data.status === 'completed' || (timeExceeded && !hasResponded));
+
+
+    if (timeExceeded) {
+      setTokenSentToIAS(true);
     }
   };
+
 
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedData(null);
     setAdminComment('');
     setPreviousComments([]);
-    setTokenSentToIAS(false); // Reset the tokenSentToIAS flag
+    setTokenSentToIAS(false);
+    setHasResponded(false);
   };
+
 
   const handleUpdateStatus = (status, adminResponse) => {
     if (selectedData) {
@@ -140,6 +178,7 @@ const MROAdmin = () => {
         timestamp: new Date().toLocaleString(),
       };
 
+
       updateStatus(index, status, adminResponse);
       updateAdminResponse(index, adminResponse);
       updateActionTakenBy(index, 'MRO');
@@ -148,32 +187,36 @@ const MROAdmin = () => {
         sendMessageToUser(selectedData.mobile, adminResponse);
       }
 
+
       const updatedComments = [...previousComments, currentComment];
       const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'MRO' };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
 
+
       updateFormDataArray(updatedFormDataArray);
 
-      if (status === 'completed') {
-        setIsUpdateDisabled(true);
-      }
 
+      setIsUpdateDisabled(status === 'completed');
       setSelectedData(updatedData);
       setPreviousComments(updatedComments);
-      setTokenSentToIAS(false); // Reset the tokenSentToIAS flag
+      setTokenSentToIAS(false);
+      setHasResponded(true);
+
 
       handleCloseModal();
     }
   };
+
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
     const index = updatedFormDataArray.findIndex((data) => data.token === updatedData.token);
     updatedFormDataArray[index] = updatedData;
     updateFormDataArray(updatedFormDataArray);
-    setTokenSentToIAS(false); // Reset the tokenSentToIAS flag
+    setTokenSentToIAS(false);
   };
+
 
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
@@ -182,9 +225,11 @@ const MROAdmin = () => {
     return new Date(year, month - 1, day, hours, minutes, seconds);
   };
 
+
   const sortedComments = previousComments.sort((a, b) => {
     return parseDate(b.timestamp) - parseDate(a.timestamp);
   });
+
 
   return (
     <Container>
@@ -197,7 +242,7 @@ const MROAdmin = () => {
             <Form.Label>Filter by Mandal</Form.Label>
             <Form.Control as="select" value={filterMandal} onChange={handleMandalChange}>
               <option value="">All Mandals</option>
-              {Object.values(mandals).flat().map((mandal) => (
+              {Object.keys(mandals).map((mandal) => (
                 <option key={mandal} value={mandal}>
                   {mandal}
                 </option>
@@ -231,7 +276,16 @@ const MROAdmin = () => {
         </Col>
       </Row>
 
+
+
+
+
+
+
+
+
       <div style={{ marginBottom: '1rem' }}></div>
+
 
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
@@ -286,11 +340,36 @@ const MROAdmin = () => {
               </Row>
               <Row>
                 <Col>
-                  <Form.Group controlId="formMobileNumber">
+                  <Form.Group controlId="formMobile">
                     <Form.Label>Mobile Number</Form.Label>
                     <Form.Control
                       type="text"
                       value={selectedData.mobile}
+                      readOnly
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group controlId="formIssueDescription">
+                    <Form.Label>Issue Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={selectedData.issueDescription}
+                      readOnly
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group controlId="formSubmittedDate">
+                    <Form.Label>Submitted Date</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={selectedData.submittedDate}
                       readOnly
                     />
                   </Form.Group>
@@ -303,9 +382,11 @@ const MROAdmin = () => {
                       value={selectedData.status}
                       onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
                       disabled={selectedData.status === 'completed'}
+
                     >
                       <option value="open">Open</option>
-                      <option value="In Progress">In Progress</option>
+                      <option value="In Progress" onClick={() => handleUpdateStatus('In Progress', adminComment)}
+                        disabled={isUpdateDisabled && !hasResponded}>In Progress</option>
                       <option value="completed">Completed</option>
                     </Form.Control>
                   </Form.Group>
@@ -313,35 +394,21 @@ const MROAdmin = () => {
               </Row>
               <Row>
                 <Col>
-                  <Form.Group controlId="formSubmittedDate">
-                    <Form.Label>Submitted Date</Form.Label>
+                  <Form.Group controlId="formAdminComment">
+                    <Form.Label>Admin Comment</Form.Label>
                     <Form.Control
-                      type="text"
-                      value={new Date(selectedData.submittedDate).toLocaleString()}
-                      readOnly
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formActionTakenDate">
-                    <Form.Label>Action Taken Date</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={selectedData.actionTakenDate ? new Date(selectedData.actionTakenDate).toLocaleString() : '-'}
-                      readOnly
+                      as="textarea"
+                      rows={3}
+                      value={adminComment}
+                      onChange={(e) => {
+                        setAdminComment(e.target.value);
+                        setHasResponded(true);
+                      }}
+                      disabled={isUpdateDisabled && !hasResponded}
                     />
                   </Form.Group>
                 </Col>
               </Row>
-              <Form.Group controlId="formIssueDetails">
-                <Form.Label>Issue Details</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={selectedData.issueDescription}
-                  readOnly
-                />
-              </Form.Group>
 
               <Form.Group controlId="formPreviousComments">
                 <Form.Label>Previous Comments</Form.Label>
@@ -361,6 +428,7 @@ const MROAdmin = () => {
                           <td>{comment.comment}</td>
                           <td>{comment.timestamp}</td>
                         </tr>
+						
                       ))}
                     </tbody>
                   </Table>
@@ -369,97 +437,99 @@ const MROAdmin = () => {
                 )}
               </Form.Group>
 
-              <Form.Group controlId="formAdminComment">
-                <Form.Label>Admin Comment</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={adminComment}
-                  onChange={(e) => setAdminComment(e.target.value)}
-                  disabled={isTimeExceeded || (selectedData.status === 'completed' && !adminComment)}
-                />
-              </Form.Group>
+              {isTimeExceeded && !hasResponded && (
+                <Row>
+                  <Col>
+                    <Alert variant="danger">
+                      The issue has not been resolved within 1 minute. The ticket will be
+                      escalated to the IAS.
+                    </Alert>
+                    {!tokenSentToIAS && (
+                      <IAS
+                        data={selectedData}
+                        handleDataUpdate={handleDataUpdate}
+                        setTokenSentToIAS={setTokenSentToIAS}
+                         
+                      />
+                    )}
+                  </Col>
+                </Row>
+              )}
             </Form>
           )}
-          {isTimeExceeded && tokenSentToIAS && (
-            <div>
-              <p>Token sent to IAS for further action.</p>
-            {/*  <IAS data={{ ...selectedData, index: formDataArray.findIndex((data) => data.token === selectedData.token) }} onDataUpdate={handleDataUpdate} />*/}
-            </div>
-)}
-</Modal.Body>
-<Modal.Footer>
-  <Button variant="secondary" onClick={handleCloseModal}>
-    Close
-  </Button>
-  <Button
-    variant="primary"
-    onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
-    disabled={isUpdateDisabled || isTimeExceeded}
-  >
-    Update
-  </Button>
-</Modal.Footer>
-</Modal>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
+            disabled={isUpdateDisabled || (isTimeExceeded && !isActionTaken && !tokenSentToIAS)}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Mandal</th>
+            <th>Aadhar</th>
+            <th>Issue Description</th>
+            <th>Village</th>
+            <th>Status</th>
+            <th>Submitted Date</th>
+            <th>Action Taken Date</th>
+            <th>Action Taken By</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredData.map((data, index) => (
+            <tr key={index} onClick={() => handleShowModal(data)}>
+              <td>{data.token}</td>
+              <td>{data.mandal}</td>
+              <td>{data.aadhar}</td>
+              <td>{data.issueDescription}</td>
+              <td>{data.village}</td>
+              <td className={getStatusColor(data.status)}>{data.status}</td>
+              <td>{new Date(data.submittedDate).toLocaleString()}</td>
+              <td>
+                {data.actionTakenDate ? (
+                  <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
+                ) : (
+                  '-'
+                )}
+              </td>
+              <td>{data.actionTakenBy || '-'}</td>
+              <td> <Dropdown>
+                <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
+                  Update Action
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
+                    Mark as In Progress
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
+                    Mark as Completed
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      
+      <Alert variant="info">No data available</Alert>
+     
+    </Container>
+  );
 
-{filteredData.length > 0 ? (
-<Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>Token</th>
-      <th>Mandal</th>
-      <th>Aadhar</th>
-      <th>Issue Description</th>
-      <th>Village</th>
-      <th>Status</th>
-      <th>Submitted Date</th>
-      <th>Action Taken Date</th>
-      <th>Action Taken By</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {filteredData.map((data, index) => (
-      <tr key={index} onClick={() => handleShowModal(data)}>
-        <td>{data.token}</td>
-        <td>{data.mandal}</td>
-        <td>{data.aadhar}</td>
-        <td>{data.issueDescription}</td>
-        <td>{data.village}</td>
-        <td className={getStatusColor(data.status)}>{data.status}</td>
-        <td>{new Date(data.submittedDate).toLocaleString()}</td>
-        <td>
-          {data.actionTakenDate ? (
-            <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
-          ) : (
-            '-'
-          )}
-        </td>
-        <td>{data.actionTakenBy || '-'}</td>
-        <td>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
-              Update Action
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
-                Mark as In Progress
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
-                Mark as Completed
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</Table>
-) : (
-<Alert variant="info">No data available</Alert>
-)}
-</Container>
-);
+
 };
+
 
 export default MROAdmin;
