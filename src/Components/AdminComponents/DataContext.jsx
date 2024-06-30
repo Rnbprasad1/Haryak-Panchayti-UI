@@ -290,4 +290,8 @@ export const DataProvider = ({ children }) => {
       {children}
     </DataContext.Provider>
   );
+<<<<<<< Updated upstream
 };
+=======
+}; 
+>>>>>>> Stashed changes

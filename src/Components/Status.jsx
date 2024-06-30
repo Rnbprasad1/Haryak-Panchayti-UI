@@ -2,7 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Form, Button, Table, Modal } from 'react-bootstrap';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 
+<<<<<<< Updated upstream
 const Status = ({ enteredByName }) => {
+=======
+const Status = ({ enteredByName }) => {  
+>>>>>>> Stashed changes
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -71,6 +75,15 @@ const Status = ({ enteredByName }) => {
     if (selectedData) {
       const index = formDataArray.findIndex((data) => data.token === selectedData.token);
       const currentActionTakenDate = new Date().toISOString();
+<<<<<<< Updated upstream
+=======
+      const currentComment = {
+        comment: adminResponse,
+        name: enteredByName,  
+        timestamp: new Date().toLocaleString(),
+        role: 'User',  
+      };
+>>>>>>> Stashed changes
 
       updateStatus(index, status);
       updateActionTakenBy(index, 'Admin');
