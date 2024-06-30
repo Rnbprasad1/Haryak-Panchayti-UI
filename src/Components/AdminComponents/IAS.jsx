@@ -356,6 +356,12 @@ const IAS = () => {
 
               <Form.Group controlId="formPreviousComments">
                 <Form.Label>Previous Comments</Form.Label>
+                <Modal.Body>
+                     {selectedData && (
+                             <Form>
+                                  {/* Form fields for displaying selected data */}
+                              </Form>
+                            )}
                 {sortedComments && sortedComments.length > 0 ? (
                   <Table striped bordered hover>
                     <thead>
@@ -368,7 +374,7 @@ const IAS = () => {
                     <tbody>
                       {sortedComments.map((comment, index) => (
                         <tr key={index}>
-                          <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
+                          <strong>{comment.role ==="User" ?`${selectedData.name}`:comment.role}</strong>
                           <td>{comment.comment}</td>
                           <td>{comment.timestamp}</td>
                         </tr>
@@ -378,7 +384,8 @@ const IAS = () => {
                 ) : (
                   <p>No previous comments available.</p>
                 )}
-              </Form.Group>
+              </Modal.Body>
+            </Form.Group>
 
               <Form.Group controlId="formAdminComment">
                 <Form.Label>Admin Comment</Form.Label>

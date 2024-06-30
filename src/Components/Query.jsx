@@ -12,13 +12,18 @@ const Query = () => {
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    aadhar: '',
-    issueDescription: '',
+    name: 'Harshith',
+    mobile: '9346329784',
+    email: 'dullavenkatesh7@gmail.com',
+    aadhar: '835299139393',
+    issueDescription: 'Test',
     village: '',
-    status: 'open',
+    status: ' ',
+    email: 'Venkydulla1713@gmail.com',
+    aadhar: '835299139393',
+    issueDescription: 'Test',
+    village: '',
+    status: ' open',
     submittedDate: new Date().toISOString(),
   });
   const [showToken, setShowToken] = useState(false);
@@ -26,13 +31,12 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-   
-
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam','Kurnool','Guntur','Visakhapatnam',
-        'Srikakulam','Tirupati','West Godavari','Bapatla','Chittoor','NTR','Kakinada',
-      ] ;
+      const districtFiles = [
+        'Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',
+        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',
+      ];
       const districtsData = {};
       const mandalsData = {};
 
@@ -50,12 +54,11 @@ const Query = () => {
             } catch (mandalError) {
               mandalsData[manDalName] = ["TEST VILLAGE"];
               console.error(`Error loading mandal data for ${manDalName}:`, mandalError);
-             
-             }
+            }
           }
         } catch (districtError) {
           console.error(`Error loading district data for ${district}:`, districtError);
-          // Handle the error or continue
+           
         }
       }
 
@@ -65,8 +68,6 @@ const Query = () => {
 
     loadJsonData();
   }, []);
-
-
 
   const handleDistrictChange = (e) => {
     const district = e.target.value;
