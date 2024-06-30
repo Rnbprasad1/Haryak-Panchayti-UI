@@ -1,16 +1,22 @@
 import React, { useContext } from 'react';
-import { Container, Table } from 'react-bootstrap';
-import { DataContext } from '../Components/AdminComponents/DataContext';
+import { DataContext } from './AdminComponents/DataContext';
 
 const Dashboard = () => {
   const { formDataArray } = useContext(DataContext);
 
+  console.log('formDataArray in Dashboard:', formDataArray);
+
+  if (!formDataArray || formDataArray.length === 0) {
+    return <div>No queries available</div>;
+  }
+
   return (
-    <Container>
+    <div>
       <h1>Dashboard</h1>
-      <Table striped bordered hover>
+      <table className="table">
         <thead>
           <tr>
+            <th>Token</th>
             <th>Name</th>
             <th>Mobile</th>
             <th>Email</th>
@@ -19,30 +25,27 @@ const Dashboard = () => {
             <th>District</th>
             <th>Mandal</th>
             <th>Village</th>
-            <th>Status</th>
-            <th>Submitted Date</th>
-            <th>Token</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
-          {formDataArray.map((data, index) => (
+          {formDataArray.map((query, index) => (
             <tr key={index}>
-              <td>{data.name}</td>
-              <td>{data.mobile}</td>
-              <td>{data.email}</td>
-              <td>{data.aadhar}</td>
-              <td>{data.issueDescription}</td>
-              <td>{data.selectedDistrict}</td>
-              <td>{data.selectedMandal}</td>
-              <td>{data.village}</td>
-              <td>{data.status}</td>
-              <td>{new Date(data.submittedDate).toLocaleString()}</td>
-              <td>{data.token}</td>
+              <td>{query.token}</td>
+              <td>{query.name}</td>
+              <td>{query.mobile}</td>
+              <td>{query.email}</td>
+              <td>{query.aadhar}</td>
+              <td>{query.issueDescription}</td>
+              <td>{query.district}</td>
+              <td>{query.mandal}</td>
+              <td>{query.village}</td>
+              <td>{query.submittedDate}</td>
             </tr>
           ))}
         </tbody>
-      </Table>
-    </Container>
+      </table>
+    </div>
   );
 };
 
