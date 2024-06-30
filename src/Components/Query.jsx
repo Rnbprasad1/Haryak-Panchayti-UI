@@ -14,19 +14,16 @@ const Query = () => {
   const [formData, setFormData] = useState({
     name: 'Harshith',
     mobile: '9346329784',
-<<<<<<< Updated upstream
     email: 'dullavenkatesh7@gmail.com',
     aadhar: '835299139393',
     issueDescription: 'Test',
     village: '',
     status: ' ',
-=======
     email: 'Venkydulla1713@gmail.com',
     aadhar: '835299139393',
     issueDescription: 'Test',
     village: '',
     status: ' open',
->>>>>>> Stashed changes
     submittedDate: new Date().toISOString(),
   });
   const [showToken, setShowToken] = useState(false);

@@ -1,10 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-<<<<<<< Updated upstream
 import { Link } from 'react-router-dom';
-=======
 import { Link, NavLink } from 'react-router-dom';
->>>>>>> Stashed changes
 
 function Navbar() {
   return (
@@ -15,7 +12,6 @@ function Navbar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav ms-auto">
-<<<<<<< Updated upstream
           <Link className="nav-item nav-link" to="/">Home</Link>
           <Link className="nav-item nav-link" to="/status">Status</Link>
           <Link className="nav-item nav-link" to="/query">Query</Link>
@@ -30,13 +26,11 @@ function Navbar() {
               <Link className="dropdown-item" to="/cm">CM</Link>
             </div>
           </div>
-=======
           <NavLink className="nav-item nav-link" exact to="/">Home</NavLink>
           <NavLink className="nav-item nav-link" to="/status">Status</NavLink>
           <NavLink className="nav-item nav-link" to="/query">Query</NavLink>
           <NavLink className="nav-item nav-link" to="/admin">Login</NavLink>
           <NavLink className="nav-item nav-link" to="/dashboard">Dashboard</NavLink>
->>>>>>> Stashed changes
         </div>
       </div>
     </nav>
