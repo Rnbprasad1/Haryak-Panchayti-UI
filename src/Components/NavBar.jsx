@@ -1,36 +1,57 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom'; // Remove the duplicate import of Link
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/"> </Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav ms-auto">
-          <Link className="nav-item nav-link" to="/">Home</Link>
-          <Link className="nav-item nav-link" to="/status">Status</Link>
-          <Link className="nav-item nav-link" to="/query">Query</Link>
-          <Link className="nav-item nav-link" to="/dashboard">Dashboard</Link> {/* Move Dashboard link here */}
-          <div className="nav-item dropdown">
-            <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin
-            </Link>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="dropdown-item" to="/mro">MRO</Link>
-              <Link className="dropdown-item" to="/ias">IAS</Link>
-              <Link className="dropdown-item" to="/cm">CM</Link>
-            </div>
-          </div>
-          <NavLink className="nav-item nav-link" exact to="/">Home</NavLink>
-          <NavLink className="nav-item nav-link" to="/status">Status</NavLink>
-          <NavLink className="nav-item nav-link" to="/query">Query</NavLink>
-          <NavLink className="nav-item nav-link" to="/admin">Login</NavLink>
-          <NavLink className="nav-item nav-link" to="/dashboard">Dashboard</NavLink>
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          Home
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/cm">
+                CM
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/mro">
+                MRO
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/ias">
+                IAS
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/query">
+                Query
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/status">
+                Status
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/dashboard">
+                Dashboard
+              </NavLink>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
