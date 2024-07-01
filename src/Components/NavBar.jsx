@@ -17,7 +17,9 @@ function Navbar() {
           <Link className="nav-item nav-link" to="/">Home</Link>
           <Link className="nav-item nav-link" to="/status">Status</Link>
           <Link className="nav-item nav-link" to="/query">Query</Link>
-         
+         {/* <Link className="nav-item nav-link" to="/mro">MRO</Link>
+          <Link className="nav-item nav-link" to="/ias">IAS</Link>
+          <Link className="nav-item nav-link" to="/cm">CM</Link>*/}
          <Link className="nav-item nav-link" to="/admin">Login </Link>
           
         </div>

@@ -1,11 +1,7 @@
-
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
-
-
-
 
 const MROAdmin = () => {
   const [filterMandal, setFilterMandal] = useState('');
@@ -20,17 +16,15 @@ const MROAdmin = () => {
   const [isTimeExceeded, setIsTimeExceeded] = useState(false);
   const [tokenSentToIAS, setTokenSentToIAS] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
-  const [updateIasDataArray] =useState([])
+  const [updateIasDataArray] = useState([]);
   const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const loggedInMandal = 'Chilakaluripet'; // Replace with the actual logged-in mandal
 
-
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
   };
-
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -45,10 +39,8 @@ const MROAdmin = () => {
     }
   };
 
-
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
-
 
     if (filterMandal && filterVillage) {
       return (
@@ -92,7 +84,6 @@ const MROAdmin = () => {
     );
   });
 
-
   const handleMandalChange = (e) => {
     const mandal = e.target.value;
     setFilterMandal(mandal);
@@ -100,12 +91,10 @@ const MROAdmin = () => {
     setFilterVillage('');
   };
 
-
   const handleVillageChange = (e) => {
     const village = e.target.value;
     setFilterVillage(village);
   };
-
 
   const mandals = {
     'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
@@ -113,7 +102,6 @@ const MROAdmin = () => {
     'Tenali': ['Burripalem', 'Nelapadu'],
     'Amaravathi': ['Lingapuram', 'Unguturu'],
   };
-
 
   const handleShowModal = (data) => {
     setSelectedData(data);
@@ -123,40 +111,27 @@ const MROAdmin = () => {
     setHasResponded(data.adminComments && data.adminComments.length > 0);
     setTokenSentToIAS(false);
 
-    //Justs Updated
-
-
-    const updateIasDataArray = (updatedIasDataArray) => {
-      setIasDataArray(updatedIasDataArray);
-    };
-    
-
-
-    {/*const updatedIasDataArray = [...iasDataArray, data];
-    updateIasDataArray(updatedIasDataArray);*/}
     const submittedTime = new Date(data.submittedDate);
     const currentTime = new Date();
     const timeDiff = currentTime - submittedTime;
     const oneMinute = 60 * 1000;
 
     if (timeDiff > oneMinute && !data.adminResponse && data.status === 'open') {
-            setIsTimeExceeded(true);
-            setIsUpdateDisabled(true);
-            setTokenSentToIAS(true);
+      setIsTimeExceeded(true);
+      setIsUpdateDisabled(true);
+      setTokenSentToIAS(true);
       const updatedIasDataArray = [...iasDataArray, data];
-        setIasDataArray(updatedIasDataArray);
-      }
+      setIasDataArray(updatedIasDataArray);
+    }
 
     const timeExceeded = timeDiff > oneMinute && !data.adminResponse && data.status === 'open';
     setIsTimeExceeded(timeExceeded);
     setIsUpdateDisabled(data.status === 'completed' || (timeExceeded && !hasResponded));
 
-
     if (timeExceeded) {
       setTokenSentToIAS(true);
     }
   };
-
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -166,7 +141,6 @@ const MROAdmin = () => {
     setTokenSentToIAS(false);
     setHasResponded(false);
   };
-
 
   const handleUpdateStatus = (status, adminResponse) => {
     if (selectedData) {
@@ -178,7 +152,6 @@ const MROAdmin = () => {
         timestamp: new Date().toLocaleString(),
       };
 
-
       updateStatus(index, status, adminResponse);
       updateAdminResponse(index, adminResponse);
       updateActionTakenBy(index, 'MRO');
@@ -187,15 +160,12 @@ const MROAdmin = () => {
         sendMessageToUser(selectedData.mobile, adminResponse);
       }
 
-
       const updatedComments = [...previousComments, currentComment];
       const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'MRO' };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
 
-
       updateFormDataArray(updatedFormDataArray);
-
 
       setIsUpdateDisabled(status === 'completed');
       setSelectedData(updatedData);
@@ -203,11 +173,9 @@ const MROAdmin = () => {
       setTokenSentToIAS(false);
       setHasResponded(true);
 
-
       handleCloseModal();
     }
   };
-
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
@@ -217,7 +185,6 @@ const MROAdmin = () => {
     setTokenSentToIAS(false);
   };
 
-
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
     const [day, month, year] = datePart.split('/').map(Number);
@@ -225,11 +192,9 @@ const MROAdmin = () => {
     return new Date(year, month - 1, day, hours, minutes, seconds);
   };
 
-
   const sortedComments = previousComments.sort((a, b) => {
     return parseDate(b.timestamp) - parseDate(a.timestamp);
   });
-
 
   return (
     <Container>
@@ -276,16 +241,7 @@ const MROAdmin = () => {
         </Col>
       </Row>
 
-
-
-
-
-
-
-
-
       <div style={{ marginBottom: '1rem' }}></div>
-
 
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
@@ -382,7 +338,6 @@ const MROAdmin = () => {
                       value={selectedData.status}
                       onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
                       disabled={selectedData.status === 'completed'}
-
                     >
                       <option value="open">Open</option>
                       <option value="In Progress" onClick={() => handleUpdateStatus('In Progress', adminComment)}
@@ -424,112 +379,115 @@ const MROAdmin = () => {
                     <tbody>
                       {sortedComments.map((comment, index) => (
                         <tr key={index}>
-                          <strong>{comment.role==="User"?`(${selectedData.name})`:comment.role}</strong>
+                          <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
                           <td>{comment.comment}</td>
                           <td>{comment.timestamp}</td>
                         </tr>
-						
                       ))}
                     </tbody>
                   </Table>
                 ) : (
                   <p>No previous comments available.</p>
                 )}
-              </Form.Group>
-
-              {isTimeExceeded && !hasResponded && (
-                <Row>
-                  <Col>
-                    <Alert variant="danger">
-                      The issue has not been resolved within 1 minute. The ticket will be
-                      escalated to the IAS.
-                    </Alert>
-                    {!tokenSentToIAS && (
-                      <IAS
-                        data={selectedData}
-                        handleDataUpdate={handleDataUpdate}
-                        setTokenSentToIAS={setTokenSentToIAS}
-                         
-                      />
-                    )}
-                  </Col>
-                </Row>
-              )}
-            </Form>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
-            disabled={isUpdateDisabled || (isTimeExceeded && !isActionTaken && !tokenSentToIAS)}
-          >
-            Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Mandal</th>
-            <th>Aadhar</th>
-            <th>Issue Description</th>
-            <th>Village</th>
-            <th>Status</th>
-            <th>Submitted Date</th>
-            <th>Action Taken Date</th>
-            <th>Action Taken By</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((data, index) => (
-            <tr key={index} onClick={() => handleShowModal(data)}>
-              <td>{data.token}</td>
-              <td>{data.mandal}</td>
-              <td>{data.aadhar}</td>
-              <td>{data.issueDescription}</td>
-              <td>{data.village}</td>
-              <td className={getStatusColor(data.status)}>{data.status}</td>
-              <td>{new Date(data.submittedDate).toLocaleString()}</td>
-              <td>
-                {data.actionTakenDate ? (
-                  <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
-                ) : (
-                  '-'
+                </Form.Group>
+                
+                {isTimeExceeded && !hasResponded && (
+                  <Row>
+                    <Col>
+                      <Alert variant="danger">
+                        The issue has not been resolved within 1 minute. The ticket will be
+                        escalated to the IAS.
+                      </Alert>
+                      {!tokenSentToIAS && (
+                        <IAS
+                          data={selectedData}
+                          handleDataUpdate={handleDataUpdate}
+                          setTokenSentToIAS={setTokenSentToIAS}
+                        />
+                      )}
+                    </Col>
+                  </Row>
                 )}
-              </td>
-              <td>{data.actionTakenBy || '-'}</td>
-              <td> <Dropdown>
-                <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
-                  Update Action
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
-                    Mark as In Progress
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
-                    Mark as Completed
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      
-      <Alert variant="info">No data available</Alert>
-     
-    </Container>
-  );
-
-
-};
-
-
-export default MROAdmin;
+                </Form>
+                )}
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModal}>
+                    Close
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
+                    disabled={isUpdateDisabled || (isTimeExceeded && !isActionTaken && !tokenSentToIAS)}
+                  >
+                    Update
+                  </Button>
+                </Modal.Footer>
+                </Modal>
+                
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Token</th>
+                      <th>Mandal</th>
+                      <th>Aadhar</th>
+                      <th>Issue Description</th>
+                      <th>Village</th>
+                      <th>Status</th>
+                      <th>Submitted Date</th>
+                      <th>Action Taken Date</th>
+                      <th>Action Taken By</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredData.length === 0 ? (
+                      <tr>
+                        <td colSpan="10">
+                          <Alert variant="info">No data available</Alert>
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredData.map((data, index) => (
+                        <tr key={index} onClick={() => handleShowModal(data)}>
+                          <td>{data.token}</td>
+                          <td>{data.mandal}</td>
+                          <td>{data.aadhar}</td>
+                          <td>{data.issueDescription}</td>
+                          <td>{data.village}</td>
+                          <td className={getStatusColor(data.status)}>{data.status}</td>
+                          <td>{new Date(data.submittedDate).toLocaleString()}</td>
+                          <td>
+                            {data.actionTakenDate ? (
+                              <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
+                            ) : (
+                              '-'
+                            )}
+                          </td>
+                          <td>{data.actionTakenBy || '-'}</td>
+                          <td>
+                            <Dropdown>
+                              <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
+                                Update Action
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
+                                  Mark as In Progress
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
+                                  Mark as Completed
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </Table>
+                </Container>
+                );
+                };
+                
+                export default MROAdmin;
+                

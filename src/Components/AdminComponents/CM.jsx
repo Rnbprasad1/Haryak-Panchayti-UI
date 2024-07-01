@@ -16,13 +16,13 @@ const CM = () => {
   const [isUpdateDisabled, setIsUpdateDisabled] = useState(false);
 
   const {
-    iasDataArray,
+    cmDataArray,
     updateStatus,
     updateAdminResponse,
     updateActionTakenDate,
     updateActionTakenBy,
-    setIasDataArray,
-    updateIASResponse
+    updateIASResponse,
+    setIasDataArray
   } = useContext(DataContext);
 
   const sendMessageToUser = (mobileNumber, message) => {
@@ -42,7 +42,7 @@ const CM = () => {
     }
   };
 
-  const filteredData = iasDataArray.filter((data) => {
+  const filteredData = cmDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
 
     if (filterDistrict && filterMandal && filterVillage) {
@@ -135,41 +135,40 @@ const CM = () => {
     setPreviousComments([]);
   };
 
-  const handleUpdateStatus = (status) => {
+  const handleUpdateStatus = (status, role = 'CM', comment = adminComment) => {
     if (selectedData) {
-      const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
+      const index = cmDataArray.findIndex((data) => data.token === selectedData.token);
       const currentActionTakenDate = new Date().toISOString();
       const currentComment = {
-        comment: adminComment,
-        role: 'CM',
+        comment,
+        role,
         timestamp: new Date().toLocaleString(),
       };
 
-      updateStatus(index, status, adminComment, true);
-      updateAdminResponse(index, adminComment, true);
-      updateActionTakenBy(index, 'IAS', true);
-      updateActionTakenDate(index, currentActionTakenDate, true);
-      updateIASResponse(index, adminComment);
+      updateStatus(index, status, comment, false, true);
+      updateAdminResponse(index, comment, false, true);
+      updateActionTakenBy(index, role, false, true);
+      updateActionTakenDate(index, currentActionTakenDate, false, true);
+      updateIASResponse(index, comment);
 
-      sendMessageToUser(selectedData.mobile, adminComment);
+      sendMessageToUser(selectedData.mobile, comment);
 
       const updatedComments = [...previousComments, currentComment];
       const updatedData = {
         ...selectedData,
         adminComments: updatedComments,
         actionTakenDate: currentActionTakenDate,
-        actionTakenBy: 'CM',
-        status: status,
-        iasResponse: adminComment
+        actionTakenBy: role,
+        status,
+        iasResponse: comment
       };
 
-      const updatedIasDataArray = [...iasDataArray];
-      updatedIasDataArray[index] = updatedData;
-
-      setIasDataArray(updatedIasDataArray);
+      const updatedCmDataArray = [...cmDataArray];
+      updatedCmDataArray[index] = updatedData;
 
       setSelectedData(updatedData);
       setPreviousComments(updatedComments);
+      setIasDataArray(updatedCmDataArray); // Also update the IASDataArray as necessary
 
       handleCloseModal();
     }
@@ -368,7 +367,7 @@ const CM = () => {
                     <tbody>
                       {sortedComments.map((comment, index) => (
                         <tr key={index}>
-                           <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
+                          <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
                           <td>{comment.comment}</td>
                           <td>{comment.timestamp}</td>
                         </tr>
@@ -399,7 +398,7 @@ const CM = () => {
           </Button>
           <Button
             variant="primary"
-            onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
+            onClick={() => handleUpdateStatus(selectedData.status, 'CM', adminComment)}
             disabled={isUpdateDisabled}
           >
             Update
@@ -449,10 +448,10 @@ const CM = () => {
                       Update Action
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
+                      <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'CM', 'Action in progress')}>
                         Mark as In Progress
                       </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
+                      <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'CM', 'Action completed')}>
                         Mark as Completed
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -470,4 +469,3 @@ const CM = () => {
 };
 
 export default CM;
-
