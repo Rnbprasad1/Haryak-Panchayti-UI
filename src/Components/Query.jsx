@@ -136,7 +136,7 @@ const Query = () => {
 
             <Form.Group controlId="formDistrict">
               <Form.Label>district</Form.Label>
-              <Form.Control as="select" defaultValue="Guntur" disabled>
+              <Form.Control as="select" defaultValue="Guntur"disabled>
                 <option>Guntur</option>
               </Form.Control>
             </Form.Group>
