@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from 'react-router-dom';
-
+//nav bar
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
