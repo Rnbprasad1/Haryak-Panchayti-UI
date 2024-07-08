@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { Form, Button, Table, Modal } from 'react-bootstrap';
+import { Form, Button, Table, Modal, Container, Row, Col } from 'react-bootstrap';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 
-const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a prop
+const Status = ({ enteredByName }) => {
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -52,9 +52,9 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
       const currentActionTakenDate = new Date().toISOString();
       const currentComment = {
         comment: adminResponse,
-        name: enteredByName, // Displaying the name of the person who entered details
+        name: enteredByName,
         timestamp: new Date().toLocaleString(),
-        role: 'User', // Role indicating where the message originated
+        role: 'User',
       };
 
       updateStatus(index, status, adminResponse);
@@ -92,12 +92,16 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
   const sortedComments = (selectedData?.adminComments || []).sort((a, b) => parseDate(b.timestamp) - parseDate(a.timestamp));
 
   return (
-    <div>
-      <Form.Group controlId="formSearch">
-        <Form.Label>Search by Token Number</Form.Label>
-        <Form.Control type="text" placeholder="Enter token number" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-        <Button variant="primary" onClick={handleSearch}>Search</Button>
-      </Form.Group>
+    <Container fluid>
+      <Row className="justify-content-center mb-3">
+        <Col xs={12} md={6} lg={4}>
+          <Form.Group controlId="formSearch" className="text-center">
+            <Form.Label>Search by token number</Form.Label>
+            <Form.Control type="text" placeholder="Enter token number" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <Button variant="primary" onClick={handleSearch} className="mt-2">Search</Button>
+          </Form.Group>
+        </Col>
+      </Row>
 
       {filteredData.length === 0 ? (
         <p>No data found.</p>
@@ -149,31 +153,38 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
       )}
 
       {selectedData && (
-        <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
           <Modal.Header closeButton>
             <Modal.Title>Update Status</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p><strong>Token:</strong> {selectedData.token}</p>
-            <p><strong>Name:</strong> {selectedData.name}</p>
-            <p><strong>Mobile:</strong> {selectedData.mobile}</p>
-            <p><strong>Aadhar:</strong> {selectedData.aadhar}</p>
-            <p><strong>Issue Description:</strong> {selectedData.issueDescription}</p>
-            <p><strong>Submitted Date:</strong> {selectedData.submittedDate}</p>
-            <p><strong>Status:</strong> <span className={getStatusColor(selectedData.status)}>{selectedData.status}</span></p>
+            <Row>
+              <Col xs={12} md={6}>
+                <p><strong>Token:</strong> {selectedData.token}</p>
+                <p><strong>Name:</strong> {selectedData.name}</p>
+                <p><strong>Mobile:</strong> {selectedData.mobile}</p>
+                <p><strong>Aadhar:</strong> {selectedData.aadhar}</p>
+              </Col>
+              <Col xs={12} md={6}>
+                <p><strong>Issue Description:</strong> {selectedData.issueDescription}</p>
+                <p><strong>Submitted Date:</strong> {selectedData.submittedDate}</p>
+                <p><strong>Status:</strong> <span className={getStatusColor(selectedData.status)}>{selectedData.status}</span></p>
+              </Col>
+            </Row>
             <Form.Group controlId="formAdminComment">
               <Form.Label>Admin Comment</Form.Label>
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
-            <Button variant="success" onClick={() => handleUpdateStatus(' In Progess', adminComment)} disabled={isUpdateDisabled}> Update</Button>
+            <Button variant="success" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled} className="mt-2 w-100">
+              Update
+            </Button>
             
-            <div>
+            <div className="mt-4">
               <h5>Previous Comments:</h5>
               {sortedComments.length > 0 ? (
                 <Table striped bordered hover>
                   <thead>
                     <tr>
-                       
                       <th>Role</th>
                       <th>Comment</th>
                       <th>Timestamp</th>
@@ -182,7 +193,7 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
                   <tbody>
                     {sortedComments.map((comment, index) => (
                       <tr key={index}>
-                        <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
+                        <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
                         <td>{comment.comment}</td>
                         <td>{comment.timestamp}</td>
                       </tr>
@@ -199,7 +210,7 @@ const Status = ({ enteredByName }) => { // Assuming enteredByName is passed as a
           </Modal.Footer>
         </Modal>
       )}
-    </div>
+    </Container>
   );
 };
 

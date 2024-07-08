@@ -135,14 +135,9 @@ const Query = () => {
             </Form.Group>
 
             <Form.Group controlId="formDistrict">
-              <Form.Label>District</Form.Label>
-              <Form.Control as="select" value={selectedDistrict} onChange={handleDistrictChange}>
-                <option value="">Select District</option>
-                {Object.keys(districts).map((district) => (
-                  <option key={district} value={district}>
-                    {district}
-                  </option>
-                ))}
+              <Form.Label>district</Form.Label>
+              <Form.Control as="select" defaultValue="Guntur" disabled>
+                <option> Guntur</option>
               </Form.Control>
             </Form.Group>
 
