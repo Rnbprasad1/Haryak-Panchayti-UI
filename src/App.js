@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import './App.css';
 import Home from './Components/Home';
 import CM from './Components/AdminComponents/CM';
@@ -8,39 +10,48 @@ import MRO from './Components/AdminComponents/MRO';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Query from './Components/Query';
 import Status from './Components/Status';
-import bannerImage from './Assets/AP.png'; // Make sure to replace 'Aadhra Pradesh.png' with your actual image file name
+import bannerImage from './Assets/AP.png'; // Existing image for large screens
+import smallBannerImage from './Assets/AP1.png'; // New image for small screens
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
 import FormComponent from './Components/FormComponent';
 
-
-
 function App() {
-  console.log(bannerImage); // Log the image path to check if it's resolved correctly
+  useEffect(() => {
+    const updateBackground = () => {
+      const header = document.querySelector('.App-header');
+      if (window.innerWidth <= 768) {
+        header.style.backgroundImage = `url(${smallBannerImage})`;
+      } else {
+        header.style.backgroundImage = `url(${bannerImage})`;
+      }
+    };
+    
+    window.addEventListener('resize', updateBackground);
+    updateBackground(); // Initial call
+
+    return () => window.removeEventListener('resize', updateBackground);
+  }, []);
+
   return (
     <DataProvider>
       <Router>
         <div className="App">
-          <header className="App-header" style={{ backgroundImage: `url(${bannerImage})` }}>
+          <header className="App-header">
             {/* Add your header content here */}
           </header>
           <Navbar />
           <div className="content">
             <Routes>
               <Route exact path="/" element={<Home />} />
-              
-
               <Route path='/cm' element={<CM />} />
               <Route path="/mro" element={<MRO />} />
               <Route path="/ias" element={<IAS />} />
-
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
               <Route exact path='/admin' element={<FormComponent />} />
-
             </Routes>
           </div>
-         
         </div>
       </Router>
     </DataProvider>

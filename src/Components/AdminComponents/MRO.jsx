@@ -1,10 +1,7 @@
-
 import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
-
-
 
 
 const MROAdmin = () => {
@@ -20,17 +17,15 @@ const MROAdmin = () => {
   const [isTimeExceeded, setIsTimeExceeded] = useState(false);
   const [tokenSentToIAS, setTokenSentToIAS] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
-  const [updateIasDataArray] =useState([])
+  const [updateIasDataArray] = useState([]);
   const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
   const loggedInMandal = 'Chilakaluripet'; // Replace with the actual logged-in mandal
 
-
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
   };
-
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -45,10 +40,8 @@ const MROAdmin = () => {
     }
   };
 
-
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
-
 
     if (filterMandal && filterVillage) {
       return (
@@ -92,7 +85,6 @@ const MROAdmin = () => {
     );
   });
 
-
   const handleMandalChange = (e) => {
     const mandal = e.target.value;
     setFilterMandal(mandal);
@@ -100,12 +92,10 @@ const MROAdmin = () => {
     setFilterVillage('');
   };
 
-
   const handleVillageChange = (e) => {
     const village = e.target.value;
     setFilterVillage(village);
   };
-
 
   const mandals = {
     'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
@@ -113,7 +103,6 @@ const MROAdmin = () => {
     'Tenali': ['Burripalem', 'Nelapadu'],
     'Amaravathi': ['Lingapuram', 'Unguturu'],
   };
-
 
   const handleShowModal = (data) => {
     setSelectedData(data);
@@ -123,40 +112,31 @@ const MROAdmin = () => {
     setHasResponded(data.adminComments && data.adminComments.length > 0);
     setTokenSentToIAS(false);
 
-    //Justs Updated
-
-
     const updateIasDataArray = (updatedIasDataArray) => {
       setIasDataArray(updatedIasDataArray);
     };
-    
 
-
-    {/*const updatedIasDataArray = [...iasDataArray, data];
-    updateIasDataArray(updatedIasDataArray);*/}
     const submittedTime = new Date(data.submittedDate);
     const currentTime = new Date();
     const timeDiff = currentTime - submittedTime;
     const oneMinute = 60 * 1000;
 
     if (timeDiff > oneMinute && !data.adminResponse && data.status === 'open') {
-            setIsTimeExceeded(true);
-            setIsUpdateDisabled(true);
-            setTokenSentToIAS(true);
+      setIsTimeExceeded(true);
+      setIsUpdateDisabled(true);
+      setTokenSentToIAS(true);
       const updatedIasDataArray = [...iasDataArray, data];
-        setIasDataArray(updatedIasDataArray);
-      }
+      setIasDataArray(updatedIasDataArray);
+    }
 
     const timeExceeded = timeDiff > oneMinute && !data.adminResponse && data.status === 'open';
     setIsTimeExceeded(timeExceeded);
     setIsUpdateDisabled(data.status === 'completed' || (timeExceeded && !hasResponded));
 
-
     if (timeExceeded) {
       setTokenSentToIAS(true);
     }
   };
-
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -166,7 +146,6 @@ const MROAdmin = () => {
     setTokenSentToIAS(false);
     setHasResponded(false);
   };
-
 
   const handleUpdateStatus = (status, adminResponse) => {
     if (selectedData) {
@@ -178,7 +157,6 @@ const MROAdmin = () => {
         timestamp: new Date().toLocaleString(),
       };
 
-
       updateStatus(index, status, adminResponse);
       updateAdminResponse(index, adminResponse);
       updateActionTakenBy(index, 'MRO');
@@ -187,15 +165,12 @@ const MROAdmin = () => {
         sendMessageToUser(selectedData.mobile, adminResponse);
       }
 
-
       const updatedComments = [...previousComments, currentComment];
       const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'MRO' };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
 
-
       updateFormDataArray(updatedFormDataArray);
-
 
       setIsUpdateDisabled(status === 'completed');
       setSelectedData(updatedData);
@@ -203,11 +178,9 @@ const MROAdmin = () => {
       setTokenSentToIAS(false);
       setHasResponded(true);
 
-
       handleCloseModal();
     }
   };
-
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
@@ -217,7 +190,6 @@ const MROAdmin = () => {
     setTokenSentToIAS(false);
   };
 
-
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
     const [day, month, year] = datePart.split('/').map(Number);
@@ -225,19 +197,19 @@ const MROAdmin = () => {
     return new Date(year, month - 1, day, hours, minutes, seconds);
   };
 
-
   const sortedComments = previousComments.sort((a, b) => {
     return parseDate(b.timestamp) - parseDate(a.timestamp);
   });
 
-
   return (
-    <Container>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Submitted Queries</h2>
-      </div>
-      <Row>
+    <Container fluid>
+      <Row className="mb-3">
         <Col>
+          <h2>Submitted Queries</h2>
+        </Col>
+      </Row>
+      <Row className="mb-3">
+        <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
             <Form.Label>Filter by Mandal</Form.Label>
             <Form.Control as="select" value={filterMandal} onChange={handleMandalChange}>
@@ -250,7 +222,7 @@ const MROAdmin = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col>
+        <Col xs={12} md={4}>
           <Form.Group controlId="formVillage">
             <Form.Label>Filter by Village</Form.Label>
             <Form.Control as="select" value={filterVillage} onChange={handleVillageChange}>
@@ -263,7 +235,7 @@ const MROAdmin = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col>
+        <Col xs={12} md={4}>
           <Form.Group controlId="formSearch">
             <Form.Label>Search</Form.Label>
             <Form.Control
@@ -276,16 +248,64 @@ const MROAdmin = () => {
         </Col>
       </Row>
 
+      <div className="table-responsive">
+        <Table striped bordered hover>
+          <thead className='TableContainer'>
+            <tr>
+              <th>Token</th>
+              <th>Mandal</th>
+              <th>Aadhar</th>
+              <th>Issue Description</th>
+              <th>Village</th>
+              <th>Status</th>
+              <th>Submitted Date</th>
+              <th>Action Taken Date</th>
+              <th>Action Taken By</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.map((data, index) => (
+              <tr key={index} onClick={() => handleShowModal(data)}>
+                <td>{data.token}</td>
+                <td>{data.mandal}</td>
+                <td>{data.aadhar}</td>
+                <td>{data.issueDescription}</td>
+                <td>{data.village}</td>
+                <td className={getStatusColor(data.status)}>{data.status}</td>
+                <td>{new Date(data.submittedDate).toLocaleString()}</td>
+                <td>
+                  {data.actionTakenDate ? (
+                    <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
+                  ) : (
+                    '-'
+                  )}
+                </td>
+                <td>{data.actionTakenBy || '-'}</td>
+                <td>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
+                      Update Action
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
+                        Mark as In Progress
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
+                        Mark as Completed
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
 
-
-
-
-
-
-
-
-      <div style={{ marginBottom: '1rem' }}></div>
-
+      {filteredData.length === 0 && (
+        <Alert variant="info">No data available</Alert>
+      )}
 
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
@@ -295,7 +315,7 @@ const MROAdmin = () => {
           {selectedData && (
             <Form>
               <Row>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group controlId="formTokenNumber">
                     <Form.Label>Token Number</Form.Label>
                     <Form.Control
@@ -305,7 +325,7 @@ const MROAdmin = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group controlId="formAadharNumber">
                     <Form.Label>Aadhar Number</Form.Label>
                     <Form.Control
@@ -317,7 +337,7 @@ const MROAdmin = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group controlId="formName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -327,7 +347,7 @@ const MROAdmin = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -364,172 +384,112 @@ const MROAdmin = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group controlId="formSubmittedDate">
                     <Form.Label>Submitted Date</Form.Label>
                     <Form.Control
                       type="text"
                       value={selectedData.submittedDate}
-                      readOnly
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formStatus">
-                    <Form.Label>Status</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={selectedData.status}
-                      onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
-                      disabled={selectedData.status === 'completed'}
-
-                    >
-                      <option value="open">Open</option>
-                      <option value="In Progress" onClick={() => handleUpdateStatus('In Progress', adminComment)}
-                        disabled={isUpdateDisabled && !hasResponded}>In Progress</option>
-                      <option value="completed">Completed</option>
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Group controlId="formAdminComment">
-                    <Form.Label>Admin Comment</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={3}
-                      value={adminComment}
-                      onChange={(e) => {
-                        setAdminComment(e.target.value);
-                        setHasResponded(true);
-                      }}
-                      disabled={isUpdateDisabled && !hasResponded}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Form.Group controlId="formPreviousComments">
-                <Form.Label>Previous Comments</Form.Label>
-                {sortedComments && sortedComments.length > 0 ? (
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Role</th>
-                        <th>Comment</th>
-                        <th>Timestamp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sortedComments.map((comment, index) => (
-                        <tr key={index}>
-                          <strong>{comment.role==="User"?`(${selectedData.name})`:comment.role}</strong>
-                          <td>{comment.comment}</td>
-                          <td>{comment.timestamp}</td>
-                        </tr>
-						
-                      ))}
-                    </tbody>
-                  </Table>
-                ) : (
-                  <p>No previous comments available.</p>
-                )}
-              </Form.Group>
-
-              {isTimeExceeded && !hasResponded && (
-                <Row>
-                  <Col>
-                    <Alert variant="danger">
-                      The issue has not been resolved within 1 minute. The ticket will be
-                      escalated to the IAS.
-                    </Alert>
-                    {!tokenSentToIAS && (
-                      <IAS
-                        data={selectedData}
-                        handleDataUpdate={handleDataUpdate}
-                        setTokenSentToIAS={setTokenSentToIAS}
-                         
-                      />
+                      readOnly/>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <Form.Group controlId="formStatus">
+                        <Form.Label>Status</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={selectedData.status}
+                          onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
+                          disabled={selectedData.status === 'completed'}
+                        >
+                          <option value="open">Open</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="completed">Completed</option>
+                        </Form.Control>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Form.Group controlId="formAdminComment">
+                        <Form.Label>Admin Comment</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          value={adminComment}
+                          onChange={(e) => {
+                            setAdminComment(e.target.value);
+                            setHasResponded(true);
+                          }}
+                          disabled={isUpdateDisabled && !hasResponded}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+    
+                  <Form.Group controlId="formPreviousComments">
+                    <Form.Label>Previous Comments</Form.Label>
+                    {sortedComments && sortedComments.length > 0 ? (
+                      <div className="table-responsive">
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>Role</th>
+                              <th>Comment</th>
+                              <th>Timestamp</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {sortedComments.map((comment, index) => (
+                              <tr key={index}>
+                                <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
+                                <td>{comment.comment}</td>
+                                <td>{comment.timestamp}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </div>
+                    ) : (
+                      <p>No previous comments available.</p>
                     )}
-                  </Col>
-                </Row>
+                  </Form.Group>
+    
+                  {isTimeExceeded && !hasResponded && (
+                    <Row>
+                      <Col>
+                        <Alert variant="danger">
+                          The issue has not been resolved within 1 minute. The ticket will be
+                          escalated to the IAS.
+                        </Alert>
+                        {!tokenSentToIAS && (
+                          <IAS
+                            data={selectedData}
+                            handleDataUpdate={handleDataUpdate}
+                            setTokenSentToIAS={setTokenSentToIAS}
+                          />
+                        )}
+                      </Col>
+                    </Row>
+                  )}
+                </Form>
               )}
-            </Form>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
-            disabled={isUpdateDisabled || (isTimeExceeded && !isActionTaken && !tokenSentToIAS)}
-          >
-            Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Mandal</th>
-            <th>Aadhar</th>
-            <th>Issue Description</th>
-            <th>Village</th>
-            <th>Status</th>
-            <th>Submitted Date</th>
-            <th>Action Taken Date</th>
-            <th>Action Taken By</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((data, index) => (
-            <tr key={index} onClick={() => handleShowModal(data)}>
-              <td>{data.token}</td>
-              <td>{data.mandal}</td>
-              <td>{data.aadhar}</td>
-              <td>{data.issueDescription}</td>
-              <td>{data.village}</td>
-              <td className={getStatusColor(data.status)}>{data.status}</td>
-              <td>{new Date(data.submittedDate).toLocaleString()}</td>
-              <td>
-                {data.actionTakenDate ? (
-                  <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
-                ) : (
-                  '-'
-                )}
-              </td>
-              <td>{data.actionTakenBy || '-'}</td>
-              <td> <Dropdown>
-                <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
-                  Update Action
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
-                    Mark as In Progress
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
-                    Mark as Completed
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      
-      <Alert variant="info">No data available</Alert>
-     
-    </Container>
-  );
-
-
-};
-
-
-export default MROAdmin;
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Close
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
+                disabled={isUpdateDisabled || (isTimeExceeded && !hasResponded && !tokenSentToIAS)}
+              >
+                Update
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Container>
+      );
+    };
+    
+    export default MROAdmin;

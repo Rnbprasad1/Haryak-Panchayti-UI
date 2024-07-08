@@ -7,15 +7,15 @@ const Query = () => {
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [selectedMandal, setSelectedMandal] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('Guntur'); // Default district
+  const [selectedMandal, setSelectedMandal] = useState('Pedanandipadu'); // Default mandal
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    aadhar: '',
+    name: 'Venky',
+    mobile: '9346329784',
+    email: 'venky@gmail.com',
+    aadhar: '835299139595',
     issueDescription: '',
     village: '',
     status: 'open',
@@ -26,13 +26,11 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-   
-
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam','Kurnool','Guntur','Visakhapatnam',
-        'Srikakulam','Tirupati','West Godavari','Bapatla','Chittoor','NTR','Kakinada',
-      ] ;
+      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',
+        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',
+      ];
       const districtsData = {};
       const mandalsData = {};
 
@@ -50,12 +48,10 @@ const Query = () => {
             } catch (mandalError) {
               mandalsData[manDalName] = ["TEST VILLAGE"];
               console.error(`Error loading mandal data for ${manDalName}:`, mandalError);
-             
-             }
+            }
           }
         } catch (districtError) {
           console.error(`Error loading district data for ${district}:`, districtError);
-          // Handle the error or continue
         }
       }
 
@@ -66,20 +62,27 @@ const Query = () => {
     loadJsonData();
   }, []);
 
+  useEffect(() => {
+    if (selectedDistrict) {
+      setAvailableMandals(districts[selectedDistrict] || []);
+      setSelectedMandal(''); // Reset mandal when district changes
+    }
+  }, [selectedDistrict, districts]);
 
+  useEffect(() => {
+    if (selectedMandal) {
+      setAvailableVillages(mandals[selectedMandal] || []);
+    }
+  }, [selectedMandal, mandals]);
 
   const handleDistrictChange = (e) => {
     const district = e.target.value;
     setSelectedDistrict(district);
-    setAvailableMandals(districts[district] || []);
-    setSelectedMandal('');
-    setAvailableVillages([]);
   };
 
   const handleMandalChange = (e) => {
     const mandal = e.target.value;
     setSelectedMandal(mandal);
-    setAvailableVillages(mandals[mandal] || []);
   };
 
   const handleChange = (e) => {
@@ -110,9 +113,9 @@ const Query = () => {
 
   const generateToken = (district, mandal, village) => {
     const stateCode = 'AP';
-    const districtCode = district.substring(0, 3).toUpperCase();  
-    const mandalCode = mandal.substring(0, 3).toUpperCase();  
-    const areaType = 'RU'; 
+    const districtCode = district.substring(0, 3).toUpperCase();
+    const mandalCode = mandal.substring(0, 3).toUpperCase();
+    const areaType = 'RU';
     const villageCode = village.substring(0, 3).toUpperCase();
     const randomDigits = Math.floor(1000 + Math.random() * 9000);
     return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;
