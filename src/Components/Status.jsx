@@ -93,10 +93,10 @@ const Status = ({ enteredByName }) => {
 
   return (
     <Container fluid>
-      <Row className="justify-content-center mb-3">
+      <Row className="mb-3">
         <Col xs={12} md={6} lg={4}>
-          <Form.Group controlId="formSearch" className="text-center">
-            <Form.Label>Search by token number</Form.Label>
+          <Form.Group controlId="formSearch">
+            <Form.Label>Search by Token Number</Form.Label>
             <Form.Control type="text" placeholder="Enter token number" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             <Button variant="primary" onClick={handleSearch} className="mt-2">Search</Button>
           </Form.Group>
@@ -106,54 +106,56 @@ const Status = ({ enteredByName }) => {
       {filteredData.length === 0 ? (
         <p>No data found.</p>
       ) : (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Token</th>
-              <th>Name</th>
-              <th>Mobile</th>
-              <th>Aadhar</th>
-              <th>Issue Description</th>
-              <th>Submitted Date</th>
-              <th>Status</th>
-              <th>Comments</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((data) => (
-              <tr key={data.token}>
-                <td>{data.token}</td>
-                <td>{data.name}</td>
-                <td>{data.mobile}</td>
-                <td>{data.aadhar}</td>
-                <td>{data.issueDescription}</td>
-                <td>{data.submittedDate}</td>
-                <td className={getStatusColor(data.status)}>{data.status}</td>
-                <td>
-                  <ul>
-                    {data.adminComments && data.adminComments.length > 0 ? (
-                      data.adminComments.map((comment, index) => (
-                        <li key={index}>
-                          <strong>{comment.name} ({comment.role}):</strong> {comment.comment} <em>({comment.timestamp})</em>
-                        </li>
-                      ))
-                    ) : (
-                      <p>No comments yet.</p>
-                    )}
-                  </ul>
-                </td>
-                <td>
-                  <Button variant="info" onClick={() => handleShowModal(data)}>View</Button>
-                </td>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Aadhar</th>
+                <th>Issue Description</th>
+                <th>Submitted Date</th>
+                <th>Status</th>
+                <th>Comments</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {filteredData.map((data) => (
+                <tr key={data.token}>
+                  <td>{data.token}</td>
+                  <td>{data.name}</td>
+                  <td>{data.mobile}</td>
+                  <td>{data.aadhar}</td>
+                  <td>{data.issueDescription}</td>
+                  <td>{data.submittedDate}</td>
+                  <td className={getStatusColor(data.status)}>{data.status}</td>
+                  <td>
+                    <ul className="list-unstyled">
+                      {data.adminComments && data.adminComments.length > 0 ? (
+                        data.adminComments.map((comment, index) => (
+                          <li key={index}>
+                            <strong>{comment.name} ({comment.role}):</strong> {comment.comment} <em>({comment.timestamp})</em>
+                          </li>
+                        ))
+                      ) : (
+                        <p>No comments yet.</p>
+                      )}
+                    </ul>
+                  </td>
+                  <td>
+                    <Button variant="info" onClick={() => handleShowModal(data)}>View</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       )}
 
       {selectedData && (
-        <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
+        <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Update Status</Modal.Title>
           </Modal.Header>
@@ -175,31 +177,31 @@ const Status = ({ enteredByName }) => {
               <Form.Label>Admin Comment</Form.Label>
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
-            <Button variant="success" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled} className="mt-2 w-100">
-              Update
-            </Button>
+            <Button variant="success" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled} className="mt-2">Update</Button>
             
             <div className="mt-4">
               <h5>Previous Comments:</h5>
               {sortedComments.length > 0 ? (
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Role</th>
-                      <th>Comment</th>
-                      <th>Timestamp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sortedComments.map((comment, index) => (
-                      <tr key={index}>
-                        <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
-                        <td>{comment.comment}</td>
-                        <td>{comment.timestamp}</td>
+                <div className="table-responsive">
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Role</th>
+                        <th>Comment</th>
+                        <th>Timestamp</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                    </thead>
+                    <tbody>
+                      {sortedComments.map((comment, index) => (
+                        <tr key={index}>
+                          <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
+                          <td>{comment.comment}</td>
+                          <td>{comment.timestamp}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
               ) : (
                 <p>No previous comments.</p>
               )}
