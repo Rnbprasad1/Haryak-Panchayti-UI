@@ -147,7 +147,7 @@ const CM = () => {
 
       updateStatus(index, status, adminComment, true);
       updateAdminResponse(index, adminComment, true);
-      updateActionTakenBy(index, 'IAS', true);
+      updateActionTakenBy(index, 'CM', true);
       updateActionTakenDate(index, currentActionTakenDate, true);
       updateIASResponse(index, adminComment);
 
@@ -187,10 +187,10 @@ const CM = () => {
   });
 
   return (
-    <Container>
-      <h2>CM Dashboard - Escalated Queries</h2>
-      <Row>
-        <Col>
+    <Container fluid>
+      <h2 className="mb-4">CM Dashboard - Escalated Queries</h2>
+      <Row className="mb-3">
+        <Col xs={12} md={3} className="mb-2">
           <Form.Group controlId="formDistrict">
             <Form.Label>Filter by District</Form.Label>
             <Form.Control as="select" value={filterDistrict} onChange={handleDistrictChange}>
@@ -203,7 +203,7 @@ const CM = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col>
+        <Col xs={12} md={3} className="mb-2">
           <Form.Group controlId="formMandal">
             <Form.Label>Filter by Mandal</Form.Label>
             <Form.Control as="select" value={filterMandal} onChange={handleMandalChange}>
@@ -216,7 +216,7 @@ const CM = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col>
+        <Col xs={12} md={3} className="mb-2">
           <Form.Group controlId="formVillage">
             <Form.Label>Filter by Village</Form.Label>
             <Form.Control as="select" value={filterVillage} onChange={handleVillageChange}>
@@ -229,7 +229,7 @@ const CM = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col>
+        <Col xs={12} md={3} className="mb-2">
           <Form.Group controlId="formSearch">
             <Form.Label>Search</Form.Label>
             <Form.Control
@@ -242,8 +242,6 @@ const CM = () => {
         </Col>
       </Row>
 
-      <div style={{ marginBottom: '1rem' }}></div>
-
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Ticket Details</Modal.Title>
@@ -252,7 +250,7 @@ const CM = () => {
           {selectedData && (
             <Form>
               <Row>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formTokenNumber">
                     <Form.Label>Token Number</Form.Label>
                     <Form.Control
@@ -262,7 +260,7 @@ const CM = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formAadharNumber">
                     <Form.Label>Aadhar Number</Form.Label>
                     <Form.Control
@@ -274,7 +272,7 @@ const CM = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -284,7 +282,7 @@ const CM = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -296,7 +294,7 @@ const CM = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formMobileNumber">
                     <Form.Label>Mobile Number</Form.Label>
                     <Form.Control
@@ -306,7 +304,7 @@ const CM = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formStatus">
                     <Form.Label>Status</Form.Label>
                     <Form.Control
@@ -323,7 +321,7 @@ const CM = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formSubmittedDate">
                     <Form.Label>Submitted Date</Form.Label>
                     <Form.Control
@@ -333,7 +331,7 @@ const CM = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6} className="mb-2">
                   <Form.Group controlId="formActionTakenDate">
                     <Form.Label>Action Taken Date</Form.Label>
                     <Form.Control
@@ -344,7 +342,7 @@ const CM = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Form.Group controlId="formIssueDetails">
+              <Form.Group controlId="formIssueDetails" className="mb-2">
                 <Form.Label>Issue Details</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -354,33 +352,35 @@ const CM = () => {
                 />
               </Form.Group>
 
-              <Form.Group controlId="formPreviousComments">
+              <Form.Group controlId="formPreviousComments" className="mb-2">
                 <Form.Label>Previous Comments</Form.Label>
                 {sortedComments && sortedComments.length > 0 ? (
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th>Role</th>
-                        <th>Comment</th>
-                        <th>Timestamp</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sortedComments.map((comment, index) => (
-                        <tr key={index}>
-                           <strong>{comment.role ==="User" ?`(${selectedData.name})`:comment.role}</strong>
-                          <td>{comment.comment}</td>
-                          <td>{comment.timestamp}</td>
+                  <div className="table-responsive">
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Role</th>
+                          <th>Comment</th>
+                          <th>Timestamp</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </Table>
+                      </thead>
+                      <tbody>
+                        {sortedComments.map((comment, index) => (
+                          <tr key={index}>
+                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
+                            <td>{comment.comment}</td>
+                            <td>{comment.timestamp}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
                 ) : (
                   <p>No previous comments available.</p>
                 )}
               </Form.Group>
 
-              <Form.Group controlId="formAdminComment">
+              <Form.Group controlId="formAdminComment" className="mb-2">
                 <Form.Label>Admin Comment</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -408,60 +408,62 @@ const CM = () => {
       </Modal>
 
       {filteredData.length > 0 ? (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Token</th>
-              <th>District</th>
-              <th>Mandal</th>
-              <th>Aadhar</th>
-              <th>Issue Description</th>
-              <th>Village</th>
-              <th>Status</th>
-              <th>Submitted Date</th>
-              <th>Action Taken Date</th>
-              <th>Action Taken By</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((data, index) => (
-              <tr key={index} onClick={() => handleShowModal(data)}>
-                <td>{data.token}</td>
-                <td>{data.district}</td>
-                <td>{data.mandal}</td>
-                <td>{data.aadhar}</td>
-                <td>{data.issueDescription}</td>
-                <td>{data.village}</td>
-                <td className={getStatusColor(data.status)}>{data.status}</td>
-                <td>{new Date(data.submittedDate).toLocaleString()}</td>
-                <td>
-                  {data.actionTakenDate ? (
-                    <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
-                  ) : (
-                    '-'
-                  )}
-                </td>
-                <td>{data.actionTakenBy || '-'}</td>
-                <td>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
-                      Update Action
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
-                        Mark as In Progress
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
-                        Mark as Completed
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </td>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>District</th>
+                <th>Mandal</th>
+                <th>Aadhar</th>
+                <th>Issue Description</th>
+                <th>Village</th>
+                <th>Status</th>
+                <th>Submitted Date</th>
+                <th>Action Taken Date</th>
+                <th>Action Taken By</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {filteredData.map((data, index) => (
+                <tr key={index} onClick={() => handleShowModal(data)}>
+                  <td>{data.token}</td>
+                  <td>{data.district}</td>
+                  <td>{data.mandal}</td>
+                  <td>{data.aadhar}</td>
+                  <td>{data.issueDescription}</td>
+                  <td>{data.village}</td>
+                  <td className={getStatusColor(data.status)}>{data.status}</td>
+                  <td>{new Date(data.submittedDate).toLocaleString()}</td>
+                  <td>
+                    {data.actionTakenDate ? (
+                      <small>{new Date(data.actionTakenDate).toLocaleString()}</small>
+                    ) : (
+                      '-'
+                    )}
+                  </td>
+                  <td>{data.actionTakenBy || '-'}</td>
+                  <td>
+                    <Dropdown>
+                      <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>
+                        Update Action
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => handleUpdateStatus('In Progress', 'Action in progress')}>
+                          Mark as In Progress
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleUpdateStatus('completed', 'Action completed')}>
+                          Mark as Completed
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       ) : (
         <Alert variant="info">No data available</Alert>
       )}
@@ -470,4 +472,3 @@ const CM = () => {
 };
 
 export default CM;
-

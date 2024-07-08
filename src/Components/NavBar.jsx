@@ -1,28 +1,33 @@
-// src/Navbar.js
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const handleNavToggle = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/"></Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav ms-auto">
-          <Link className="nav-item nav-link" to="/">Home</Link>
-          <Link className="nav-item nav-link" to="/status">Status</Link>
-          <Link className="nav-item nav-link" to="/query">Query</Link>
-         
-         <Link className="nav-item nav-link" to="/admin">Login </Link>
-          
+      <div className="container-fluid">
+        <NavLink className="navbar-brand" to="/" onClick={closeNav}></NavLink>
+        <button className="navbar-toggler" type="button" onClick={handleNavToggle}>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={`collapse navbar-collapse ${isNavOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
+          <div className="navbar-nav ms-auto">
+            <NavLink exact className="nav-item nav-link" to="/" activeClassName="active" onClick={closeNav}>Home</NavLink>
+            <NavLink className="nav-item nav-link" to="/status" activeClassName="active" onClick={closeNav}>Status</NavLink>
+            <NavLink className="nav-item nav-link" to="/query" activeClassName="active" onClick={closeNav}>Query</NavLink>
+            <NavLink className="nav-item nav-link" to="/admin" activeClassName="active" onClick={closeNav}>Login</NavLink>
+          </div>
         </div>
-        <div />
-
       </div>
     </nav>
   );

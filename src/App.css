@@ -22,3 +22,41 @@ input[type="file"] {
   font-weight: 1rem;
   padding: 1rem;
 }
+
+/* App.css */
+
+/* Default (large screens) */
+.App-header {
+  background-size: cover;
+  background-position: center;
+  height: 150px; /* Adjust the height as needed */
+}
+
+/* Small screens */
+/* Small screens */
+@media (max-width: 768px) {
+  .App-header {
+    background-image: url('https://via.placeholder.com/350x50'); /* Placeholder image URL */
+    height: 0px; /* Adjust the height for small screens */
+    width: 0px; /* Adjust the width for small screens */
+    padding-top: 0px;
+
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .App-header {
+    background-image: url('https://via.placeholder.com/450x50'); /* Placeholder image URL */
+    height: auto; /* Adjust the height to auto */
+    width: 100%; /* Adjust the width to fit the screen */
+    background-size: contain; /* Ensure the full image is displayed */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    margin-top: -60px;
+    margin-bottom: -60px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+   
+ 
