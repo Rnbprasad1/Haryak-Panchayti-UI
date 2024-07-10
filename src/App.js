@@ -15,6 +15,7 @@ import smallBannerImage from './Assets/AP1.png'; // New image for small screens
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
 import FormComponent from './Components/FormComponent';
+import Dashboard from './Components/Dashboard';
 
 function App() {
   useEffect(() => {
@@ -49,7 +50,8 @@ function App() {
               <Route path="/ias" element={<IAS />} />
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
-              <Route exact path='/admin' element={<FormComponent />} />
+              <Route exact path='/login' element={<FormComponent />} />
+              <Route path="/admin" element={<Dashboard />} />
             </Routes>
           </div>
         </div>
