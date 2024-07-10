@@ -27,18 +27,70 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-  // ... (rest of the code remains the same)
-  useEffect(() => {    const loadJsonData = async () => {      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',      ];      const districtsData = {};      const mandalsData = {};
-      for (const district of districtFiles) {        try {          const districtData = await import(`../Components/Data/mandal/${district}.json`);          const mandalList = districtData.default.Get_mandals;          districtsData[district] = mandalList.map(mandal => mandal.MandalName.trim());
-          for (const mandal of mandalList) {            const manDalName = mandal.MandalName.trim();            try {              const mandalData = await import(`../Components/Data/villages/${manDalName}.json`);              mandalsData[manDalName] = mandalData.Lgdrvmaster.map(village => village.Revenue_Name.trim());            } catch (mandalError) {              mandalsData[manDalName] = ["TEST VILLAGE"];              console.error(`Error loading mandal data for ${manDalName}:`, mandalError);            }          }        } catch (districtError) {          console.error(`Error loading district data for ${district}:`, districtError);        }      }
-      setDistricts(districtsData);      setMandals(mandalsData);    };
-    loadJsonData();  }, []);
-  const handleDistrictChange = (e) => {    const district = e.target.value;    setSelectedDistrict(district);    setAvailableMandals(districts[district] || []);    setSelectedMandal('');    setAvailableVillages([]);  };
-  const handleMandalChange = (e) => {    const mandal = e.target.value;    setSelectedMandal(mandal);    setAvailableVillages(mandals[mandal] || []);  };
-  const handleChange = (e) => {    const { id, value } = e.target;    setFormData((prevData) => ({      ...prevData,      [id]: value,    }));  };
-  const handleFileUpload = (e) => {    const file = e.target.files[0];    setFile(file);    setFileName(file.name);  };
-  const handleSubmit = (e) => {    e.preventDefault();    const { name, mobile, email, aadhar, issueDescription, village } = formData;    const generatedToken = generateToken(selectedDistrict, selectedMandal, village);    setToken(generatedToken);    setShowToken(true);    handleQuerySubmit({ ...formData, token: generatedToken, selectedDistrict, selectedMandal, file, fileName });    console.log(`Token: ${generatedToken}`);    console.log(`Send token to email: ${email} and mobile: ${mobile}`);  };
-  const generateToken = (district, mandal, village) => {    const stateCode = 'AP';    const districtCode = district.substring(0, 3).toUpperCase();    const mandalCode = mandal.substring(0, 3).toUpperCase();    const areaType = 'RU';    const villageCode = village.substring(0, 3).toUpperCase();    const randomDigits = Math.floor(1000 + Math.random() * 9000);    return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;  };
+ 
+  useEffect(() => {const loadJsonData = async () => {const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',      ];      const districtsData = {};      const mandalsData = {};
+     for (const district of districtFiles) {try {const districtData = await import(`../Components/Data/mandal/${district}.json`);          
+     const mandalList = districtData.default.Get_mandals;
+     districtsData[district] = mandalList.map(mandal => mandal.MandalName.trim());
+        for (const mandal of mandalList) {const manDalName = mandal.MandalName.trim(); 
+          try {const mandalData = await import(`../Components/Data/villages/${manDalName}.json`);
+            mandalsData[manDalName] = mandalData.Lgdrvmaster.map(village => village.Revenue_Name.trim());
+           } catch (mandalError) {mandalsData[manDalName] = ["TEST VILLAGE"];
+              console.error(`Error loading mandal data for ${manDalName}:`, mandalError);
+            
+            }
+          }
+        } catch (districtError) {
+              console.error(`Error loading district data for ${district}:`, districtError);
+            }
+          }
+        setDistricts(districtsData); setMandals(mandalsData); 
+      };
+loadJsonData(); 
+}, []);
+ const handleDistrictChange = (e) => {
+   const district = e.target.value;
+    setSelectedDistrict(district);  
+    setAvailableMandals(districts[district] || []);
+    setSelectedMandal('');
+    setAvailableVillages([]);
+   };
+
+ const handleMandalChange = (e) => {
+    const mandal = e.target.value;
+    setSelectedMandal(mandal);
+    setAvailableVillages(mandals[mandal] || []); 
+  };
+
+
+ const handleChange = (e) => {
+   const { id, value } = e.target;
+   setFormData((prevData) => ({ ...prevData, [id]: value, }));
+  };
+ const handleFileUpload = (e) => {
+   const file = e.target.files[0];
+   setFile(file);
+   setFileName(file.name);
+  };
+
+ const handleSubmit = (e) => {e.preventDefault();
+   const { name, mobile, email, aadhar, issueDescription, village } = formData;
+   const generatedToken = generateToken(selectedDistrict, selectedMandal, village);
+   setToken(generatedToken);
+   setShowToken(true);
+   handleQuerySubmit({ ...formData, token: generatedToken, selectedDistrict, selectedMandal, file, fileName });
+   console.log(`Token: ${generatedToken}`);
+   console.log(`Send token to email: ${email} and mobile: ${mobile}`);
+  };
+ const generateToken = (district, mandal, village) => {
+  const stateCode = 'AP';
+  const districtCode = district.substring(0, 3).toUpperCase();
+  const mandalCode = mandal.substring(0, 3).toUpperCase();
+  const areaType = 'RU';
+  const villageCode = village.substring(0, 3).toUpperCase();
+  const randomDigits = Math.floor(1000 + Math.random() * 9000);
+   return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;
+   };
 
   return (
     <Container className="my-5">
