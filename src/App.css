@@ -1,4 +1,4 @@
-/* src/App.css */
+
 .App {
   text-align: center;
 }
@@ -23,40 +23,35 @@ input[type="file"] {
   padding: 1rem;
 }
 
-/* App.css */
-
 /* Default (large screens) */
 .App-header {
   background-size: cover;
   background-position: center;
-  height: 150px; /* Adjust the height as needed */
+  height: 150px; 
+  background-image: url('Assets/AP.png'); 
 }
 
 /* Small screens */
-/* Small screens */
 @media (max-width: 768px) {
   .App-header {
-    background-image: url('https://via.placeholder.com/350x50'); /* Placeholder image URL */
-    height: 0px; /* Adjust the height for small screens */
-    width: 0px; /* Adjust the width for small screens */
+    background-image: url('Assets/AP1 - Copy.png');
+    height: 100px; 
+    width: 100%; 
     padding-top: 0px;
-
   }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
   .App-header {
-    background-image: url('https://via.placeholder.com/450x50'); /* Placeholder image URL */
-    height: auto; /* Adjust the height to auto */
-    width: 100%; /* Adjust the width to fit the screen */
-    background-size: contain; /* Ensure the full image is displayed */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    margin-top: -60px;
+    background-image: url('Assets/AP1.png'); /* Add your extra small banner image URL here */
+    height: auto; 
+    width: 100%; 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    margin-top: -50px;
     margin-bottom: -60px;
     margin-left: 0;
     margin-right: 0;
   }
 }
-   
- 
