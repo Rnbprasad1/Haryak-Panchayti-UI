@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Form, Container, Row, Col, Button, Alert } from 'react-bootstrap';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 import Footer1 from './Footer1';
-
+//Query Enhancement
 const Query = () => {
   const { handleQuerySubmit } = useContext(DataContext);
 
