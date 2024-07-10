@@ -97,7 +97,8 @@ function Navbar() {
             <NavLink exact className="nav-item nav-link" to="/" activeClassName="active" onClick={closeNav}>Home</NavLink>
             <NavLink className="nav-item nav-link" to="/status" activeClassName="active" onClick={closeNav}>Status</NavLink>
             <NavLink className="nav-item nav-link" to="/query" activeClassName="active" onClick={closeNav}>Query</NavLink>
-            <NavLink className="nav-item nav-link" to="/admin" activeClassName="active" onClick={closeNav}>Login</NavLink>
+            <NavLink className="nav-item nav-link" to="/login" activeClassName="active" onClick={closeNav}>Login</NavLink>
+            <NavLink className="nav-item nav-link" to="/admin" activeClassName="active" onClick={closeNav}>Admin</NavLink>
           </div>
         </div>
       </div>
