@@ -8,15 +8,15 @@ const Query = () => {
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [selectedMandal, setSelectedMandal] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('Guntur'); // Default district
+  const [selectedMandal, setSelectedMandal] = useState('Pedanandipadu'); // Default mandal
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    aadhar: '',
+    name: 'Venky',
+    mobile: '9346329784',
+    email: 'venky@gmail.com',
+    aadhar: '835299139595',
     issueDescription: '',
     village: '',
     status: 'open',
@@ -26,6 +26,7 @@ const Query = () => {
   const [token, setToken] = useState('');
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
+
 
  
   useEffect(() => {const loadJsonData = async () => {const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',      ];      const districtsData = {};      const mandalsData = {};
@@ -91,6 +92,7 @@ loadJsonData();
   const randomDigits = Math.floor(1000 + Math.random() * 9000);
    return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;
    };
+
 
   return (
     <Container className="my-5">
@@ -214,6 +216,7 @@ loadJsonData();
               </Alert>
             )}
           </div>
+
         </Col>
       </Row>
 
