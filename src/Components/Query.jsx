@@ -8,15 +8,15 @@ const Query = () => {
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [selectedMandal, setSelectedMandal] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('Guntur'); // Default district
+  const [selectedMandal, setSelectedMandal] = useState('Pedanandipadu'); // Default mandal
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    mobile: '',
-    email: '',
-    aadhar: '',
+    name: 'Venky',
+    mobile: '9346329784',
+    email: 'venky@gmail.com',
+    aadhar: '835299139595',
     issueDescription: '',
     village: '',
     status: 'open',
@@ -27,7 +27,8 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-  // ... (rest of the code remains the same)
+
+
   useEffect(() => {    const loadJsonData = async () => {      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam',        'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada',      ];      const districtsData = {};      const mandalsData = {};
       for (const district of districtFiles) {        try {          const districtData = await import(`../Components/Data/mandal/${district}.json`);          const mandalList = districtData.default.Get_mandals;          districtsData[district] = mandalList.map(mandal => mandal.MandalName.trim());
           for (const mandal of mandalList) {            const manDalName = mandal.MandalName.trim();            try {              const mandalData = await import(`../Components/Data/villages/${manDalName}.json`);              mandalsData[manDalName] = mandalData.Lgdrvmaster.map(village => village.Revenue_Name.trim());            } catch (mandalError) {              mandalsData[manDalName] = ["TEST VILLAGE"];              console.error(`Error loading mandal data for ${manDalName}:`, mandalError);            }          }        } catch (districtError) {          console.error(`Error loading district data for ${district}:`, districtError);        }      }
@@ -162,6 +163,7 @@ const Query = () => {
               </Alert>
             )}
           </div>
+
         </Col>
       </Row>
 
