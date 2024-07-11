@@ -46,7 +46,7 @@ const Status = ({ enteredByName }) => {
     setAdminComment('');
   };
 
-  const handleUpdateStatus = (status, adminResponse) => {
+  const handleUpdateStatus = (adminResponse) => {
     if (selectedData) {
       const index = formDataArray.findIndex((data) => data.token === selectedData.token);
       const currentActionTakenDate = new Date().toISOString();
@@ -57,26 +57,29 @@ const Status = ({ enteredByName }) => {
         role: 'User',
       };
 
-      updateStatus(index, status, adminResponse);
+      const newStatus = 'In Progress';
+
+      updateStatus(index, newStatus, adminResponse);
       updateAdminResponse(index, adminResponse);
       updateActionTakenBy(index, 'Admin');
-      if (status === 'completed' || status === 'In Progress') {
-        updateActionTakenDate(index, currentActionTakenDate);
-        sendMessageToUser(selectedData.mobile, adminResponse);
-      }
+      updateActionTakenDate(index, currentActionTakenDate);
+      sendMessageToUser(selectedData.mobile, adminResponse);
 
       const updatedComments = [...(selectedData.adminComments || []), currentComment];
-      const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'Admin' };
+      const updatedData = { 
+        ...selectedData, 
+        adminComments: updatedComments, 
+        actionTakenDate: currentActionTakenDate, 
+        actionTakenBy: 'Admin',
+        status: newStatus
+      };
       const updatedFormDataArray = [...formDataArray];
       updatedFormDataArray[index] = updatedData;
 
       updateFormDataArray(updatedFormDataArray);
 
-      if (status === 'completed') {
-        setIsUpdateDisabled(true);
-      }
-
       setSelectedData(updatedData);
+      setFilteredData([updatedData]);
     }
 
     handleCloseModal();
@@ -93,15 +96,31 @@ const Status = ({ enteredByName }) => {
 
   return (
     <Container fluid>
-      <Row className="mb-3">
-        <Col xs={12} md={6} lg={4}>
-          <Form.Group controlId="formSearch">
-            <Form.Label>Search by Token Number</Form.Label>
-            <Form.Control type="text" placeholder="Enter token number" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-            <Button variant="primary" onClick={handleSearch} className="mt-2">Search</Button>
-          </Form.Group>
-        </Col>
-      </Row>
+
+      <br></br>
+     <Row className="mb-3 justify-content-center">
+  <Col xs={12} md={6} lg={4}>
+    <div className="input-group">
+      <Form.Control
+        type="text"
+        placeholder="Enter token number"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border-primary"
+      />
+      <div className="input-group-append">
+        <Button
+          variant="primary"
+          onClick={handleSearch}
+          className="rounded-right"
+        >
+          Search
+        </Button>
+      </div>
+    </div>
+  </Col>
+</Row>
+
 
       {filteredData.length === 0 ? (
         <p>No data found.</p>
@@ -177,7 +196,14 @@ const Status = ({ enteredByName }) => {
               <Form.Label>Admin Comment</Form.Label>
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
-            <Button variant="success" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled} className="mt-2">Update</Button>
+            <Button 
+              variant="success" 
+              onClick={() => handleUpdateStatus(adminComment)} 
+              disabled={isUpdateDisabled || !adminComment.trim()} 
+              className="mt-2"
+            >
+              Update
+            </Button>
             
             <div className="mt-4">
               <h5>Previous Comments:</h5>
@@ -212,6 +238,9 @@ const Status = ({ enteredByName }) => {
           </Modal.Footer>
         </Modal>
       )}
+      <br></br>
+      <br></br>
+      <Footer1 />
     </Container>
   );
 };
