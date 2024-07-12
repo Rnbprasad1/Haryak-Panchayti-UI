@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
-
+import { useParams } from 'react-router-dom';
 
 const MROAdmin = () => {
   const [filterMandal, setFilterMandal] = useState('');
@@ -21,7 +21,18 @@ const MROAdmin = () => {
   const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
-  const loggedInMandal = 'Chilakaluripet'; // Replace with the actual logged-in mandal
+  
+  const { loggedInMandal } = useParams(); // Get the logged-in mandal from the URL parameters
+
+  useEffect(() => {
+    // Set the logged-in mandal and filter based on it
+    setFilterMandal(loggedInMandal);
+
+    // Load available villages based on logged-in mandal
+    if (loggedInMandal && mandals[loggedInMandal]) {
+      setAvailableVillages(mandals[loggedInMandal]);
+    }
+  }, [loggedInMandal]);
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -42,54 +53,27 @@ const MROAdmin = () => {
 
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
-
-    if (filterMandal && filterVillage) {
-      return (
-        data.mandal === loggedInMandal &&
-        data.village === filterVillage &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.includes(searchQuery))
-      );
-    } else if (filterMandal) {
-      return (
-        data.mandal === loggedInMandal &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.includes(searchQuery))
-      );
-    } else if (filterVillage) {
-      return (
-        data.village === filterVillage &&
-        (data.token?.includes(searchQuery) ||
-          data.mobile?.includes(searchQuery) ||
-          data.name?.includes(searchQuery) ||
-          data.aadhar?.includes(searchQuery) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.includes(searchQuery))
-      );
-    }
     return (
-      data.token?.match(searchRegex) ||
-      data.mobile?.match(searchRegex) ||
-      data.name?.match(searchRegex) ||
-      data.aadhar?.match(searchRegex) ||
-      data.issueDescription?.match(searchRegex) ||
-      data.submittedDate?.match(searchRegex)
+      (data.mandal === filterMandal || !filterMandal) &&
+      (data.village === filterVillage || !filterVillage) &&
+      (data.token?.includes(searchQuery) ||
+        data.mobile?.includes(searchQuery) ||
+        data.name?.includes(searchQuery) ||
+        data.aadhar?.includes(searchQuery) ||
+        data.issueDescription?.match(searchRegex) ||
+        data.submittedDate?.includes(searchQuery))
     );
   });
 
   const handleMandalChange = (e) => {
     const mandal = e.target.value;
     setFilterMandal(mandal);
-    setAvailableVillages(mandals[mandal] || []);
     setFilterVillage('');
+    if (mandals[mandal]) {
+      setAvailableVillages(mandals[mandal]);
+    } else {
+      setAvailableVillages([]);
+    }
   };
 
   const handleVillageChange = (e) => {
@@ -98,10 +82,25 @@ const MROAdmin = () => {
   };
 
   const mandals = {
-    'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
-    'Narsarsaopet': ['Jonnalagadda', 'Palapadu'],
-    'Tenali': ['Burripalem', 'Nelapadu'],
-    'Amaravathi': ['Lingapuram', 'Unguturu'],
+    'Chebrole': ['CHEBROLE (చేబ్రోలు)', 'GODAVARRU (గొడవర్రు)', 'MANCHALA (మంచాల)', 'MEESARAGADDA ANANTHAVARAM (మీసరగడ్డఅనంతవరం)', 'NARAKODUR (నారాకోడూరు)', 'PATHAREDDIPALEM (పాతరెడ్డి పాలెము)', 'SEKURU (సెకురు)', 'SUDDAPALLI (సుద్దపల్లి)', 'VADLAMUDI (వడ్లమూడి)', 'VEJENDLA (వెజండ్ల)' ],
+    'Duggirala': ['CHILUVURU (చిలువూరు)', 'CHINA PALEM (చినపాలెం)', 'CHINTALA PUDI (చింతలపూడి)', 'DEVARAPALLE AGRAHARAM (దేవరపల్లి అగ్రహారం)', 'DUGGIRALA (దుగ్గిరాల)', 'EMANI (ఈమని)','GODAVARRU (గొడవర్రు)', 'KANTAMRAJU KONDURU (కంటం రాజు కొండూరు)', 'MORAMPUDI (మొరంపూడి)','PEDA KONDURU (పెదకొండూరు)','PENUMULI (పెనుమూలి)', 'PERAKALA PUDI (పేరుకలపూడి)', 'SRUNGARA PURAM (శృంగారపురం)', 'THUMMOPUDI (తుమ్మపూడి)' ],
+    'Pedanandipadu' : ['Agatha Varappadu','Anumarlapudi', 'Devarayabhotlapalem', 'Koppuravuru', 'Nambur', 'Pedakakani', 'Takkellapadu', 'Tangellamudi', 'Uppalapadu', 'Venigandla'],
+    'Kakumanu' : ['APPA PURAM (అప్పాపురము)', 'BODIPALEM (బోడిపాలెం)', 'BODIPALEM (బోడిపాలెం)', 'GARIKAPADU (గరికపాడు)', 'KAKUMANU (కాకుమాను)', 'KOLLIMARLA (కొల్లిమర్ల)', 'KOMMURU (కొమ్మూరు)', 'KONDAPATURU (కొండపాటూరు)', 'PANDRAPADU (పాండ్రపాడు)', 'RETUR (రేటూరు)', 'VALLUR (వల్లూరు)' ],
+    'Tenali': ['Chandole', 'Chintalapudi', 'Jampani', 'Kuchipudi', 'Pedapalem', 'Penumudi', 'Peravalli', 'Potharlanka', 'Sivadevarapadu', 'Tadepalle',],
+            
+    'Ponnur' : ['Ananthavarappadu',  'Chebrolu', 'Chinapulivarru', 'Gollapudi', 'Gundalapadu', 'Nidubrolu', 'Pedapulivarru', 'Srirangapuram', 'Thimmapuram', 'Tummalapalem'],
+    'Kollipara' :['ANNAVARAM (అన్నవరం)', 'ATHOTA (అత్తోట)', 'BOMMUVARIPALEM (బొమ్మువారిపాలెం)', 'CHEMUDUPADU (చెముడుపాడు)', 'CHIVALUR (చివలూరు)', 'DANTHALUR (దంతలూరు)', 'DAVULURU (దావులూరు)', 'KOLLIPARA (కొల్లిపర)', 'KUNCHAVARAM (కుంచవరం)', 'MUNNANGI (మున్నంగి (మునికోటిపురం))', 'PIDAPARRU (పిడపర్రు)', 'SIRIPURAM (సిరిపురం)', 'THUMULURU (తూములూరు)', 'VALLABHAPURAM (వల్లభాపురం)' ],
+    'Mangalagiri' : ['ATMAKUR (ఆత్మకూరు)', 'CHINAKAKANI (చినకాకాని)', 'CHINAVADLAPUDI (చినవడ్లపూడి)', 'KAZA (కాజా)', 'KRISHNAYAPALEM (క్రిష్ణాయపాలెం)', 'KURAGALLU (కురగల్లు)', 'MANGALAGIRI (U) (మంగళగిరి(యు))', 'NAVULURU (OG) (నవులూరు)', 'NIDAMARRU (నిడమర్రు)', 'NUTHAKKI (నూతక్కి)', 'PEDAVADLAPUDI (పెదవడ్లపూడి)', 'RAMACHANDRA PURAM (రామచంద్రాపురం)' ],
+    //'Medikonduru' : [''],
+    'Pedakakani' : ['Agatha Varappadu', 'Anumarlapudi', 'Devarayabhotlapalem', 'Koppuravuru', 'Nambur', 'Pedakakani', 'Takkellapadu', 'Tangellamudi', 'Uppalapadu', 'Venigandla' ],
+    'Phirangipuram' : ['Annaparru', 'Annavaram', 'Gorijavoluguntapalem', 'Katrapadu', 'Kopparru', 'Palaparru', 'Rajupalem', 'Ravipadu', 'Uppalapadu', 'Varagani'  ],
+    'Prathipadu' : ['Ananthavarappadu', 'Chinapulivarru', 'Gollapudi', 'Gundalapadu', 'Nidubrolu', 'Pedapulivarru', 'Srirangapuram', 'Thimmapuram', 'Tummalapalem' ],
+    'Tadepalli' : ['Amaravathi', 'Undavalli', 'Penumaka', 'Bethapudi', 'Krishnayapalem', 'Prathipadu', 'Neerukonda', 'Dondapadu', 'Lingayapalem', 'Tadepalli',  ],
+    'Tadikonda' : ['Tadikonda', 'Laxmipuram', 'Ananthavaram', 'Pedaparimi', 'Nekkallu', 'Gudimetla', 'Modukuru', 'Pothunuru', 'Pedakonduru', 'Velpuru'],
+    'Thullur' : ['Abbarajupalem', 'Ananthavaram', 'Borupalem', 'Dondapadu', 'Lingayapalem', 'Malkapuram', 'Mandadam', 'Nelapadu', 'Rayapudi', 'Tulluru', 'Velagapudi'],
+    'Vatticherukuru' : ['Ambapuram', 'Balakrishnaya Palem', 'Bhattiprolu', 'Challapalli', 'Chebrolu', 'Devarayabhotlapalem', 'Kondavidu', 'Pedapalem', 'Reddigudem', 'Tsundur', 'Venigandla'],
+    'Guntur' : ['ANKIREDDIPALEM (అంకిరెడ్డిపాలెం)', 'BUDAMPADU (బుడంపాడు)', 'CHINAPALAKALURU (చినపలకలూరు)', 'CHOWDAVARAM (చౌడవరం)', 'ETUKURU (ఏటుకూరు)','GORANTLA (గోరంట్ల)','GUNTUR (R) (గుంటూరు    (యు))', 'JONNALA GADDA (జొన్నలగడ్డ)', 'KORITEPADU  (R) (కొరిటెపాడు (అర్))', 'NALLAPADU (నల్లపాడు)', 'PEDA PALAKALURU (పెదపలకలూరు)', 'POTHURU (పొత్తూరు)', 'RAMACHANDRAPURAM AGRAHARAM (U) (రామచంద్రాపురం అగ్రహారం (యు))'],
+
   };
 
   const handleShowModal = (data) => {
@@ -111,10 +110,6 @@ const MROAdmin = () => {
     setShowModal(true);
     setHasResponded(data.adminComments && data.adminComments.length > 0);
     setTokenSentToIAS(false);
-
-    const updateIasDataArray = (updatedIasDataArray) => {
-      setIasDataArray(updatedIasDataArray);
-    };
 
     const submittedTime = new Date(data.submittedDate);
     const currentTime = new Date();
@@ -212,13 +207,8 @@ const MROAdmin = () => {
         <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
             <Form.Label>Filter by Mandal</Form.Label>
-            <Form.Control as="select" value={filterMandal} onChange={handleMandalChange}>
-              <option value="">All Mandals</option>
-              {Object.keys(mandals).map((mandal) => (
-                <option key={mandal} value={mandal}>
-                  {mandal}
-                </option>
-              ))}
+            <Form.Control as="select" value={filterMandal} onChange={handleMandalChange} disabled>
+              <option value={loggedInMandal}>{loggedInMandal}</option>
             </Form.Control>
           </Form.Group>
         </Col>
@@ -390,106 +380,107 @@ const MROAdmin = () => {
                     <Form.Control
                       type="text"
                       value={selectedData.submittedDate}
-                      readOnly/>
-                      </Form.Group>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <Form.Group controlId="formStatus">
-                        <Form.Label>Status</Form.Label>
-                        <Form.Control
-                          as="select"
-                          value={selectedData.status}
-                          onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
-                          disabled={selectedData.status === 'completed'}
-                        >
-                          <option value="open">Open</option>
-                          <option value="In Progress">In Progress</option>
-                          <option value="completed">Completed</option>
-                        </Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Form.Group controlId="formAdminComment">
-                        <Form.Label>Admin Comment</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          value={adminComment}
-                          onChange={(e) => {
-                            setAdminComment(e.target.value);
-                            setHasResponded(true);
-                          }}
-                          disabled={isUpdateDisabled && !hasResponded}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-    
-                  <Form.Group controlId="formPreviousComments">
-                    <Form.Label>Previous Comments</Form.Label>
-                    {sortedComments && sortedComments.length > 0 ? (
-                      <div className="table-responsive">
-                        <Table striped bordered hover>
-                          <thead>
-                            <tr>
-                              <th>Role</th>
-                              <th>Comment</th>
-                              <th>Timestamp</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {sortedComments.map((comment, index) => (
-                              <tr key={index}>
-                                <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
-                                <td>{comment.comment}</td>
-                                <td>{comment.timestamp}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </Table>
-                      </div>
-                    ) : (
-                      <p>No previous comments available.</p>
-                    )}
+                      readOnly
+                    />
                   </Form.Group>
-    
-                  {isTimeExceeded && !hasResponded && (
-                    <Row>
-                      <Col>
-                        <Alert variant="danger">
-                          The issue has not been resolved within 1 minute. The ticket will be
-                          escalated to the IAS.
-                        </Alert>
-                        {!tokenSentToIAS && (
-                          <IAS
-                            data={selectedData}
-                            handleDataUpdate={handleDataUpdate}
-                            setTokenSentToIAS={setTokenSentToIAS}
-                          />
-                        )}
-                      </Col>
-                    </Row>
-                  )}
-                </Form>
+                </Col>
+                <Col xs={12} md={6}>
+                  <Form.Group controlId="formStatus">
+                    <Form.Label>Status</Form.Label>
+                    <Form.Control
+                      as="select"
+                      value={selectedData.status}
+                      onChange={(e) => setSelectedData({ ...selectedData, status: e.target.value })}
+                      disabled={selectedData.status === 'completed'}
+                    >
+                      <option value="open">Open</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group controlId="formAdminComment">
+                    <Form.Label>Admin Comment</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={adminComment}
+                      onChange={(e) => {
+                        setAdminComment(e.target.value);
+                        setHasResponded(true);
+                      }}
+                      disabled={isUpdateDisabled && !hasResponded}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Form.Group controlId="formPreviousComments">
+                <Form.Label>Previous Comments</Form.Label>
+                {sortedComments && sortedComments.length > 0 ? (
+                  <div className="table-responsive">
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Role</th>
+                          <th>Comment</th>
+                          <th>Timestamp</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sortedComments.map((comment, index) => (
+                          <tr key={index}>
+                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
+                            <td>{comment.comment}</td>
+                            <td>{comment.timestamp}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
+                ) : (
+                  <p>No previous comments available.</p>
+                )}
+              </Form.Group>
+
+              {isTimeExceeded && !hasResponded && (
+                <Row>
+                  <Col>
+                    <Alert variant="danger">
+                      The issue has not been resolved within 1 minute. The ticket will be
+                      escalated to the IAS.
+                    </Alert>
+                    {!tokenSentToIAS && (
+                      <IAS
+                        data={selectedData}
+                        handleDataUpdate={handleDataUpdate}
+                        setTokenSentToIAS={setTokenSentToIAS}
+                      />
+                    )}
+                  </Col>
+                </Row>
               )}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Close
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
-                disabled={isUpdateDisabled || (isTimeExceeded && !hasResponded && !tokenSentToIAS)}
-              >
-                Update
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Container>
-      );
-    };
-    
-    export default MROAdmin;
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => handleUpdateStatus(selectedData.status, adminComment)}
+            disabled={isUpdateDisabled || (isTimeExceeded && !hasResponded && !tokenSentToIAS)}
+          >
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </Container>
+  );
+};
+
+export default MROAdmin;
