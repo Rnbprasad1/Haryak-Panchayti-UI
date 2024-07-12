@@ -78,34 +78,45 @@ class FormComponent extends React.Component {
   state = {
     email: '',
     password: '',
-    isAuthenticated: false
+    isAuthenticated: false,
+    role: '',
+    loggedInMandal: ''
   };
 
   handleInputChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+ 
   handleLogin = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    if (
-      (email === 'CM' && password === 'cm1') ||
-      (email === 'IAS' && password === 'ias1') ||
-      (email === 'MRO' && password === 'mro1')
-    ) {
-      this.setState({ isAuthenticated: true });
+    const mandals = [
+      'Chebrole', 'Duggirala', 'Guntur', 'Kakumanu', 'Kollipara', 'Mangalagiri',
+      'Medikonduru', 'Pedakakani', 'Pedanandipadu', 'Phirangipuram', 'Ponnur',
+      'Prathipadu', 'Tadepalli', 'Tadikonda', 'Tenali', 'Thullur', 'Vatticherukuru',
+    ];
+    if (email === 'CM' && password === 'cm1') {
+      this.setState({ isAuthenticated: true, role: 'CM' });
+    } else if (email === 'IAS' && password === 'ias1') {
+      this.setState({ isAuthenticated: true, role: 'IAS' });
     } else {
-      alert('Invalid credentials');
+      const mandal = mandals.find(m => m.toLowerCase() === email.toLowerCase());
+      if (mandal && password === `${mandal.substring(0, 3).toLowerCase()}@1`) {
+        this.setState({ isAuthenticated: true, role: 'MRO', loggedInMandal: mandal });
+      } else {
+        alert('Invalid credentials');
+      }
     }
   };
 
   render() {
-    const { isAuthenticated, email } = this.state;
+    const { isAuthenticated, role, loggedInMandal } = this.state;
 
     if (isAuthenticated) {
-      if (email === 'CM') return <Navigate to="/cm" />;
-      if (email === 'IAS') return <Navigate to="/ias" />;
-      if (email === 'MRO') return <Navigate to="/mro" />;
+      if (role === 'CM') return <Navigate to="/cm" />;
+      if (role === 'IAS') return <Navigate to="/ias" />;
+      if (role === 'MRO') return <Navigate to={`/mro/${loggedInMandal}`} state={{ loggedInMandal }}/>;
       return null;
     }
 

@@ -46,7 +46,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route path='/cm' element={<CM />} />
-              <Route path="/mro" element={<MRO />} />
+              <Route path="/mro/:loggedInMandal" element={<MRO />}/>
               <Route path="/ias" element={<IAS />} />
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
