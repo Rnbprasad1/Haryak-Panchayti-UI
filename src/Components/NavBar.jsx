@@ -87,7 +87,7 @@ function Navbar() {
     <StyledNavbar className={`navbar navbar-expand-lg ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <NavLink className="navbar-brand" to="/" onClick={closeNav}>
-          Guntur MP <span className="small">Helpdesk</span>
+          Panchayati Raj Rural Development<span className="small">Helpdesk</span>
         </NavLink>
         <button className="navbar-toggler" type="button" onClick={handleNavToggle}>
           <span className="navbar-toggler-icon"></span>

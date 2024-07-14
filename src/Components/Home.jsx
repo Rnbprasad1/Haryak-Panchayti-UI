@@ -1,5 +1,5 @@
 import React from 'react'
-import apMapImage from '././ApMap.png';
+import apMapImage from '././ApMap.jpg';
 import Footer from './Footer'
 
 const Home = () => {
