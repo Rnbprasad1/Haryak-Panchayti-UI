@@ -148,13 +148,13 @@ const MROAdmin = () => {
       const currentActionTakenDate = new Date().toISOString();
       const currentComment = {
         comment: adminResponse,
-        role: 'MRO',
+        role: loggedInMandal + ' admin',
         timestamp: new Date().toLocaleString(),
       };
 
       updateStatus(index, status, adminResponse);
       updateAdminResponse(index, adminResponse);
-      updateActionTakenBy(index, 'MRO');
+      updateActionTakenBy(index, loggedInMandal + ' admin');
       if (status === 'completed' || status === 'In Progress') {
         updateActionTakenDate(index, currentActionTakenDate);
         sendMessageToUser(selectedData.mobile, adminResponse);

@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "14001",
+            "VillageName": "Wankidi"
+        },
+        {
+            "Village_Code": "14002",
+            "VillageName": "Bajarhathnoor"
+        },
+        {
+            "Village_Code": "14003",
+            "VillageName": "Boregaon"
+        },
+        {
+            "Village_Code": "14004",
+            "VillageName": "Dharmaraopet"
+        },
+        {
+            "Village_Code": "14005",
+            "VillageName": "Jainoor"
+        },
+        {
+            "Village_Code": "14006",
+            "VillageName": "Jamgaon"
+        },
+        {
+            "Village_Code": "14007",
+            "VillageName": "Kallegaon"
+        },
+        {
+            "Village_Code": "14008",
+            "VillageName": "Kohinoor"
+        },
+        {
+            "Village_Code": "14009",
+            "VillageName": "Korakpalli"
+        },
+        {
+            "Village_Code": "14010",
+            "VillageName": "Koutapur"
+        },
+        {
+            "Village_Code": "14011",
+            "VillageName": "Lingapur"
+        },
+        {
+            "Village_Code": "14012",
+            "VillageName": "Mandapalli"
+        },
+        {
+            "Village_Code": "14013",
+            "VillageName": "Nagamira"
+        },
+        {
+            "Village_Code": "14014",
+            "VillageName": "Palem"
+        },
+        {
+            "Village_Code": "14015",
+            "VillageName": "Peddur"
+        },
+        {
+            "Village_Code": "14016",
+            "VillageName": "Pulimadugu"
+        },
+        {
+            "Village_Code": "14017",
+            "VillageName": "Rampur"
+        },
+        {
+            "Village_Code": "14018",
+            "VillageName": "Sirpur"
+        },
+        {
+            "Village_Code": "14019",
+            "VillageName": "Tippapur"
+        },
+        {
+            "Village_Code": "14020",
+            "VillageName": "Vankamamidi"
+        }
+    ]
+}

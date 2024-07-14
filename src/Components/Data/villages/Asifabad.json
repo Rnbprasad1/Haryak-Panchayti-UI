@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "7001",
+            "VillageName": "Asifabad"
+        },
+        {
+            "Village_Code": "7002",
+            "VillageName": "Kagaznagar"
+        },
+        {
+            "Village_Code": "7003",
+            "VillageName": "Wankidi"
+        },
+        {
+            "Village_Code": "7004",
+            "VillageName": "Tandur"
+        },
+        {
+            "Village_Code": "7005",
+            "VillageName": "Kerameri"
+        },
+        {
+            "Village_Code": "7006",
+            "VillageName": "Tiryani"
+        },
+        {
+            "Village_Code": "7007",
+            "VillageName": "Rebbena"
+        },
+        {
+            "Village_Code": "7008",
+            "VillageName": "Sirpur (T)"
+        },
+        {
+            "Village_Code": "7009",
+            "VillageName": "Dahegaon"
+        },
+        {
+            "Village_Code": "7010",
+            "VillageName": "Penchikalpet"
+        },
+        {
+            "Village_Code": "7011",
+            "VillageName": "Koutala"
+        },
+        {
+            "Village_Code": "7012",
+            "VillageName": "Bejjur"
+        },
+        {
+            "Village_Code": "7013",
+            "VillageName": "Chintalamanepalli"
+        },
+        {
+            "Village_Code": "7014",
+            "VillageName": "Kannepalli"
+        },
+        {
+            "Village_Code": "7015",
+            "VillageName": "Bheemini"
+        },
+        {
+            "Village_Code": "7016",
+            "VillageName": "Dahegaon"
+        },
+        {
+            "Village_Code": "7017",
+            "VillageName": "Kagaznagar"
+        },
+        {
+            "Village_Code": "7018",
+            "VillageName": "Sirpur (U)"
+        },
+        {
+            "Village_Code": "7019",
+            "VillageName": "Luxettipet"
+        },
+        {
+            "Village_Code": "7020",
+            "VillageName": "Mandamarri"
+        }
+    ]
+}

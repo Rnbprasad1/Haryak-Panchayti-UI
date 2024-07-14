@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "8001",
+            "VillageName": "Ankampalle"
+        },
+        {
+            "Village_Code": "8002",
+            "VillageName": "Chennur"
+        },
+        {
+            "Village_Code": "8003",
+            "VillageName": "Devapur"
+        },
+        {
+            "Village_Code": "8004",
+            "VillageName": "Gangaram"
+        },
+        {
+            "Village_Code": "8005",
+            "VillageName": "Gudipet"
+        },
+        {
+            "Village_Code": "8006",
+            "VillageName": "Indaram"
+        },
+        {
+            "Village_Code": "8007",
+            "VillageName": "Kailasagiri"
+        },
+        {
+            "Village_Code": "8008",
+            "VillageName": "Kistampet"
+        },
+        {
+            "Village_Code": "8009",
+            "VillageName": "Kistapur"
+        },
+        {
+            "Village_Code": "8010",
+            "VillageName": "Kowthapalli"
+        },
+        {
+            "Village_Code": "8011",
+            "VillageName": "Mallampet"
+        },
+        {
+            "Village_Code": "8012",
+            "VillageName": "Mancherial"
+        },
+        {
+            "Village_Code": "8013",
+            "VillageName": "Muthyampet"
+        },
+        {
+            "Village_Code": "8014",
+            "VillageName": "Nennel"
+        },
+        {
+            "Village_Code": "8015",
+            "VillageName": "Peddampet"
+        },
+        {
+            "Village_Code": "8016",
+            "VillageName": "Ponnaram"
+        },
+        {
+            "Village_Code": "8017",
+            "VillageName": "Rajapur"
+        },
+        {
+            "Village_Code": "8018",
+            "VillageName": "Singapur"
+        },
+        {
+            "Village_Code": "8019",
+            "VillageName": "Sundaraiah"
+        },
+        {
+            "Village_Code": "8020",
+            "VillageName": "Venkatapur"
+        }
+    ]
+}

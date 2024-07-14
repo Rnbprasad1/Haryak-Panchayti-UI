@@ -16,9 +16,7 @@ const FormComponent = () => {
     e.preventDefault();
     const { email, password } = credentials;
     const mandals = [
-      'Chebrole', 'Duggirala', 'Guntur', 'Kakumanu', 'Kollipara', 'Mangalagiri',
-      'Medikonduru', 'Pedakakani', 'Pedanandipadu', 'Phirangipuram', 'Ponnur',
-      'Prathipadu', 'Tadepalli', 'Tadikonda', 'Tenali', 'Thullur', 'Vatticherukuru',
+      'Adilabad','Asifabad','Chennur','Kagaznagar','Mancherial','Mandamarri'
     ];
 
     if (email === 'CM' && password === 'cm1') {
