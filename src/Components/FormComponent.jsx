@@ -1,154 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { Form, Button, Container, Row, Col, Card, InputGroup, Alert } from 'react-bootstrap';
+import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
-`;
+const FormComponent = () => {
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [authState, setAuthState] = useState({ isAuthenticated: false, role: '', loggedInMandal: '' });
+  const [error, setError] = useState('');
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  background-color: #FFF;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  padding: 2.5em;
-  border-radius: 8px;
-  font-family: 'Arial', sans-serif;
-`;
-
-const Title = styled.h2`
-  color: #217093;
-  margin-bottom: 1.5em;
-  text-align: center;
-`;
-
-const InputGroup = styled.div`
-  margin-bottom: 1.5em;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 0.5em;
-  color: #217093;
-  font-weight: 600;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.8em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
-  transition: border-color 0.2s ease-in-out;
-
-  &:focus {
-    outline: none;
-    border-color: #4eb8dd;
-    box-shadow: 0 0 0 2px rgba(78, 184, 221, 0.2);
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 0.8em;
-  background-color: #4eb8dd;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: #217093;
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-`;
-
-class FormComponent extends React.Component {
-  state = {
-    email: '',
-    password: '',
-    isAuthenticated: false,
-    role: '',
-    loggedInMandal: ''
+  const handleInputChange = (e) => {
+    setCredentials({ ...credentials, [e.target.id]: e.target.value });
   };
 
-  handleInputChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
- 
-  handleLogin = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
+    const { email, password } = credentials;
     const mandals = [
       'Chebrole', 'Duggirala', 'Guntur', 'Kakumanu', 'Kollipara', 'Mangalagiri',
       'Medikonduru', 'Pedakakani', 'Pedanandipadu', 'Phirangipuram', 'Ponnur',
       'Prathipadu', 'Tadepalli', 'Tadikonda', 'Tenali', 'Thullur', 'Vatticherukuru',
     ];
+
     if (email === 'CM' && password === 'cm1') {
-      this.setState({ isAuthenticated: true, role: 'CM' });
+      setAuthState({ isAuthenticated: true, role: 'CM' });
     } else if (email === 'IAS' && password === 'ias1') {
-      this.setState({ isAuthenticated: true, role: 'IAS' });
+      setAuthState({ isAuthenticated: true, role: 'IAS' });
     } else {
       const mandal = mandals.find(m => m.toLowerCase() === email.toLowerCase());
       if (mandal && password === `${mandal.substring(0, 3).toLowerCase()}@1`) {
-        this.setState({ isAuthenticated: true, role: 'MRO', loggedInMandal: mandal });
+        setAuthState({ isAuthenticated: true, role: 'MRO', loggedInMandal: mandal });
       } else {
-        alert('Invalid credentials');
+        setError('Invalid credentials. Please try again.');
       }
     }
   };
 
-  render() {
-    const { isAuthenticated, role, loggedInMandal } = this.state;
-
-    if (isAuthenticated) {
-      if (role === 'CM') return <Navigate to="/cm" />;
-      if (role === 'IAS') return <Navigate to="/ias" />;
-      if (role === 'MRO') return <Navigate to={`/mro/${loggedInMandal}`} state={{ loggedInMandal }}/>;
-      return null;
-    }
-
-    return (
-      <Container>
-        <Form onSubmit={this.handleLogin}>
-          <Title>Login</Title>
-          <InputGroup>
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="text"
-              placeholder="Enter your email"
-              onChange={this.handleInputChange}
-              required
-            />
-          </InputGroup>
-          <InputGroup>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              onChange={this.handleInputChange}
-              required
-            />
-          </InputGroup>
-          <Button type="submit">Log in</Button>
-        </Form>
-      </Container>
-    );
+  if (authState.isAuthenticated) {
+    if (authState.role === 'CM') return <Navigate to="/cm" />;
+    if (authState.role === 'IAS') return <Navigate to="/ias" />;
+    if (authState.role === 'MRO') return <Navigate to={`/mro/${authState.loggedInMandal}`} state={{ loggedInMandal: authState.loggedInMandal }}/>;
   }
-}
+
+  return (
+    <Container fluid className="bg-light min-vh-100 d-flex align-items-center">
+      <Row className="justify-content-center w-100">
+        <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+          <Card className="shadow-lg border-0">
+            <Card.Body className="p-5">
+              <h2 className="text-center mb-4">
+                <FaSignInAlt className="me-2" />
+                Secure Login
+              </h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form onSubmit={handleLogin}>
+                <Form.Group controlId="email" className="mb-3">
+                  <Form.Label>Username</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-primary text-white">
+                      <FaUser />
+                    </InputGroup.Text>
+                    <Form.Control 
+                      type="text" 
+                      placeholder="Enter your username"
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </InputGroup>
+                </Form.Group>
+
+                <Form.Group controlId="password" className="mb-4">
+                  <Form.Label>Password</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text className="bg-primary text-white">
+                      <FaLock />
+                    </InputGroup.Text>
+                    <Form.Control 
+                      type="password" 
+                      placeholder="Enter your password"
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </InputGroup>
+                </Form.Group>
+
+                <Button variant="primary" type="submit" className="w-100 py-2">
+                  <FaSignInAlt className="me-2" />
+                  Sign In
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 export default FormComponent;
