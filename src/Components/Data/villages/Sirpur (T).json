@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "13001",
+            "VillageName": "Adegaon"
+        },
+        {
+            "Village_Code": "13002",
+            "VillageName": "Bheemini"
+        },
+        {
+            "Village_Code": "13003",
+            "VillageName": "Chintaguda"
+        },
+        {
+            "Village_Code": "13004",
+            "VillageName": "Dabba"
+        },
+        {
+            "Village_Code": "13005",
+            "VillageName": "Gangapur"
+        },
+        {
+            "Village_Code": "13006",
+            "VillageName": "Jainoor"
+        },
+        {
+            "Village_Code": "13007",
+            "VillageName": "Jamgaon"
+        },
+        {
+            "Village_Code": "13008",
+            "VillageName": "Jangedu"
+        },
+        {
+            "Village_Code": "13009",
+            "VillageName": "Khandlapur"
+        },
+        {
+            "Village_Code": "13010",
+            "VillageName": "Kolampalli"
+        },
+        {
+            "Village_Code": "13011",
+            "VillageName": "Kothapalli"
+        },
+        {
+            "Village_Code": "13012",
+            "VillageName": "Lingapur"
+        },
+        {
+            "Village_Code": "13013",
+            "VillageName": "Mandapalli"
+        },
+        {
+            "Village_Code": "13014",
+            "VillageName": "Narayanpur"
+        },
+        {
+            "Village_Code": "13015",
+            "VillageName": "Pochampalli"
+        },
+        {
+            "Village_Code": "13016",
+            "VillageName": "Pulimadugu"
+        },
+        {
+            "Village_Code": "13017",
+            "VillageName": "Rampur"
+        },
+        {
+            "Village_Code": "13018",
+            "VillageName": "Rangapet"
+        },
+        {
+            "Village_Code": "13019",
+            "VillageName": "Sirpur"
+        },
+        {
+            "Village_Code": "13020",
+            "VillageName": "Upparapalli"
+        }
+    ]
+}

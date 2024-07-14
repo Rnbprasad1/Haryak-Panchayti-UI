@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "6001",
+            "VillageName": "Bela"
+        },
+        {
+            "Village_Code": "6002",
+            "VillageName": "Jainad"
+        },
+        {
+            "Village_Code": "6003",
+            "VillageName": "Gudihathnoor"
+        },
+        {
+            "Village_Code": "6004",
+            "VillageName": "Indervelly"
+        },
+        {
+            "Village_Code": "6005",
+            "VillageName": "Mavala"
+        },
+        {
+            "Village_Code": "6006",
+            "VillageName": "Narnoor"
+        },
+        {
+            "Village_Code": "6007",
+            "VillageName": "Talamadugu"
+        },
+        {
+            "Village_Code": "6008",
+            "VillageName": "Tamsi"
+        },
+        {
+            "Village_Code": "6009",
+            "VillageName": "Ichoda"
+        },
+        {
+            "Village_Code": "6010",
+            "VillageName": "Bazarhathnoor"
+        },
+        {
+            "Village_Code": "6011",
+            "VillageName": "Sirikonda"
+        },
+        {
+            "Village_Code": "6012",
+            "VillageName": "Gudipeta"
+        },
+        {
+            "Village_Code": "6013",
+            "VillageName": "Wadgaon"
+        },
+        {
+            "Village_Code": "6014",
+            "VillageName": "Kechkal"
+        },
+        {
+            "Village_Code": "6015",
+            "VillageName": "Ponnari"
+        },
+        {
+            "Village_Code": "6016",
+            "VillageName": "Somwarpet"
+        },
+        {
+            "Village_Code": "6017",
+            "VillageName": "Seethagondi"
+        },
+        {
+            "Village_Code": "6018",
+            "VillageName": "Sirsanna"
+        },
+        {
+            "Village_Code": "6019",
+            "VillageName": "Gondapochampalli"
+        },
+        {
+            "Village_Code": "6020",
+            "VillageName": "Mandagadde"
+        }
+    ]
+}
