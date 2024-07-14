@@ -8,8 +8,8 @@ const Query = () => {
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('Adilabad');
-  const [selectedMandal, setSelectedMandal] = useState('Pedanandipadu');
+  const [selectedDistrict, setSelectedDistrict] = useState('selectedDistrict');
+  const [selectedMandal, setSelectedMandal] = useState('selectedMandal');
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,8 +28,8 @@ const Query = () => {
   const [fileName, setFileName] = useState('');
 
   const setInitialValues = (districtsData, mandalsData) => {
-    setAvailableMandals(districtsData['Adilabad'] || []);
-    const initialVillages = mandalsData['Pedanandipadu'] || [];
+    setAvailableMandals(districtsData['selectedDistrict'] || []);
+    const initialVillages = mandalsData['selectedMandal'] || [];
     setAvailableVillages(initialVillages);
     if (initialVillages.length > 0) {
       setFormData(prevData => ({ ...prevData, village: initialVillages[0] }));
@@ -38,7 +38,7 @@ const Query = () => {
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Adilabad'];
+      const districtFiles = ['Adilabad','Badradrikothagudem','Asifabad'];
       const districtsData = {};
       const mandalsData = {};
 
@@ -107,6 +107,7 @@ const Query = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, mobile, email, aadhar, issueDescription, village } = formData;
+   
     const generatedToken = generateToken(selectedDistrict, selectedMandal, village);
     setToken(generatedToken);
     setShowToken(true);

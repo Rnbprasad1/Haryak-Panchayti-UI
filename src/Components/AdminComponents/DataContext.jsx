@@ -22,6 +22,7 @@ export const DataProvider = ({ children }) => {
   const [iasDataArray, setIasDataArray] = useState([]);
 
   useEffect(() => {
+    console.log('Inside useEffect');
     const interval = setInterval(() => {
       setFormDataArray((prevData) => {
         return prevData.map((data) => {

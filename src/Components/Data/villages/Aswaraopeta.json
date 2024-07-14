@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "20001",
+            "VillageName": "Aswaraopeta"
+        },
+        {
+            "Village_Code": "20002",
+            "VillageName": "Annarupeta"
+        },
+        {
+            "Village_Code": "20003",
+            "VillageName": "Annapureddipalle"
+        },
+        {
+            "Village_Code": "20004",
+            "VillageName": "Bhimavaram"
+        },
+        {
+            "Village_Code": "20005",
+            "VillageName": "Chityal"
+        },
+        {
+            "Village_Code": "20006",
+            "VillageName": "Gollagudem"
+        },
+        {
+            "Village_Code": "20007",
+            "VillageName": "Gundepudi"
+        },
+        {
+            "Village_Code": "20008",
+            "VillageName": "Gundrayi"
+        },
+        {
+            "Village_Code": "20009",
+            "VillageName": "Kakarla"
+        },
+        {
+            "Village_Code": "20010",
+            "VillageName": "Kanukula"
+        },
+        {
+            "Village_Code": "20011",
+            "VillageName": "Marrigudem"
+        },
+        {
+            "Village_Code": "20012",
+            "VillageName": "Pendalapadu"
+        },
+        {
+            "Village_Code": "20013",
+            "VillageName": "Rajupeta"
+        },
+        {
+            "Village_Code": "20014",
+            "VillageName": "Rekurthi"
+        },
+        {
+            "Village_Code": "20015",
+            "VillageName": "Sarangapalle"
+        },
+        {
+            "Village_Code": "20016",
+            "VillageName": "Somavaram"
+        },
+        {
+            "Village_Code": "20017",
+            "VillageName": "Tatipudi"
+        },
+        {
+            "Village_Code": "20018",
+            "VillageName": "Timmaraopeta"
+        },
+        {
+            "Village_Code": "20019",
+            "VillageName": "Tirumalakunta"
+        },
+        {
+            "Village_Code": "20020",
+            "VillageName": "Yernagunta"
+        }
+    ]
+}

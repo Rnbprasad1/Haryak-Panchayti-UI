@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "26001",
+            "VillageName": "Dummugudem"
+        },
+        {
+            "Village_Code": "26002",
+            "VillageName": "Cherla"
+        },
+        {
+            "Village_Code": "26003",
+            "VillageName": "Narasapuram"
+        },
+        {
+            "Village_Code": "26004",
+            "VillageName": "Gubbagurthi"
+        },
+        {
+            "Village_Code": "26005",
+            "VillageName": "Gottimukkala"
+        },
+        {
+            "Village_Code": "26006",
+            "VillageName": "Mothugudem"
+        },
+        {
+            "Village_Code": "26007",
+            "VillageName": "Pusugudem"
+        },
+        {
+            "Village_Code": "26008",
+            "VillageName": "Vaddigudem"
+        },
+        {
+            "Village_Code": "26009",
+            "VillageName": "Rajapuram"
+        },
+        {
+            "Village_Code": "26010",
+            "VillageName": "Tekulapalli"
+        },
+        {
+            "Village_Code": "26011",
+            "VillageName": "Venkatapuram"
+        },
+        {
+            "Village_Code": "26012",
+            "VillageName": "Chintoor"
+        },
+        {
+            "Village_Code": "26013",
+            "VillageName": "Kuturu"
+        },
+        {
+            "Village_Code": "26014",
+            "VillageName": "Edurallapalli"
+        },
+        {
+            "Village_Code": "26015",
+            "VillageName": "Bhadrachalam"
+        },
+        {
+            "Village_Code": "26016",
+            "VillageName": "Karagudem"
+        },
+        {
+            "Village_Code": "26017",
+            "VillageName": "Dornakal"
+        },
+        {
+            "Village_Code": "26018",
+            "VillageName": "Vepalagadda"
+        },
+        {
+            "Village_Code": "26019",
+            "VillageName": "Kothagudem"
+        },
+        {
+            "Village_Code": "26020",
+            "VillageName": "Yellandu"
+        }
+    ]
+}

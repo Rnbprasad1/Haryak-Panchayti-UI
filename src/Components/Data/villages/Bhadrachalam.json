@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "21001",
+            "VillageName": "Bhadrachalam"
+        },
+        {
+            "Village_Code": "21002",
+            "VillageName": "Anantharam"
+        },
+        {
+            "Village_Code": "21003",
+            "VillageName": "Bangaru Chelaka"
+        },
+        {
+            "Village_Code": "21004",
+            "VillageName": "Bhoopalapatnam"
+        },
+        {
+            "Village_Code": "21005",
+            "VillageName": "Buggapadu"
+        },
+        {
+            "Village_Code": "21006",
+            "VillageName": "Cherukupalli"
+        },
+        {
+            "Village_Code": "21007",
+            "VillageName": "Cheruvumadharam"
+        },
+        {
+            "Village_Code": "21008",
+            "VillageName": "Gottimukkala"
+        },
+        {
+            "Village_Code": "21009",
+            "VillageName": "Gundala"
+        },
+        {
+            "Village_Code": "21010",
+            "VillageName": "Kannaigudem"
+        },
+        {
+            "Village_Code": "21011",
+            "VillageName": "Kondrajupeta"
+        },
+        {
+            "Village_Code": "21012",
+            "VillageName": "Maddulapalli"
+        },
+        {
+            "Village_Code": "21013",
+            "VillageName": "Manuguru"
+        },
+        {
+            "Village_Code": "21014",
+            "VillageName": "Marepalli"
+        },
+        {
+            "Village_Code": "21015",
+            "VillageName": "Nagineniprolu"
+        },
+        {
+            "Village_Code": "21016",
+            "VillageName": "Peddamidisileru"
+        },
+        {
+            "Village_Code": "21017",
+            "VillageName": "Ramachandrapuram"
+        },
+        {
+            "Village_Code": "21018",
+            "VillageName": "Ramanujavaram"
+        },
+        {
+            "Village_Code": "21019",
+            "VillageName": "Sarvaram"
+        },
+        {
+            "Village_Code": "21020",
+            "VillageName": "Sarvapuram"
+        }
+    ]
+}
