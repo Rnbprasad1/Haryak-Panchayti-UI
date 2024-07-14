@@ -76,9 +76,9 @@ export default function App() {
       </MDBContainer>
 
       <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', color:'black' }}>
-        © 2020 Copyright: 
+        © 2024 Copyright: 
         <a className='text-black' href='/'>
-          Guntur MP Helpdesk
+        Panchayati Raj Helpdesk
         </a>
       </div>
     </MDBFooter>

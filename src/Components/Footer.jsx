@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2024 Copyright:
         <a className="text-body" href="/">
-        Panchayati Raj Rural Development Helpdesk
+        Panchayati Raj Helpdesk
         </a>
       </div>
       {/* Copyright */}
