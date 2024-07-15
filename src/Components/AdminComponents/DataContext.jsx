@@ -142,53 +142,63 @@ export const DataProvider = ({ children }) => {
   };
 
   const updateAdminResponse = (index, adminResponse, isIAS = false) => {
-    setFormDataArray((prevData) => {
+  setFormDataArray((prevData) => {
+    const updatedData = [...prevData];
+    updatedData[index].adminResponse = adminResponse;
+    updatedData[index].adminComments = updatedData[index].adminComments || [];
+
+    if (
+      !updatedData[index].adminComments.find(
+        (comment) => comment.comment === adminResponse && comment.role === (isIAS ? 'IAS' : 'MRO')
+      )
+    ) {
+      updatedData[index].adminComments.push({
+        comment: adminResponse,
+        role: isIAS ? 'IAS' : 'MRO',
+        timestamp: new Date().toLocaleString(),
+      });
+
+      // Automatically update status to "in progress" when a comment is added
+      if (updatedData[index].status === 'open') {
+        updatedData[index].status = 'in progress';
+      }
+    }
+
+    if (isIAS && updatedData[index].isEscalated && updatedData[index].status !== 'complete') {
+      updatedData[index].isEscalated = false;
+      updatedData[index].disabled = false;
+    }
+
+    return updatedData;
+  });
+
+  if (isIAS) {
+    setIasDataArray((prevData) => {
       const updatedData = [...prevData];
-      updatedData[index].adminResponse = adminResponse;
-      updatedData[index].adminComments = updatedData[index].adminComments || [];
+      const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
+      if (iasIndex !== -1) {
+        updatedData[iasIndex].adminResponse = adminResponse;
+        if (
+          !updatedData[iasIndex].adminComments.find(
+            (comment) => comment.comment === adminResponse && comment.role === 'IAS'
+          )
+        ) {
+          updatedData[iasIndex].adminComments.push({
+            comment: adminResponse,
+            role: 'IAS',
+            timestamp: new Date().toLocaleString(),
+          });
 
-      if (
-        !updatedData[index].adminComments.find(
-          (comment) => comment.comment === adminResponse && comment.role === (isIAS ? 'IAS' : 'MRO')
-        )
-      ) {
-        updatedData[index].adminComments.push({
-          comment: adminResponse,
-          role: isIAS ? 'IAS' : 'MRO',
-          timestamp: new Date().toLocaleString(),
-        });
-      }
-
-      if (isIAS && updatedData[index].isEscalated && updatedData[index].status !== 'complete') {
-        updatedData[index].isEscalated = false;
-        updatedData[index].disabled = false;
-      }
-
-      return updatedData;
-    });
-
-    if (isIAS) {
-      setIasDataArray((prevData) => {
-        const updatedData = [...prevData];
-        const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
-        if (iasIndex !== -1) {
-          updatedData[iasIndex].adminResponse = adminResponse;
-          if (
-            !updatedData[iasIndex].adminComments.find(
-              (comment) => comment.comment === adminResponse && comment.role === 'IAS'
-            )
-          ) {
-            updatedData[iasIndex].adminComments.push({
-              comment: adminResponse,
-              role: 'IAS',
-              timestamp: new Date().toLocaleString(),
-            });
+          // Automatically update status to "in progress" when a comment is added
+          if (updatedData[iasIndex].status === 'open') {
+            updatedData[iasIndex].status = 'in progress';
           }
         }
-        return updatedData;
-      });
-    }
-  };
+      }
+      return updatedData;
+    });
+  }
+};
 
   const updateActionTakenDate = (index, actionTakenDate, isIAS = false) => {
     setFormDataArray((prevData) => {

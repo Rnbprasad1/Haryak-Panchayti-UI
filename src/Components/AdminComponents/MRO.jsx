@@ -142,40 +142,51 @@ const MROAdmin = () => {
     setHasResponded(false);
   };
 
-  const handleUpdateStatus = (status, adminResponse) => {
-    if (selectedData) {
-      const index = formDataArray.findIndex((data) => data.token === selectedData.token);
-      const currentActionTakenDate = new Date().toISOString();
-      const currentComment = {
-        comment: adminResponse,
-        role: loggedInMandal + ' admin',
-        timestamp: new Date().toLocaleString(),
-      };
+ const handleUpdateStatus = (status, adminResponse) => {
+  if (selectedData) {
+    const index = formDataArray.findIndex((data) => data.token === selectedData.token);
+    const currentActionTakenDate = new Date().toISOString();
+    const currentComment = {
+      comment: adminResponse,
+      role: loggedInMandal + ' MRO',
+      timestamp: new Date().toLocaleString(),
+    };
 
-      updateStatus(index, status, adminResponse);
-      updateAdminResponse(index, adminResponse);
-      updateActionTakenBy(index, loggedInMandal + ' admin');
-      if (status === 'completed' || status === 'In Progress') {
-        updateActionTakenDate(index, currentActionTakenDate);
-        sendMessageToUser(selectedData.mobile, adminResponse);
-      }
-
-      const updatedComments = [...previousComments, currentComment];
-      const updatedData = { ...selectedData, adminComments: updatedComments, actionTakenDate: currentActionTakenDate, actionTakenBy: 'MRO' };
-      const updatedFormDataArray = [...formDataArray];
-      updatedFormDataArray[index] = updatedData;
-
-      updateFormDataArray(updatedFormDataArray);
-
-      setIsUpdateDisabled(status === 'completed');
-      setSelectedData(updatedData);
-      setPreviousComments(updatedComments);
-      setTokenSentToIAS(false);
-      setHasResponded(true);
-
-      handleCloseModal();
+    // Automatically set status to "in progress" when admin comment is added
+    if (status === 'open' && adminResponse.trim() !== '') {
+      status = 'In Progress';
     }
-  };
+
+    updateStatus(index, status, adminResponse);
+    updateAdminResponse(index, adminResponse);
+    updateActionTakenBy(index, loggedInMandal + ' admin');
+    if (status === 'completed' || status === 'In Progress') {
+      updateActionTakenDate(index, currentActionTakenDate);
+      sendMessageToUser(selectedData.mobile, adminResponse);
+    }
+
+    const updatedComments = [...previousComments, currentComment];
+    const updatedData = { 
+      ...selectedData, 
+      adminComments: updatedComments, 
+      actionTakenDate: currentActionTakenDate, 
+      actionTakenBy: 'MRO',
+      status: status
+    };
+    const updatedFormDataArray = [...formDataArray];
+    updatedFormDataArray[index] = updatedData;
+
+    updateFormDataArray(updatedFormDataArray);
+
+    setIsUpdateDisabled(status === 'completed');
+    setSelectedData(updatedData);
+    setPreviousComments(updatedComments);
+    setTokenSentToIAS(false);
+    setHasResponded(true);
+
+    handleCloseModal();
+  }
+};
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
