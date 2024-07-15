@@ -8,8 +8,8 @@ const Query = () => {
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('Guntur');
-  const [selectedMandal, setSelectedMandal] = useState('Pedanandipadu');
+  const [selectedDistrict, setSelectedDistrict] = useState('selectedDistrict');
+  const [selectedMandal, setSelectedMandal] = useState('selectedMandal');
   const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,8 +28,8 @@ const Query = () => {
   const [fileName, setFileName] = useState('');
 
   const setInitialValues = (districtsData, mandalsData) => {
-    setAvailableMandals(districtsData['Guntur'] || []);
-    const initialVillages = mandalsData['Pedanandipadu'] || [];
+    setAvailableMandals(districtsData['selectedDistrict'] || []);
+    const initialVillages = mandalsData['selectedMandal'] || [];
     setAvailableVillages(initialVillages);
     if (initialVillages.length > 0) {
       setFormData(prevData => ({ ...prevData, village: initialVillages[0] }));
@@ -38,7 +38,7 @@ const Query = () => {
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Palnadu', 'Allurisitharamaraju', 'Eluru', 'Prakasam', 'Kurnool', 'Guntur', 'Visakhapatnam', 'Srikakulam', 'Tirupati', 'West Godavari', 'Bapatla', 'Chittoor', 'NTR', 'Kakinada'];
+      const districtFiles = ['Adilabad','Badradrikothagudem','Asifabad'];
       const districtsData = {};
       const mandalsData = {};
 
@@ -52,7 +52,7 @@ const Query = () => {
             const mandalName = mandal.MandalName.trim();
             try {
               const mandalData = await import(`../Components/Data/villages/${mandalName}.json`);
-              mandalsData[mandalName] = mandalData.Lgdrvmaster.map(village => village.Revenue_Name.trim());
+              mandalsData[mandalName] = mandalData.Get_villages.map(village => village.VillageName.trim());
             } catch (mandalError) {
               mandalsData[mandalName] = ["TEST VILLAGE"];
               console.error(`Error loading mandal data for ${mandalName}:`, mandalError);
@@ -107,6 +107,7 @@ const Query = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, mobile, email, aadhar, issueDescription, village } = formData;
+   
     const generatedToken = generateToken(selectedDistrict, selectedMandal, village);
     setToken(generatedToken);
     setShowToken(true);
@@ -116,7 +117,7 @@ const Query = () => {
   };
 
   const generateToken = (district, mandal, village) => {
-    const stateCode = 'AP';
+    const stateCode = 'TG';
     const districtCode = district.substring(0, 3).toUpperCase();
     const mandalCode = mandal.substring(0, 3).toUpperCase();
     const areaType = 'RU';
@@ -136,8 +137,8 @@ const Query = () => {
                 <Col md={6}>
                   <Form.Group controlId="formState">
                     <Form.Label>State</Form.Label>
-                    <Form.Control as="select" defaultValue="Andhra Pradesh" disabled>
-                      <option>Andhra Pradesh</option>
+                    <Form.Control as="select" defaultValue="Telangana" disabled>
+                      <option>Telangana</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>

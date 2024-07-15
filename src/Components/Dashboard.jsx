@@ -15,9 +15,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchMandals = async () => {
       const mandalData = [
-        'Chebrole', 'Duggirala', 'Guntur', 'Kakumanu', 'Kollipara', 'Mangalagiri',
-        'Medikonduru', 'Pedakakani', 'Pedanandipadu', 'Phirangipuram', 'Ponnur',
-        'Prathipadu', 'Tadepalli', 'Tadikonda', 'Tenali', 'Thullur', 'Vatticherukuru',
+         'Adilabad','Asifabad','Chennur','Kagaznagar','Mancherial','Mandamarri','Aswaraopeta','Bhadrachalam','Charla',
+         'Cherla','Dammapeta','Dummugudem','Gundala','Karakagudem','Kerameri','Kagaznagar','Sirpur (T)','Wankidi','Nirmal',
+         'Tiryani','Rebbena','Badradrikothagudem','Burgampahad'
+          
       ];
       setMandals(mandalData);
       setFilteredMandals(mandalData);

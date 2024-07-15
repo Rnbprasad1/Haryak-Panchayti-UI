@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "9001",
+            "VillageName": "Andavelli"
+        },
+        {
+            "Village_Code": "9002",
+            "VillageName": "Ankusapur"
+        },
+        {
+            "Village_Code": "9003",
+            "VillageName": "Balanpur"
+        },
+        {
+            "Village_Code": "9004",
+            "VillageName": "Chandapur"
+        },
+        {
+            "Village_Code": "9005",
+            "VillageName": "Chinapeta"
+        },
+        {
+            "Village_Code": "9006",
+            "VillageName": "Dhaba"
+        },
+        {
+            "Village_Code": "9007",
+            "VillageName": "Dongaon"
+        },
+        {
+            "Village_Code": "9008",
+            "VillageName": "Itikyal"
+        },
+        {
+            "Village_Code": "9009",
+            "VillageName": "Jamgaon"
+        },
+        {
+            "Village_Code": "9010",
+            "VillageName": "Jangaon"
+        },
+        {
+            "Village_Code": "9011",
+            "VillageName": "Kannepalli"
+        },
+        {
+            "Village_Code": "9012",
+            "VillageName": "Kasipet"
+        },
+        {
+            "Village_Code": "9013",
+            "VillageName": "Kondampalli"
+        },
+        {
+            "Village_Code": "9014",
+            "VillageName": "Lingapur"
+        },
+        {
+            "Village_Code": "9015",
+            "VillageName": "Mandamarri"
+        },
+        {
+            "Village_Code": "9016",
+            "VillageName": "Nagapur"
+        },
+        {
+            "Village_Code": "9017",
+            "VillageName": "Nandipur"
+        },
+        {
+            "Village_Code": "9018",
+            "VillageName": "Rebbena"
+        },
+        {
+            "Village_Code": "9019",
+            "VillageName": "Sirpur"
+        },
+        {
+            "Village_Code": "9020",
+            "VillageName": "Venkatapur"
+        }
+    ]
+}

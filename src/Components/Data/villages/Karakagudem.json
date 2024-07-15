@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "25001",
+            "VillageName": "Ravikampadu"
+        },
+        {
+            "Village_Code": "25002",
+            "VillageName": "Yerragunta"
+        },
+        {
+            "Village_Code": "25003",
+            "VillageName": "Kistaram"
+        },
+        {
+            "Village_Code": "25004",
+            "VillageName": "Narasapuram"
+        },
+        {
+            "Village_Code": "25005",
+            "VillageName": "Gundala"
+        },
+        {
+            "Village_Code": "25006",
+            "VillageName": "Karakagudem"
+        },
+        {
+            "Village_Code": "25007",
+            "VillageName": "Kamaram"
+        },
+        {
+            "Village_Code": "25008",
+            "VillageName": "Mamidivaram"
+        },
+        {
+            "Village_Code": "25009",
+            "VillageName": "Kondapalli"
+        },
+        {
+            "Village_Code": "25010",
+            "VillageName": "Pedda Gopavaram"
+        },
+        {
+            "Village_Code": "25011",
+            "VillageName": "Chinna Gopavaram"
+        },
+        {
+            "Village_Code": "25012",
+            "VillageName": "Lingagudem"
+        },
+        {
+            "Village_Code": "25013",
+            "VillageName": "Anjaneyapuram"
+        },
+        {
+            "Village_Code": "25014",
+            "VillageName": "Sivapuram"
+        },
+        {
+            "Village_Code": "25015",
+            "VillageName": "Venkatapuram"
+        },
+        {
+            "Village_Code": "25016",
+            "VillageName": "Gollagudem"
+        },
+        {
+            "Village_Code": "25017",
+            "VillageName": "Mittapalle"
+        },
+        {
+            "Village_Code": "25018",
+            "VillageName": "Chandrapalem"
+        },
+        {
+            "Village_Code": "25019",
+            "VillageName": "Yellareddygudem"
+        },
+        {
+            "Village_Code": "25020",
+            "VillageName": "Munagala"
+        }
+    ]
+}

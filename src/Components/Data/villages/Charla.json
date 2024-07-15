@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "23001",
+            "VillageName": "Charla"
+        },
+        {
+            "Village_Code": "23002",
+            "VillageName": "Allapalli"
+        },
+        {
+            "Village_Code": "23003",
+            "VillageName": "Ankampalem"
+        },
+        {
+            "Village_Code": "23004",
+            "VillageName": "Bheemavaram"
+        },
+        {
+            "Village_Code": "23005",
+            "VillageName": "Chatti"
+        },
+        {
+            "Village_Code": "23006",
+            "VillageName": "Gollagudem"
+        },
+        {
+            "Village_Code": "23007",
+            "VillageName": "Gundlamadugu"
+        },
+        {
+            "Village_Code": "23008",
+            "VillageName": "Indupriyal"
+        },
+        {
+            "Village_Code": "23009",
+            "VillageName": "Kondamodalu"
+        },
+        {
+            "Village_Code": "23010",
+            "VillageName": "Kothapalli"
+        },
+        {
+            "Village_Code": "23011",
+            "VillageName": "Lankapalli"
+        },
+        {
+            "Village_Code": "23012",
+            "VillageName": "Mallampeta"
+        },
+        {
+            "Village_Code": "23013",
+            "VillageName": "Manuguru"
+        },
+        {
+            "Village_Code": "23014",
+            "VillageName": "Marepalli"
+        },
+        {
+            "Village_Code": "23015",
+            "VillageName": "Nellipaka"
+        },
+        {
+            "Village_Code": "23016",
+            "VillageName": "Pusugudem"
+        },
+        {
+            "Village_Code": "23017",
+            "VillageName": "Sarivela"
+        },
+        {
+            "Village_Code": "23018",
+            "VillageName": "Sarvapuram"
+        },
+        {
+            "Village_Code": "23019",
+            "VillageName": "Timmakkapet"
+        },
+        {
+            "Village_Code": "23020",
+            "VillageName": "Velagapadu"
+        }
+    ]
+}

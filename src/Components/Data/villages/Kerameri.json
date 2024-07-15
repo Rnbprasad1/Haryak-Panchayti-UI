@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "12001",
+            "VillageName": "Kerameri"
+        },
+        {
+            "Village_Code": "12002",
+            "VillageName": "Andapalli"
+        },
+        {
+            "Village_Code": "12003",
+            "VillageName": "Balanpur"
+        },
+        {
+            "Village_Code": "12004",
+            "VillageName": "Boregaon"
+        },
+        {
+            "Village_Code": "12005",
+            "VillageName": "Chintaguda"
+        },
+        {
+            "Village_Code": "12006",
+            "VillageName": "Ginnedhari"
+        },
+        {
+            "Village_Code": "12007",
+            "VillageName": "Gudipet"
+        },
+        {
+            "Village_Code": "12008",
+            "VillageName": "Itikyal"
+        },
+        {
+            "Village_Code": "12009",
+            "VillageName": "Jainoor"
+        },
+        {
+            "Village_Code": "12010",
+            "VillageName": "Janganur"
+        },
+        {
+            "Village_Code": "12011",
+            "VillageName": "Kanchanpalli"
+        },
+        {
+            "Village_Code": "12012",
+            "VillageName": "Lingapur"
+        },
+        {
+            "Village_Code": "12013",
+            "VillageName": "Mandaguda"
+        },
+        {
+            "Village_Code": "12014",
+            "VillageName": "Mendha"
+        },
+        {
+            "Village_Code": "12015",
+            "VillageName": "Pallam"
+        },
+        {
+            "Village_Code": "12016",
+            "VillageName": "Pochampalli"
+        },
+        {
+            "Village_Code": "12017",
+            "VillageName": "Rammandaguda"
+        },
+        {
+            "Village_Code": "12018",
+            "VillageName": "Satnala"
+        },
+        {
+            "Village_Code": "12019",
+            "VillageName": "Sirimamidi"
+        },
+        {
+            "Village_Code": "12020",
+            "VillageName": "Udimilla"
+        }
+    ]
+}
