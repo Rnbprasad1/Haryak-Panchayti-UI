@@ -61,9 +61,9 @@ const AdminDashboard = () => {
 
   if (!isLoggedIn) {
     return (
-        <Container fluid className="bg-light min-vh-100 d-flex align-items-center">
-  <Row className="justify-content-center w-100">
-    <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+       <Container fluid className="bg-light min-vh-100 d-flex align-items-center justify-content-center">
+  <Row className="w-100">
+    <Col xs={12} sm={10} md={8} lg={6} xl={4} className="mx-auto">
       <Card className="shadow-lg border-0">
         <Card.Body className="p-5">
           <h2 className="text-center mb-4">Admin Login</h2>
