@@ -1,0 +1,86 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "27001",
+            "VillageName": "Gundala"
+        },
+        {
+            "Village_Code": "27002",
+            "VillageName": "Kannegundla"
+        },
+        {
+            "Village_Code": "27003",
+            "VillageName": "Pallegudem"
+        },
+        {
+            "Village_Code": "27004",
+            "VillageName": "Chinthakunta"
+        },
+        {
+            "Village_Code": "27005",
+            "VillageName": "Puligundla"
+        },
+        {
+            "Village_Code": "27006",
+            "VillageName": "Jangalapalli"
+        },
+        {
+            "Village_Code": "27007",
+            "VillageName": "Kothagudem"
+        },
+        {
+            "Village_Code": "27008",
+            "VillageName": "Peddagudem"
+        },
+        {
+            "Village_Code": "27009",
+            "VillageName": "Tadikalapudi"
+        },
+        {
+            "Village_Code": "27010",
+            "VillageName": "Nalgonda"
+        },
+        {
+            "Village_Code": "27011",
+            "VillageName": "Gundlamadugu"
+        },
+        {
+            "Village_Code": "27012",
+            "VillageName": "Rayangudem"
+        },
+        {
+            "Village_Code": "27013",
+            "VillageName": "Gurrampodu"
+        },
+        {
+            "Village_Code": "27014",
+            "VillageName": "Chityala"
+        },
+        {
+            "Village_Code": "27015",
+            "VillageName": "Ramannagudem"
+        },
+        {
+            "Village_Code": "27016",
+            "VillageName": "Pulkal"
+        },
+        {
+            "Village_Code": "27017",
+            "VillageName": "Yedulapuram"
+        },
+        {
+            "Village_Code": "27018",
+            "VillageName": "Ananthapuram"
+        },
+        {
+            "Village_Code": "27019",
+            "VillageName": "Khanapur"
+        },
+        {
+            "Village_Code": "27020",
+            "VillageName": "Rajagudem"
+        }
+    ]
+}

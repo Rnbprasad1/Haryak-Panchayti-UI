@@ -16,7 +16,9 @@ const FormComponent = () => {
     e.preventDefault();
     const { email, password } = credentials;
     const mandals = [
-      'Adilabad','Asifabad','Chennur','Kagaznagar','Mancherial','Mandamarri'
+      'Adilabad','Asifabad','Chennur','Kagaznagar','Mancherial','Mandamarri','Badradrikothagudem','Dammapeta','Aswaraopeta','Bhadrachalam',
+      'Burgampahad','Charla','Cherla','Dummugudem','Karakagudem','Kerameri','Kagaznagar','Sirpur (T)','Wankidi','Tiryani','Rebbena','Dahegaon',
+      'Penchikalpet'
     ];
 
     if (email === 'CM' && password === 'cm1') {
