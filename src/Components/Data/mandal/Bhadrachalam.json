@@ -1,0 +1,27 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": "6010",
+            "MandalName": "Bhadrachalam"
+        },
+        {
+            "Mandal_Code": "6012",
+            "MandalName": "Dummugudem"
+        },
+        {
+            "Mandal_Code": "6013",
+            "MandalName": "Wazedu"
+        },
+        {
+            "Mandal_Code": "6014",
+            "MandalName": "Charla"
+        },
+        {
+            "Mandal_Code": "6015",
+            "MandalName": "Venkatapuram"
+        }
+       
+    ]
+}
