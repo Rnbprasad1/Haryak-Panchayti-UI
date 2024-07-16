@@ -1,45 +1,42 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card, InputGroup, Alert } from 'react-bootstrap';
 import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
+import { DataContext } from './AdminComponents/DataContext';
 
 const FormComponent = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [authState, setAuthState] = useState({ isAuthenticated: false, role: '', loggedInMandal: '' });
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const { villagePasswords } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    setCredentials({ ...credentials, [e.target.id]: e.target.value });
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const { email, password } = credentials;
-    const mandals = [
-      'Adilabad','Asifabad','Chennur','Kagaznagar','Mancherial','Mandamarri','Badradrikothagudem','Dammapeta','Aswaraopeta','Bhadrachalam',
-      'Burgampahad','Charla','Cherla','Dummugudem','Karakagudem','Kerameri','Kagaznagar','Sirpur (T)','Wankidi','Tiryani','Rebbena','Dahegaon',
-      'Penchikalpet'
-    ];
+const handleLogin = (e) => {
+  e.preventDefault();
+  const { username, password } = credentials;
+  const villagePasswords = JSON.parse(localStorage.getItem('villagePasswords')) || {};
 
-    if (email === 'CM' && password === 'cm1') {
-      setAuthState({ isAuthenticated: true, role: 'CM' });
-    } else if (email === 'IAS' && password === 'ias1') {
-      setAuthState({ isAuthenticated: true, role: 'IAS' });
+  if (username === 'CM' && password === 'cm1') {
+    navigate('/cm');
+  } else if (username === 'IAS' && password === 'ias1') {
+    navigate('/ias');
+  } else if (username === 'admin' && password === 'admin123') {
+    navigate('/admin');
+  } else {
+    const village = Object.keys(villagePasswords).find(
+      (village) => villagePasswords[village].username === username && villagePasswords[village].password === password
+    );
+    if (village) {
+navigate(`/mro/${username}/${encodeURIComponent(Object.keys(villagePasswords).filter(v => villagePasswords[v].username === username).join(','))}`);
     } else {
-      const mandal = mandals.find(m => m.toLowerCase() === email.toLowerCase());
-      if (mandal && password === `${mandal.substring(0, 3).toLowerCase()}@1`) {
-        setAuthState({ isAuthenticated: true, role: 'MRO', loggedInMandal: mandal });
-      } else {
-        setError('Invalid credentials. Please try again.');
-      }
+      setError('Invalid credentials. Please try again.');
     }
-  };
-
-  if (authState.isAuthenticated) {
-    if (authState.role === 'CM') return <Navigate to="/cm" />;
-    if (authState.role === 'IAS') return <Navigate to="/ias" />;
-    if (authState.role === 'MRO') return <Navigate to={`/mro/${authState.loggedInMandal}`} state={{ loggedInMandal: authState.loggedInMandal }}/>;
   }
+};
 
   return (
     <Container fluid className="bg-light min-vh-100 d-flex align-items-center justify-content-center">
@@ -53,7 +50,7 @@ const FormComponent = () => {
               </h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleLogin}>
-                <Form.Group controlId="email" className="mb-3">
+                <Form.Group controlId="username" className="mb-3">
                   <Form.Label>Username</Form.Label>
                   <InputGroup>
                     <InputGroup.Text className="bg-primary text-white">
@@ -61,6 +58,7 @@ const FormComponent = () => {
                     </InputGroup.Text>
                     <Form.Control 
                       type="text" 
+                      name="username"
                       placeholder="Enter your username"
                       onChange={handleInputChange}
                       required
@@ -76,6 +74,7 @@ const FormComponent = () => {
                     </InputGroup.Text>
                     <Form.Control 
                       type="password" 
+                      name="password"
                       placeholder="Enter your password"
                       onChange={handleInputChange}
                       required

@@ -5,8 +5,8 @@ import IAS from './IAS';
 import { useParams } from 'react-router-dom';
 
 const MROAdmin = () => {
-  const [filterMandal, setFilterMandal] = useState('');
-  const [filterVillage, setFilterVillage] = useState('');
+  const [filterMandal, setFilterMandal] = useState('Bhadrachalam');
+  const [filterVillages, setFilterVillages] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -17,22 +17,16 @@ const MROAdmin = () => {
   const [isTimeExceeded, setIsTimeExceeded] = useState(false);
   const [tokenSentToIAS, setTokenSentToIAS] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
-  const [updateIasDataArray] = useState([]);
   const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
-  
-  const { loggedInMandal } = useParams(); // Get the logged-in mandal from the URL parameters
+  const { loggedInMandal, villages } = useParams();
 
   useEffect(() => {
-    // Set the logged-in mandal and filter based on it
-    setFilterMandal(loggedInMandal);
-
-    // Load available villages based on logged-in mandal
-    if (loggedInMandal && mandals[loggedInMandal]) {
-      setAvailableVillages(mandals[loggedInMandal]);
-    }
-  }, [loggedInMandal]);
+    const villagesFromUrl = villages.split(',');
+    setFilterVillages(villagesFromUrl);
+    setAvailableVillages(mandals['Bhadrachalam']);
+  }, [villages]);
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -54,8 +48,8 @@ const MROAdmin = () => {
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
     return (
-      (data.mandal === filterMandal || !filterMandal) &&
-      (data.village === filterVillage || !filterVillage) &&
+      data.mandal === filterMandal &&
+      filterVillages.includes(data.village) &&
       (data.token?.includes(searchQuery) ||
         data.mobile?.includes(searchQuery) ||
         data.name?.includes(searchQuery) ||
@@ -65,42 +59,8 @@ const MROAdmin = () => {
     );
   });
 
-  const handleMandalChange = (e) => {
-    const mandal = e.target.value;
-    setFilterMandal(mandal);
-    setFilterVillage('');
-    if (mandals[mandal]) {
-      setAvailableVillages(mandals[mandal]);
-    } else {
-      setAvailableVillages([]);
-    }
-  };
-
-  const handleVillageChange = (e) => {
-    const village = e.target.value;
-    setFilterVillage(village);
-  };
-
   const mandals = {
-    'Chebrole': ['CHEBROLE (చేబ్రోలు)', 'GODAVARRU (గొడవర్రు)', 'MANCHALA (మంచాల)', 'MEESARAGADDA ANANTHAVARAM (మీసరగడ్డఅనంతవరం)', 'NARAKODUR (నారాకోడూరు)', 'PATHAREDDIPALEM (పాతరెడ్డి పాలెము)', 'SEKURU (సెకురు)', 'SUDDAPALLI (సుద్దపల్లి)', 'VADLAMUDI (వడ్లమూడి)', 'VEJENDLA (వెజండ్ల)' ],
-    'Duggirala': ['CHILUVURU (చిలువూరు)', 'CHINA PALEM (చినపాలెం)', 'CHINTALA PUDI (చింతలపూడి)', 'DEVARAPALLE AGRAHARAM (దేవరపల్లి అగ్రహారం)', 'DUGGIRALA (దుగ్గిరాల)', 'EMANI (ఈమని)','GODAVARRU (గొడవర్రు)', 'KANTAMRAJU KONDURU (కంటం రాజు కొండూరు)', 'MORAMPUDI (మొరంపూడి)','PEDA KONDURU (పెదకొండూరు)','PENUMULI (పెనుమూలి)', 'PERAKALA PUDI (పేరుకలపూడి)', 'SRUNGARA PURAM (శృంగారపురం)', 'THUMMOPUDI (తుమ్మపూడి)' ],
-    'Pedanandipadu' : ['Agatha Varappadu','Anumarlapudi', 'Devarayabhotlapalem', 'Koppuravuru', 'Nambur', 'Pedakakani', 'Takkellapadu', 'Tangellamudi', 'Uppalapadu', 'Venigandla'],
-    'Kakumanu' : ['APPA PURAM (అప్పాపురము)', 'BODIPALEM (బోడిపాలెం)', 'BODIPALEM (బోడిపాలెం)', 'GARIKAPADU (గరికపాడు)', 'KAKUMANU (కాకుమాను)', 'KOLLIMARLA (కొల్లిమర్ల)', 'KOMMURU (కొమ్మూరు)', 'KONDAPATURU (కొండపాటూరు)', 'PANDRAPADU (పాండ్రపాడు)', 'RETUR (రేటూరు)', 'VALLUR (వల్లూరు)' ],
-    'Tenali': ['Chandole', 'Chintalapudi', 'Jampani', 'Kuchipudi', 'Pedapalem', 'Penumudi', 'Peravalli', 'Potharlanka', 'Sivadevarapadu', 'Tadepalle',],
-            
-    'Ponnur' : ['Ananthavarappadu',  'Chebrolu', 'Chinapulivarru', 'Gollapudi', 'Gundalapadu', 'Nidubrolu', 'Pedapulivarru', 'Srirangapuram', 'Thimmapuram', 'Tummalapalem'],
-    'Kollipara' :['ANNAVARAM (అన్నవరం)', 'ATHOTA (అత్తోట)', 'BOMMUVARIPALEM (బొమ్మువారిపాలెం)', 'CHEMUDUPADU (చెముడుపాడు)', 'CHIVALUR (చివలూరు)', 'DANTHALUR (దంతలూరు)', 'DAVULURU (దావులూరు)', 'KOLLIPARA (కొల్లిపర)', 'KUNCHAVARAM (కుంచవరం)', 'MUNNANGI (మున్నంగి (మునికోటిపురం))', 'PIDAPARRU (పిడపర్రు)', 'SIRIPURAM (సిరిపురం)', 'THUMULURU (తూములూరు)', 'VALLABHAPURAM (వల్లభాపురం)' ],
-    'Mangalagiri' : ['ATMAKUR (ఆత్మకూరు)', 'CHINAKAKANI (చినకాకాని)', 'CHINAVADLAPUDI (చినవడ్లపూడి)', 'KAZA (కాజా)', 'KRISHNAYAPALEM (క్రిష్ణాయపాలెం)', 'KURAGALLU (కురగల్లు)', 'MANGALAGIRI (U) (మంగళగిరి(యు))', 'NAVULURU (OG) (నవులూరు)', 'NIDAMARRU (నిడమర్రు)', 'NUTHAKKI (నూతక్కి)', 'PEDAVADLAPUDI (పెదవడ్లపూడి)', 'RAMACHANDRA PURAM (రామచంద్రాపురం)' ],
-    //'Medikonduru' : [''],
-    'Pedakakani' : ['Agatha Varappadu', 'Anumarlapudi', 'Devarayabhotlapalem', 'Koppuravuru', 'Nambur', 'Pedakakani', 'Takkellapadu', 'Tangellamudi', 'Uppalapadu', 'Venigandla' ],
-    'Phirangipuram' : ['Annaparru', 'Annavaram', 'Gorijavoluguntapalem', 'Katrapadu', 'Kopparru', 'Palaparru', 'Rajupalem', 'Ravipadu', 'Uppalapadu', 'Varagani'  ],
-    'Prathipadu' : ['Ananthavarappadu', 'Chinapulivarru', 'Gollapudi', 'Gundalapadu', 'Nidubrolu', 'Pedapulivarru', 'Srirangapuram', 'Thimmapuram', 'Tummalapalem' ],
-    'Tadepalli' : ['Amaravathi', 'Undavalli', 'Penumaka', 'Bethapudi', 'Krishnayapalem', 'Prathipadu', 'Neerukonda', 'Dondapadu', 'Lingayapalem', 'Tadepalli',  ],
-    'Tadikonda' : ['Tadikonda', 'Laxmipuram', 'Ananthavaram', 'Pedaparimi', 'Nekkallu', 'Gudimetla', 'Modukuru', 'Pothunuru', 'Pedakonduru', 'Velpuru'],
-    'Thullur' : ['Abbarajupalem', 'Ananthavaram', 'Borupalem', 'Dondapadu', 'Lingayapalem', 'Malkapuram', 'Mandadam', 'Nelapadu', 'Rayapudi', 'Tulluru', 'Velagapudi'],
-    'Vatticherukuru' : ['Ambapuram', 'Balakrishnaya Palem', 'Bhattiprolu', 'Challapalli', 'Chebrolu', 'Devarayabhotlapalem', 'Kondavidu', 'Pedapalem', 'Reddigudem', 'Tsundur', 'Venigandla'],
-    'Guntur' : ['ANKIREDDIPALEM (అంకిరెడ్డిపాలెం)', 'BUDAMPADU (బుడంపాడు)', 'CHINAPALAKALURU (చినపలకలూరు)', 'CHOWDAVARAM (చౌడవరం)', 'ETUKURU (ఏటుకూరు)','GORANTLA (గోరంట్ల)','GUNTUR (R) (గుంటూరు    (యు))', 'JONNALA GADDA (జొన్నలగడ్డ)', 'KORITEPADU  (R) (కొరిటెపాడు (అర్))', 'NALLAPADU (నల్లపాడు)', 'PEDA PALAKALURU (పెదపలకలూరు)', 'POTHURU (పొత్తూరు)', 'RAMACHANDRAPURAM AGRAHARAM (U) (రామచంద్రాపురం అగ్రహారం (యు))'],
-
+    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli'],
   };
 
   const handleShowModal = (data) => {
@@ -152,7 +112,6 @@ const MROAdmin = () => {
       timestamp: new Date().toLocaleString(),
     };
 
-    // Automatically set status to "in progress" when admin comment is added
     if (status === 'open' && adminResponse.trim() !== '') {
       status = 'In Progress';
     }
@@ -217,23 +176,28 @@ const MROAdmin = () => {
       <Row className="mb-3">
         <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
-            <Form.Label>Filter by Mandal</Form.Label>
-            <Form.Control as="select" value={filterMandal} onChange={handleMandalChange} disabled>
-              <option value={loggedInMandal}>{loggedInMandal}</option>
+            <Form.Label>Mandal</Form.Label>
+            <Form.Control as="select" value={filterMandal} onChange={(e) => setFilterMandal(e.target.value)} disabled>
+              <option value="Bhadrachalam">Bhadrachalam</option>
             </Form.Control>
           </Form.Group>
         </Col>
         <Col xs={12} md={4}>
           <Form.Group controlId="formVillage">
             <Form.Label>Filter by Village</Form.Label>
-            <Form.Control as="select" value={filterVillage} onChange={handleVillageChange}>
-              <option value="">All Villages</option>
+            <div>
               {availableVillages.map((village) => (
-                <option key={village} value={village}>
-                  {village}
-                </option>
+                <Form.Check
+                  key={village}
+                  type="checkbox"
+                  id={`village-${village}`}
+                  label={village}
+                  checked={filterVillages.includes(village)}
+                  disabled={!filterVillages.includes(village)}
+                  readOnly
+                />
               ))}
-            </Form.Control>
+            </div>
           </Form.Group>
         </Col>
         <Col xs={12} md={4}>
@@ -495,3 +459,4 @@ const MROAdmin = () => {
 };
 
 export default MROAdmin;
+
