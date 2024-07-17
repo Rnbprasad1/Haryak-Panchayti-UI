@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 import Home from './Components/Home';
 import CM from './Components/AdminComponents/CM';
 import IAS from './Components/AdminComponents/IAS';
 import MRO from './Components/AdminComponents/MRO';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Query from './Components/Query';
 import Status from './Components/Status';
-import bannerImage from './Assets/AP.png'; // Existing image for large screens
-import smallBannerImage from './Assets/AP1.png'; // New image for small screens
 import Navbar from './Components/NavBar';
 import { DataProvider } from './Components/AdminComponents/DataContext';
 import FormComponent from './Components/FormComponent';
 import Dashboard from './Components/Dashboard';
+
+import bannerImage from './Assets/AP.png';
+import smallBannerImage from './Assets/AP1.png';
 
 function App() {
   useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
     };
     
     window.addEventListener('resize', updateBackground);
-    updateBackground(); // Initial call
+    updateBackground();
 
     return () => window.removeEventListener('resize', updateBackground);
   }, []);
@@ -45,12 +46,12 @@ function App() {
           <div className="content">
             <Routes>
               <Route exact path="/" element={<Home />} />
-              <Route path='/cm' element={<CM />} />
-              <Route path="/mro/:loggedInMandal" element={<MRO />}/>
+              <Route path="/cm" element={<CM />} />
+              <Route path="/mro/:username/:villages" element={<MRO />} />
               <Route path="/ias" element={<IAS />} />
               <Route path="/query" element={<Query />} />
               <Route path="/status" element={<Status />} />
-              <Route exact path='/login' element={<FormComponent />} />
+              <Route exact path="/login" element={<FormComponent />} />
               <Route path="/admin" element={<Dashboard />} />
             </Routes>
           </div>

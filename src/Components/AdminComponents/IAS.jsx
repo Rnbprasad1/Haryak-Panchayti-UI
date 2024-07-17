@@ -136,44 +136,49 @@ const IAS = () => {
   };
 
   const handleUpdateStatus = (status) => {
-    if (selectedData) {
-      const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
-      const currentActionTakenDate = new Date().toISOString();
-      const currentComment = {
-        comment: adminComment,
-        role: 'IAS',
-        timestamp: new Date().toLocaleString(),
-      };
+  if (selectedData) {
+    const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
+    const currentActionTakenDate = new Date().toISOString();
+    const currentComment = {
+      comment: adminComment,
+      role: 'IAS',
+      timestamp: new Date().toLocaleString(),
+    };
 
-      updateStatus(index, status, adminComment, true);
-      updateAdminResponse(index, adminComment, true);
-      updateActionTakenBy(index, 'IAS', true);
-      updateActionTakenDate(index, currentActionTakenDate, true);
-      updateIASResponse(index, adminComment);
-
-      sendMessageToUser(selectedData.mobile, adminComment);
-
-      const updatedComments = [...previousComments, currentComment];
-      const updatedData = {
-        ...selectedData,
-        adminComments: updatedComments,
-        actionTakenDate: currentActionTakenDate,
-        actionTakenBy: 'IAS',
-        status: status,
-        iasResponse: adminComment
-      };
-
-      const updatedIasDataArray = [...iasDataArray];
-      updatedIasDataArray[index] = updatedData;
-
-      setIasDataArray(updatedIasDataArray);
-
-      setSelectedData(updatedData);
-      setPreviousComments(updatedComments);
-
-      handleCloseModal();
+    // Automatically set status to "In Progress" when admin comment is added
+    if (status === 'open' && adminComment.trim() !== '') {
+      status = 'In Progress';
     }
-  };
+
+    updateStatus(index, status, adminComment, true);
+    updateAdminResponse(index, adminComment, true);
+    updateActionTakenBy(index, 'IAS', true);
+    if (status === 'completed' || status === 'In Progress') {
+      updateActionTakenDate(index, currentActionTakenDate, true);
+      sendMessageToUser(selectedData.mobile, adminComment);
+    }
+    updateIASResponse(index, adminComment);
+
+    const updatedComments = [...previousComments, currentComment];
+    const updatedData = {
+      ...selectedData,
+      adminComments: updatedComments,
+      actionTakenDate: currentActionTakenDate,
+      actionTakenBy: 'IAS',
+      status: status,
+      iasResponse: adminComment
+    };
+
+    const updatedIasDataArray = [...iasDataArray];
+    updatedIasDataArray[index] = updatedData;
+
+    setIasDataArray(updatedIasDataArray);
+    setSelectedData(updatedData);
+    setPreviousComments(updatedComments);
+
+    handleCloseModal();
+  }
+};
 
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
