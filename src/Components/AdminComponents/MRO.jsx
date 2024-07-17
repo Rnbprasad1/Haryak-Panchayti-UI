@@ -60,7 +60,7 @@ const MROAdmin = () => {
   });
 
   const mandals = {
-    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli'],
+    'Bhadrachalam': [ 'Bhadrachalam','Charla','Dummugudem','Dummugudem','Wazedu'],
   };
 
   const handleShowModal = (data) => {

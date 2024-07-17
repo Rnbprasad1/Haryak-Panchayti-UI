@@ -3,84 +3,260 @@
     "reason": "",
     "Get_villages": [
         {
-            "Village_Code": "21001",
-            "VillageName": "Bhadrachalam"
+            "Village_Code": 223,
+            "VillageName": "Achuthapuram"
         },
         {
-            "Village_Code": "21002",
-            "VillageName": "Anantharam"
+            "Village_Code": 621,
+            "VillageName": "Ayyavaripeta"
         },
         {
-            "Village_Code": "21003",
-            "VillageName": "Bangaru Chelaka"
+            "Village_Code": 137,
+            "VillageName": "Bandigumpu"
         },
         {
-            "Village_Code": "21004",
-            "VillageName": "Bhoopalapatnam"
+            "Village_Code": 496,
+            "VillageName": "Bandirevu"
         },
         {
-            "Village_Code": "21005",
-            "VillageName": "Buggapadu"
+            "Village_Code": 551,
+            "VillageName": "Boddugudem"
         },
         {
-            "Village_Code": "21006",
-            "VillageName": "Cherukupalli"
+            "Village_Code": 355,
+            "VillageName": "Buruguvai"
         },
         {
-            "Village_Code": "21007",
-            "VillageName": "Cheruvumadharam"
+            "Village_Code": 197,
+            "VillageName": "Buttaigudem"
         },
         {
-            "Village_Code": "21008",
-            "VillageName": "Gottimukkala"
+            "Village_Code": 180,
+            "VillageName": "Chandrampalem"
         },
         {
-            "Village_Code": "21009",
+            "Village_Code": 604,
+            "VillageName": "Chelempalem"
+        },
+        {
+            "Village_Code": 183,
+            "VillageName": "Chinna Nallakunta"
+        },
+        {
+            "Village_Code": 714,
+            "VillageName": "Chinthalagudem"
+        },
+        {
+            "Village_Code": 981,
+            "VillageName": "Chowdavaram"
+        },
+        {
+            "Village_Code": 263,
+            "VillageName": "Devarapalle"
+        },
+        {
+            "Village_Code": 118,
+            "VillageName": "Doramitta"
+        },
+        {
+            "Village_Code": 166,
+            "VillageName": "Fergusanpeta"
+        },
+        {
+            "Village_Code": 807,
+            "VillageName": "Gannavaram"
+        },
+        {
+            "Village_Code": 518,
+            "VillageName": "Gogubaka"
+        },
+        {
+            "Village_Code": 490,
+            "VillageName": "Gollagudem"
+        },
+        {
+            "Village_Code": 157,
+            "VillageName": "Gollaguppa"
+        },
+        {
+            "Village_Code": 488,
+            "VillageName": "Gommu Koyagudem"
+        },
+        {
+            "Village_Code": 129,
+            "VillageName": "Gottugudem"
+        },
+        {
+            "Village_Code": 1025,
+            "VillageName": "Gowridevi Peta"
+        },
+        {
+            "Village_Code": 1439,
             "VillageName": "Gundala"
         },
         {
-            "Village_Code": "21010",
+            "Village_Code": 775,
+            "VillageName": "K. Narayanapuram"
+        },
+        {
+            "Village_Code": 769,
             "VillageName": "Kannaigudem"
         },
         {
-            "Village_Code": "21011",
-            "VillageName": "Kondrajupeta"
+            "Village_Code": 388,
+            "VillageName": "Kannapuram"
         },
         {
-            "Village_Code": "21012",
-            "VillageName": "Maddulapalli"
+            "Village_Code": 79,
+            "VillageName": "Kannapuram"
         },
         {
-            "Village_Code": "21013",
-            "VillageName": "Manuguru"
+            "Village_Code": 370,
+            "VillageName": "Kapavaram"
         },
         {
-            "Village_Code": "21014",
-            "VillageName": "Marepalli"
+            "Village_Code": 295,
+            "VillageName": "Kapugampalle"
         },
         {
-            "Village_Code": "21015",
-            "VillageName": "Nagineniprolu"
+            "Village_Code": 1002,
+            "VillageName": "Kistaram"
         },
         {
-            "Village_Code": "21016",
-            "VillageName": "Peddamidisileru"
+            "Village_Code": 386,
+            "VillageName": "Kothagudem"
         },
         {
-            "Village_Code": "21017",
-            "VillageName": "Ramachandrapuram"
+            "Village_Code": 700,
+            "VillageName": "Kusumanapalle"
         },
         {
-            "Village_Code": "21018",
-            "VillageName": "Ramanujavaram"
+            "Village_Code": 301,
+            "VillageName": "Lakshmidevipeta"
         },
         {
-            "Village_Code": "21019",
-            "VillageName": "Sarvaram"
+            "Village_Code": 702,
+            "VillageName": "Laxmipuram"
         },
         {
-            "Village_Code": "21020",
-            "VillageName": "Sarvapuram"
+            "Village_Code": 737,
+            "VillageName": "Lingalapalle"
+        },
+        {
+            "Village_Code": 173,
+            "VillageName": "Madhavaraopeta"
+        },
+        {
+            "Village_Code": 399,
+            "VillageName": "Mummadivaru"
+        },
+        {
+            "Village_Code": 714,
+            "VillageName": "Murumoor"
+        },
+        {
+            "Village_Code": 485,
+            "VillageName": "Nallakunta"
+        },
+        {
+            "Village_Code": 1814,
+            "VillageName": "Nandigama"
+        },
+        {
+            "Village_Code": 318,
+            "VillageName": "Narasingapeta"
+        },
+        {
+            "Village_Code": 1652,
+            "VillageName": "Nellipaka"
+        },
+        {
+            "Village_Code": 382,
+            "VillageName": "Pandurangapuram"
+        },
+        {
+            "Village_Code": 297,
+            "VillageName": "Pattucheera"
+        },
+        {
+            "Village_Code": 367,
+            "VillageName": "Penuballe"
+        },
+        {
+            "Village_Code": 971,
+            "VillageName": "Pinapalle"
+        },
+        {
+            "Village_Code": 1368,
+            "VillageName": "Pitchikalapadu"
+        },
+        {
+            "Village_Code": 1278,
+            "VillageName": "Purushothapatnam"
+        },
+        {
+            "Village_Code": 73,
+            "VillageName": "Rachagampalle"
+        },
+        {
+            "Village_Code": 857,
+            "VillageName": "Raghavapuram"
+        },
+        {
+            "Village_Code": 248,
+            "VillageName": "Rajupeta"
+        },
+        {
+            "Village_Code": 990,
+            "VillageName": "Ramagopalapuram"
+        },
+        {
+            "Village_Code": 98,
+            "VillageName": "Rangapuram"
+        },
+        {
+            "Village_Code": 1691,
+            "VillageName": "Rayanapeta"
+        },
+        {
+            "Village_Code": 94,
+            "VillageName": "Seetapuram"
+        },
+        {
+            "Village_Code": 165,
+            "VillageName": "Seethampeta"
+        },
+        {
+            "Village_Code": 384,
+            "VillageName": "Thallagudem"
+        },
+        {
+            "Village_Code": 599,
+            "VillageName": "Thotapalle"
+        },
+        {
+            "Village_Code": 86,
+            "VillageName": "Thottimadugu"
+        },
+        {
+            "Village_Code": 395,
+            "VillageName": "Thunikicheruvu"
+        },
+        {
+            "Village_Code": 1610,
+            "VillageName": "Tripura Penta Veedu"
+        },
+        {
+            "Village_Code": 346,
+            "VillageName": "Viswapuram"
+        },
+        {
+            "Village_Code": 124,
+            "VillageName": "Yerraboru"
+        },
+        {
+            "Village_Code": 302,
+            "VillageName": "Yerragunta"
         }
     ]
 }

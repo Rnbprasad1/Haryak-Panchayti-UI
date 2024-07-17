@@ -38,7 +38,7 @@ const Query = () => {
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Adilabad','Badradrikothagudem','Asifabad'];
+      const districtFiles = [ 'Bhadrachalam','Charla','Dummugudem','Dummugudem','Wazedu'];
       const districtsData = {};
       const mandalsData = {};
 

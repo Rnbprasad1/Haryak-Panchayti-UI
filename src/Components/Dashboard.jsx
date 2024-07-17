@@ -25,11 +25,25 @@ const AdminDashboard = () => {
         'Bhadrachalam': ['Bhadrachalam', 'Wazedu', 'Venkatapuram', 'Cherla', 'Dummugudem'],
       };
       const villageData = {
-        'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli'],
-        'Wazedu': ['Arguntapalle', 'Arlagudem'],
-        'Venkatapuram': ['A Kathigudem', 'Bandagudem'],
-        'Cherla': ['Chalamala', 'Chimalapadu'],
-        'Dummugudem': ['Achuthapuram', 'Bojjiguppa']
+        'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli','Achuthapuram','Ayyavaripeta','Bandigumpu','Bandirevu','Boddugudem','Buruguvai','Buttaigudem','Chandrampalem',
+          'Chelempalem','Chinna Nallakunta','Chinthalagudem','Chowdavaram','Devarapalle','Doramitta','Fergusanpeta','Gannavaram','Gogubaka','Gollagudem','Gollaguppa','Gommu Koyagudem',
+          'Gottugudem','Gundala','K. Narayanapuram','Kannaigudem','Kannapuram','Kapavaram','Kapugampalle','Kistaram','Kothagudem','Kusumanapalle','Lakshmidevipeta','Laxmipuram','Lingalapalle','Madhavaraopeta',
+          'Mummadivaru','Murumoor','Nallakunta','Nandigama','Narasingapeta','Nellipaka','Pandurangapuram','Pattucheera','Penuballe','Pinapalle','Viswapuram','Yerragunta'
+        ],
+            "VillageName": "Nagaram",
+        'Wazedu': ['Arguntapalle', 'Arlagudem','Cherukur','Chintoor','Edjarlapalli','Gummadidoddi','Kongala','Krishnapuram','Murmur','Nagaram','Peruru','Chandrupatla','Lingapeta','China Gangaram','Tekulagudem'],
+        'Venkatapuram': ['A Kathigudem', 'Bandagudem','Alubaka [G]','Alubaka [Z]','Ankannagudem','Bandagudem','Barlagudem','Bodapuram [G]','Chalamala','Chinagangaram','Chirtapalle','Doli','Edhira [G]','Ippagudem','K.Kondapuram [Z]',
+          'Kalipaka [G]','Koyabestagudem','Mahitapuram','Mallapuram','Marikala','Morram Vanigudem [G]','Nuguru','Palem','Pamunoor','Pujarigudem [Z]','Rachapalle','Ramavaram','Sudibaka','Tadapala','Uppedu','Veerabhadraram','Venkatapuram',
+          'Wadagudem','Zella'
+        ],
+        'Cherla': ['Chalamala', 'Chimalapadu','Bathinapalle','Bhumullanka','Bodanalli','C. Kathigudem','Chalamala','Cherla','Chimalapadu','China Midisileru','Chintaguppa','Chintakunta','Dandupeta','Devarapalle','Dosillapalle','Gampalle','Gannavaram','Gogubaka','Gommugudem','Gommupulliboinapalle','Jangalapalle',
+          'Jettigudem','Kaliveru','Kesavapuram','Kothapalle','Kothuru','Koyyuru','Kudunuru','Kurnapalle','Lingala','Lingapuram','Mamidigudem','Mogullapalle','Mummidaram','Peda Midisileru','Peddipalle','Puliboinapalle','Puligundala',
+          'Pusuguppa','Rallagudem','Vaddipet','Uyyalamadugu'
+        ],
+        'Dummugudem': ['Achuthapuram', 'Bojjiguppa','Achuthapuram','Adavi Ramavaram','Anjubaka','Arlagudem','Bandarugudem','Bheemavaram','Bojjiguppa','Burra Vemula','Byragulapadu','Cherupalle','Chinnabandirevu','Chintaguppa','Dabbanuthula','Dantenam','Dharmapuram','Dummugudem','Fowlerpeta','Gangolu','Gouravaram',
+          'Govindapuram','Gurralabayalu','Jinnegattu','Kannapuram','Kasinagaram','Katayagudem','Kesavapatnam','Kommanapalle','Kotha Dummugudem','Kothagudem','Kothajinnalagudem','Kothapalle','Kothuru','Lachigudem','Lakshminagaram','Lakshmipuram','Lingapuram','Mahadevapuram','Manguvai','Marayagudem','Maredubaka','Mulakanapalle',
+          'Nadikudi','Narsapuram','Paidagudem'
+        ]
       };
 
       setAssemblies(assemblyData);
