@@ -1,62 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Table, Navbar, Nav, Card, InputGroup } from 'react-bootstrap';
-import { FaSignOutAlt, FaUser, FaLock } from 'react-icons/fa';
+import { Form, Button, Container, Row, Col, Card, InputGroup, Dropdown, Table } from 'react-bootstrap';
+import { FaUser, FaLock, FaSignOutAlt } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [assemblies, setAssemblies] = useState([]);
-  const [mandals, setMandals] = useState({});
-  const [villages, setVillages] = useState({});
-  const [selectedAssembly, setSelectedAssembly] = useState('Bhadrachalam');
-  const [selectedMandal, setSelectedMandal] = useState('');
-  const [selectedVillages, setSelectedVillages] = useState([]);
-  const [filteredMandals, setFilteredMandals] = useState([]);
-  const [filteredVillages, setFilteredVillages] = useState([]);
-  const [newPassword, setNewPassword] = useState('');
   const [villagePasswords, setVillagePasswords] = useState({});
+  const [assemblies] = useState(['Bhadrachalam']);
+  const [selectedAssembly, setSelectedAssembly] = useState('');
+  const [selectedMandal, setSelectedMandal] = useState('');
+  const [villages, setVillages] = useState([]);
+  const [selectedVillages, setSelectedVillages] = useState([]);
+  const [villageCredentials, setVillageCredentials] = useState({});
   const [newUsername, setNewUsername] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
+  const [mandalVillages] = useState({
+    'Bhadrachalam': ['Bhadrachalam', 'Anantharam', 'Bangaru Chelaka', 'Bhoopalapatnam', 'Buggapadu', 'Cherukupalli', 'Cheruvumadharam', 'Gottimukkala', 'Gundala', 'Kannaigudem', 'Kondrajupeta', 'Maddulapalli', 'Manuguru', 'Marepalli', 'Nagineniprolu', 'Peddamidisileru', 'Ramachandrapuram', 'Ramanujavaram', 'Sarvaram', 'Sarvapuram'],
+    'Wazedu': ['Cherukur', 'Chintoor', 'Edjarlapalli', 'Gummadidoddi', 'Kongala', 'Krishnapuram', 'Murmur', 'Nagaram', 'Peruru', 'Wazedu', 'Chandrupatla', 'Lingapeta', 'China Gangaram', 'Tekulagudem'],
+    'Venkatapuram': ['Alubaka [G]', 'Alubaka [Z]', 'Ankannagudem', 'Bandagudem', 'Barlagudem', 'Bodapuram [G]', 'Chalamala', 'Chinagangaram', 'Chirtapalle', 'Doli', 'Edhira [G]', 'Ippagudem', 'Ippapuram [G]', 'K.Kondapuram [Z]', 'Kalipaka [G]', 'Kondapuram [Z]', 'Koyabestagudem', 'Mahitapuram', 'Mallapuram', 'Marikala', 'Morram Vanigudem [G]', 'Nuguru', 'Ontichintalagudem [G]', 'Palem', 'Pamunoor', 'Pujarigudem [Z]', 'Rachapalle', 'Ramavaram', 'Sudibaka', 'Suraveedu [G]', 'Suraveedu [Z]', 'Tadapala', 'Uppedu', 'Uppedu Veerapuram', 'Veerabhadraram', 'Venkatapuram', 'Wadagudem', 'Zella'],
+    'Cherla': ['Charla', 'Allapalli', 'Ankampalem', 'Bheemavaram', 'Chatti', 'Gollagudem', 'Gundlamadugu', 'Indupriyal', 'Kondamodalu', 'Kothapalli', 'Lankapalli', 'Mallampeta', 'Manuguru', 'Marepalli', 'Nellipaka', 'Pusugudem', 'Sarivela', 'Sarvapuram', 'Timmakkapet', 'Velagapadu'],
+    'Dummugudem': ['Dummugudem', 'Cherla', 'Narasapuram', 'Gubbagurthi', 'Gottimukkala', 'Mothugudem', 'Pusugudem', 'Vaddigudem', 'Rajapuram', 'Tekulapalli', 'Venkatapuram', 'Chintoor', 'Kuturu', 'Edurallapalli', 'Bhadrachalam', 'Karagudem', 'Dornakal', 'Vepalagadda', 'Kothagudem', 'Yellandu']
+  });
+
+  const mandals = Object.keys(mandalVillages);
+
+  const handleMandalChange = (e) => {
+    const selectedMandal = e.target.value;
+    setSelectedMandal(selectedMandal);
+    setVillages(mandalVillages[selectedMandal] || []);
+    setSelectedVillages([]);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const assemblyData = ['Bhadrachalam'];
-      const mandalData = {
-        'Bhadrachalam': ['Bhadrachalam', 'Wazedu', 'Venkatapuram', 'Cherla', 'Dummugudem'],
-      };
-      const villageData = {
-        'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli','Achuthapuram','Ayyavaripeta','Bandigumpu','Bandirevu','Boddugudem','Buruguvai','Buttaigudem','Chandrampalem',
-          'Chelempalem','Chinna Nallakunta','Chinthalagudem','Chowdavaram','Devarapalle','Doramitta','Fergusanpeta','Gannavaram','Gogubaka','Gollagudem','Gollaguppa','Gommu Koyagudem',
-          'Gottugudem','Gundala','K. Narayanapuram','Kannaigudem','Kannapuram','Kapavaram','Kapugampalle','Kistaram','Kothagudem','Kusumanapalle','Lakshmidevipeta','Laxmipuram','Lingalapalle','Madhavaraopeta',
-          'Mummadivaru','Murumoor','Nallakunta','Nandigama','Narasingapeta','Nellipaka','Pandurangapuram','Pattucheera','Penuballe','Pinapalle','Viswapuram','Yerragunta'
-        ],
-            "VillageName": "Nagaram",
-        'Wazedu': ['Arguntapalle', 'Arlagudem','Cherukur','Chintoor','Edjarlapalli','Gummadidoddi','Kongala','Krishnapuram','Murmur','Nagaram','Peruru','Chandrupatla','Lingapeta','China Gangaram','Tekulagudem'],
-        'Venkatapuram': ['A Kathigudem', 'Bandagudem','Alubaka [G]','Alubaka [Z]','Ankannagudem','Bandagudem','Barlagudem','Bodapuram [G]','Chalamala','Chinagangaram','Chirtapalle','Doli','Edhira [G]','Ippagudem','K.Kondapuram [Z]',
-          'Kalipaka [G]','Koyabestagudem','Mahitapuram','Mallapuram','Marikala','Morram Vanigudem [G]','Nuguru','Palem','Pamunoor','Pujarigudem [Z]','Rachapalle','Ramavaram','Sudibaka','Tadapala','Uppedu','Veerabhadraram','Venkatapuram',
-          'Wadagudem','Zella'
-        ],
-        'Cherla': ['Chalamala', 'Chimalapadu','Bathinapalle','Bhumullanka','Bodanalli','C. Kathigudem','Chalamala','Cherla','Chimalapadu','China Midisileru','Chintaguppa','Chintakunta','Dandupeta','Devarapalle','Dosillapalle','Gampalle','Gannavaram','Gogubaka','Gommugudem','Gommupulliboinapalle','Jangalapalle',
-          'Jettigudem','Kaliveru','Kesavapuram','Kothapalle','Kothuru','Koyyuru','Kudunuru','Kurnapalle','Lingala','Lingapuram','Mamidigudem','Mogullapalle','Mummidaram','Peda Midisileru','Peddipalle','Puliboinapalle','Puligundala',
-          'Pusuguppa','Rallagudem','Vaddipet','Uyyalamadugu'
-        ],
-        'Dummugudem': ['Achuthapuram', 'Bojjiguppa','Achuthapuram','Adavi Ramavaram','Anjubaka','Arlagudem','Bandarugudem','Bheemavaram','Bojjiguppa','Burra Vemula','Byragulapadu','Cherupalle','Chinnabandirevu','Chintaguppa','Dabbanuthula','Dantenam','Dharmapuram','Dummugudem','Fowlerpeta','Gangolu','Gouravaram',
-          'Govindapuram','Gurralabayalu','Jinnegattu','Kannapuram','Kasinagaram','Katayagudem','Kesavapatnam','Kommanapalle','Kotha Dummugudem','Kothagudem','Kothajinnalagudem','Kothapalle','Kothuru','Lachigudem','Lakshminagaram','Lakshmipuram','Lingapuram','Mahadevapuram','Manguvai','Marayagudem','Maredubaka','Mulakanapalle',
-          'Nadikudi','Narsapuram','Paidagudem'
-        ]
-      };
-
-      setAssemblies(assemblyData);
-      setMandals(mandalData);
-      setVillages(villageData);
-      setFilteredMandals(mandalData['Bhadrachalam'] || []);
-
-      // Load saved passwords from localStorage
-      const savedPasswords = JSON.parse(localStorage.getItem('villagePasswords')) || {};
-      setVillagePasswords(savedPasswords);
-    };
-
-    fetchData();
+    const savedPasswords = JSON.parse(localStorage.getItem('villagePasswords')) || {};
+    setVillagePasswords(savedPasswords);
+    const savedCredentials = JSON.parse(localStorage.getItem('villageCredentials')) || {};
+    setVillageCredentials(savedCredentials);
   }, []);
 
   const handleLogin = (e) => {
@@ -65,7 +46,6 @@ const AdminDashboard = () => {
       setIsLoggedIn(true);
     } else if (villagePasswords[username]?.password === password) {
       setIsLoggedIn(true);
-      setFilteredVillages([username]);
     } else {
       alert('Invalid credentials');
     }
@@ -75,48 +55,35 @@ const AdminDashboard = () => {
     setIsLoggedIn(false);
     setUsername('');
     setPassword('');
-    setSelectedVillages([]);
   };
 
-  const handleAssemblyChange = (e) => {
-    const assembly = e.target.value;
-    setSelectedAssembly(assembly);
-    setFilteredMandals(mandals[assembly] || []);
-    setSelectedMandal('');
-    setSelectedVillages([]);
-    setFilteredVillages([]);
-  };
-
-  const handleMandalChange = (e) => {
-    const mandal = e.target.value;
-    setSelectedMandal(mandal);
-    setFilteredVillages(villages[mandal] || []);
-    setSelectedVillages([]);
-  };
-
-  const handleVillageChange = (e) => {
-    const village = e.target.value;
-    setSelectedVillages(prev => 
-      prev.includes(village) ? prev.filter(v => v !== village) : [...prev, village]
+  const handleVillageSelect = (village) => {
+    setSelectedVillages(prevSelected => 
+      prevSelected.includes(village)
+        ? prevSelected.filter(v => v !== village)
+        : [...prevSelected, village]
     );
   };
 
- const handleCreatePasswords = () => {
-  if (newUsername && newPassword) {
-    const updatedPasswords = { ...villagePasswords };
+  const handleCreateCredentials = () => {
+    if (selectedVillages.length === 0) {
+      alert('Please select at least one village');
+      return;
+    }
+    if (!newUsername || !newPassword) {
+      alert('Please enter both username and password');
+      return;
+    }
+    const newCredentials = { ...villageCredentials };
     selectedVillages.forEach(village => {
-      updatedPasswords[village] = { username: newUsername, password: newPassword };
+      newCredentials[village] = { username: newUsername, password: newPassword };
     });
-    setVillagePasswords(updatedPasswords);
-    // Save to localStorage
-    localStorage.setItem('villagePasswords', JSON.stringify(updatedPasswords));
+    setVillageCredentials(newCredentials);
+    localStorage.setItem('villageCredentials', JSON.stringify(newCredentials));
     setNewUsername('');
     setNewPassword('');
-    alert('Username and Password created successfully!');
-  } else {
-    alert('Please enter a username and password.');
-  }
-};
+    setSelectedVillages([]);
+  };
 
   if (!isLoggedIn) {
     return (
@@ -171,113 +138,142 @@ const AdminDashboard = () => {
     );
   }
 
-  return (
-    <>
-      <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
-        <Container>
-          <Navbar.Brand>Dashboard</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Button variant="outline-light" onClick={handleLogout}>
-                <FaSignOutAlt className="me-2" />
-                Logout
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <Container>
-        <Row className="mb-4">
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Select Assembly</Form.Label>
-              <Form.Control as="select" value={selectedAssembly} onChange={handleAssemblyChange}>
-                <option value="">Select Assembly</option>
-                {assemblies.map((assembly, index) => (
-                  <option key={index} value={assembly}>{assembly}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+    return (
+      <Container fluid>
+        <Row className="mb-4 align-items-center">
+          <Col>
+            <h1>Admin Dashboard</h1>
           </Col>
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Select Mandal</Form.Label>
-              <Form.Control as="select" value={selectedMandal} onChange={handleMandalChange} disabled={!selectedAssembly}>
-                <option value="">Select Mandal</option>
-                {filteredMandals.map((mandal, index) => (
-                  <option key={index} value={mandal}>{mandal}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-          <Col md={4}>
-            <Form.Group>
-              <Form.Label>Select Villages</Form.Label>
-              <Form.Control as="select" multiple value={selectedVillages} onChange={handleVillageChange} disabled={!selectedMandal}>
-                {filteredVillages.map((village, index) => (
-                  <option key={index} value={village}>{village}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>New Username for Selected Villages</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder="Enter new username" 
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group>
-              <Form.Label>New Password for Selected Villages</Form.Label>
-              <Form.Control 
-                type="password" 
-                placeholder="Enter new password" 
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col md={6} className="d-flex align-items-end">
-            <Button variant="primary" onClick={handleCreatePasswords}>
-              Create Username and Password for Selected Villages
+          <Col xs="auto">
+            <Button variant="outline-danger" onClick={handleLogout}>
+              <FaSignOutAlt className="me-2" />
+              Logout
             </Button>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <Table striped bordered hover responsive className="shadow-sm">
-              <thead className="bg-primary text-white">
-                <tr>
-                  <th>Village</th>
-                  <th>Username</th>
-                  <th>Password</th>
+        <Form>
+          <Row>
+            <Col xs={12} md={4} className="mb-3">
+              <Form.Group controlId="formAssembly">
+                <Form.Label>Assembly</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={selectedAssembly}
+                  onChange={(e) => setSelectedAssembly(e.target.value)}
+                >
+                  <option value="">Select Assembly</option>
+                  {assemblies.map((assembly, index) => (
+                    <option key={index} value={assembly}>{assembly}</option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={4} className="mb-3">
+              <Form.Group controlId="formMandal">
+                <Form.Label>Mandal</Form.Label>
+                <Form.Control 
+                  as="select"
+                  value={selectedMandal}
+                  onChange={handleMandalChange}
+                >
+                  <option value="">Select Mandal</option>
+                  {Object.keys(mandalVillages).map((mandal, index) => (
+                    <option key={index} value={mandal}>{mandal}</option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={4} className="mb-3">
+  <Form.Group controlId="formVillages">
+    <Form.Label>Villages</Form.Label>
+    <Dropdown onToggle={(isOpen) => {
+      if (!isOpen) {
+        // This will close the dropdown when clicking outside
+        document.body.click();
+      }
+    }}>
+      <Dropdown.Toggle variant="secondary" id="dropdown-villages" className="w-100">
+        Select Villages
+      </Dropdown.Toggle>
+      <Dropdown.Menu className="w-100">
+        {villages.map((village, index) => (
+          <Dropdown.Item 
+            key={index} 
+            as="button" 
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent dropdown from closing on item click
+              handleVillageSelect(village);
+            }}
+          >
+            <Form.Check
+              type="checkbox"
+              id={`village-${index}`}
+              label={village}
+              checked={selectedVillages.includes(village)}
+              onChange={() => {}}
+            />
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  </Form.Group>
+</Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={12} md={4}>
+              <Form.Group controlId="formNewUsername">
+                <Form.Label>New Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter new username"
+                  value={newUsername}
+                  onChange={(e) => setNewUsername(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={4}>
+              <Form.Group controlId="formNewPassword">
+                <Form.Label>New Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter new password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={4} className="d-flex align-items-end">
+              <Button variant="primary" onClick={handleCreateCredentials} className="w-100">
+                Create Credentials
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+  
+        <h2 className="mt-4 mb-3">Village Credentials</h2>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Village</th>
+                <th>Username</th>
+                <th>Password</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(villageCredentials).map(([village, creds]) => (
+                <tr key={village}>
+                  <td>{village}</td>
+                  <td>{creds.username}</td>
+                  <td>{creds.password}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {Object.entries(villagePasswords).map(([village, data]) => (
-                  <tr key={village}>
-                    <td>{village}</td>
-                    <td>{data.username}</td>
-                    <td>{data.password}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </Container>
-    </>
-  );
-};
-
-export default AdminDashboard;
+    );
+  };
+  
+  export default AdminDashboard;
+  

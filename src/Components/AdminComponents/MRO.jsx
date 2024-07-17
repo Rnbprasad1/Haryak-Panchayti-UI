@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal, DropdownButton } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
 import { useParams } from 'react-router-dom';
 
 const MROAdmin = () => {
-  const [filterMandal, setFilterMandal] = useState('Bhadrachalam');
+  const [filterMandal, setFilterMandal] = useState('');
   const [filterVillages, setFilterVillages] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,12 +20,21 @@ const MROAdmin = () => {
   const [iasDataArray, setIasDataArray] = useState([]);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
-  const { loggedInMandal, villages } = useParams();
+  const { villages } = useParams();
 
   useEffect(() => {
     const villagesFromUrl = villages.split(',');
     setFilterVillages(villagesFromUrl);
-    setAvailableVillages(mandals['Bhadrachalam']);
+
+    let mandalFound = '';
+    for (const mandal in mandals) {
+      if (mandals[mandal].some((village) => villagesFromUrl.includes(village))) {
+        mandalFound = mandal;
+        setAvailableVillages(mandals[mandal]);
+        break;
+      }
+    }
+    setFilterMandal(mandalFound);
   }, [villages]);
 
   const sendMessageToUser = (mobileNumber, message) => {
@@ -60,7 +69,11 @@ const MROAdmin = () => {
   });
 
   const mandals = {
-    'Bhadrachalam': [ 'Bhadrachalam','Charla','Dummugudem','Dummugudem','Wazedu'],
+    'Bhadrachalam': ['Bhadrachalam', 'Anantharam', 'Bangaru Chelaka', 'Bhoopalapatnam', 'Buggapadu', 'Cherukupalli', 'Cheruvumadharam', 'Gottimukkala', 'Gundala', 'Kannaigudem', 'Kondrajupeta', 'Maddulapalli', 'Manuguru', 'Marepalli', 'Nagineniprolu', 'Peddamidisileru', 'Ramachandrapuram', 'Ramanujavaram', 'Sarvaram', 'Sarvapuram'],
+    'Wazedu': ['Cherukur', 'Chintoor', 'Edjarlapalli', 'Gummadidoddi', 'Kongala', 'Krishnapuram', 'Murmur', 'Nagaram', 'Peruru', 'Wazedu', 'Chandrupatla', 'Lingapeta', 'China Gangaram', 'Tekulagudem'],
+    'Venkatapuram': ['Alubaka [G]', 'Alubaka [Z]', 'Ankannagudem', 'Bandagudem', 'Barlagudem', 'Bodapuram [G]', 'Chalamala', 'Chinagangaram', 'Chirtapalle', 'Doli', 'Edhira [G]', 'Ippagudem', 'Ippapuram [G]', 'K.Kondapuram [Z]', 'Kalipaka [G]', 'Kondapuram [Z]', 'Koyabestagudem', 'Mahitapuram', 'Mallapuram', 'Marikala', 'Morram Vanigudem [G]', 'Nuguru', 'Ontichintalagudem [G]', 'Palem', 'Pamunoor', 'Pujarigudem [Z]', 'Rachapalle', 'Ramavaram', 'Sudibaka', 'Suraveedu [G]', 'Suraveedu [Z]', 'Tadapala', 'Uppedu', 'Uppedu Veerapuram', 'Veerabhadraram', 'Venkatapuram', 'Wadagudem', 'Zella'],
+    'Cherla': ['Charla', 'Allapalli', 'Ankampalem', 'Bheemavaram', 'Chatti', 'Gollagudem', 'Gundlamadugu', 'Indupriyal', 'Kondamodalu', 'Kothapalli', 'Lankapalli', 'Mallampeta', 'Manuguru', 'Marepalli', 'Nellipaka', 'Pusugudem', 'Sarivela', 'Sarvapuram', 'Timmakkapet', 'Velagapadu'],
+    'Dummugudem': ['Dummugudem', 'Cherla', 'Narasapuram', 'Gubbagurthi', 'Gottimukkala', 'Mothugudem', 'Pusugudem', 'Vaddigudem', 'Rajapuram', 'Tekulapalli', 'Venkatapuram', 'Chintoor', 'Kuturu', 'Edurallapalli', 'Bhadrachalam', 'Karagudem', 'Dornakal', 'Vepalagadda', 'Kothagudem', 'Yellandu']
   };
 
   const handleShowModal = (data) => {
@@ -102,50 +115,50 @@ const MROAdmin = () => {
     setHasResponded(false);
   };
 
- const handleUpdateStatus = (status, adminResponse) => {
-  if (selectedData) {
-    const index = formDataArray.findIndex((data) => data.token === selectedData.token);
-    const currentActionTakenDate = new Date().toISOString();
-    const currentComment = {
-      comment: adminResponse,
-      role: loggedInMandal + ' MRO',
-      timestamp: new Date().toLocaleString(),
-    };
+  const handleUpdateStatus = (status, adminResponse) => {
+    if (selectedData) {
+      const index = formDataArray.findIndex((data) => data.token === selectedData.token);
+      const currentActionTakenDate = new Date().toISOString();
+      const currentComment = {
+        comment: adminResponse,
+        role: 'MRO',
+        timestamp: new Date().toLocaleString(),
+      };
 
-    if (status === 'open' && adminResponse.trim() !== '') {
-      status = 'In Progress';
+      if (status === 'open' && adminResponse.trim() !== '') {
+        status = 'In Progress';
+      }
+
+      updateStatus(index, status, adminResponse);
+      updateAdminResponse(index, adminResponse);
+      updateActionTakenBy(index, filterMandal + ' admin');
+      if (status === 'completed' || status === 'In Progress') {
+        updateActionTakenDate(index, currentActionTakenDate);
+        sendMessageToUser(selectedData.mobile, adminResponse);
+      }
+
+      const updatedComments = [...previousComments, currentComment];
+      const updatedData = { 
+        ...selectedData, 
+        adminComments: updatedComments, 
+        actionTakenDate: currentActionTakenDate, 
+        actionTakenBy: 'MRO',
+        status: status
+      };
+      const updatedFormDataArray = [...formDataArray];
+      updatedFormDataArray[index] = updatedData;
+
+      updateFormDataArray(updatedFormDataArray);
+
+      setIsUpdateDisabled(status === 'completed');
+      setSelectedData(updatedData);
+      setPreviousComments(updatedComments);
+      setTokenSentToIAS(false);
+      setHasResponded(true);
+
+      handleCloseModal();
     }
-
-    updateStatus(index, status, adminResponse);
-    updateAdminResponse(index, adminResponse);
-    updateActionTakenBy(index, loggedInMandal + ' admin');
-    if (status === 'completed' || status === 'In Progress') {
-      updateActionTakenDate(index, currentActionTakenDate);
-      sendMessageToUser(selectedData.mobile, adminResponse);
-    }
-
-    const updatedComments = [...previousComments, currentComment];
-    const updatedData = { 
-      ...selectedData, 
-      adminComments: updatedComments, 
-      actionTakenDate: currentActionTakenDate, 
-      actionTakenBy: 'MRO',
-      status: status
-    };
-    const updatedFormDataArray = [...formDataArray];
-    updatedFormDataArray[index] = updatedData;
-
-    updateFormDataArray(updatedFormDataArray);
-
-    setIsUpdateDisabled(status === 'completed');
-    setSelectedData(updatedData);
-    setPreviousComments(updatedComments);
-    setTokenSentToIAS(false);
-    setHasResponded(true);
-
-    handleCloseModal();
-  }
-};
+  };
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
@@ -177,27 +190,25 @@ const MROAdmin = () => {
         <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
             <Form.Label>Mandal</Form.Label>
-            <Form.Control as="select" value={filterMandal} onChange={(e) => setFilterMandal(e.target.value)} disabled>
-              <option value="Bhadrachalam">Bhadrachalam</option>
-            </Form.Control>
+            <Form.Control type="text" value={filterMandal} readOnly />
           </Form.Group>
         </Col>
         <Col xs={12} md={4}>
           <Form.Group controlId="formVillage">
             <Form.Label>Filter by Village</Form.Label>
-            <div>
+            <DropdownButton id="dropdown-basic-button" title="Select Villages" disabled>
               {availableVillages.map((village) => (
-                <Form.Check
-                  key={village}
-                  type="checkbox"
-                  id={`village-${village}`}
-                  label={village}
-                  checked={filterVillages.includes(village)}
-                  disabled={!filterVillages.includes(village)}
-                  readOnly
-                />
+                <Dropdown.Item key={village}>
+                  <Form.Check
+                    type="checkbox"
+                    id={`village-${village}`}
+                    label={village}
+                    checked={filterVillages.includes(village)}
+                    readOnly
+                  />
+                </Dropdown.Item>
               ))}
-            </div>
+            </DropdownButton>
           </Form.Group>
         </Col>
         <Col xs={12} md={4}>
@@ -428,7 +439,7 @@ const MROAdmin = () => {
                       The issue has not been resolved within 1 minute. The ticket will be
                       escalated to the IAS.
                     </Alert>
-                    {!tokenSentToIAS && (
+                       {!tokenSentToIAS && (
                       <IAS
                         data={selectedData}
                         handleDataUpdate={handleDataUpdate}
