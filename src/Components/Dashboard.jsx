@@ -38,7 +38,7 @@ const AdminDashboard = () => {
         ],
         'Cherla': ['Chalamala', 'Chimalapadu','Bathinapalle','Bhumullanka','Bodanalli','C. Kathigudem','Chalamala','Cherla','Chimalapadu','China Midisileru','Chintaguppa','Chintakunta','Dandupeta','Devarapalle','Dosillapalle','Gampalle','Gannavaram','Gogubaka','Gommugudem','Gommupulliboinapalle','Jangalapalle',
           'Jettigudem','Kaliveru','Kesavapuram','Kothapalle','Kothuru','Koyyuru','Kudunuru','Kurnapalle','Lingala','Lingapuram','Mamidigudem','Mogullapalle','Mummidaram','Peda Midisileru','Peddipalle','Puliboinapalle','Puligundala',
-          'Pusuguppa','Rallagudem'
+          'Pusuguppa','Rallagudem','Vaddipet','Uyyalamadugu'
         ],
         'Dummugudem': ['Achuthapuram', 'Bojjiguppa','Achuthapuram','Adavi Ramavaram','Anjubaka','Arlagudem','Bandarugudem','Bheemavaram','Bojjiguppa','Burra Vemula','Byragulapadu','Cherupalle','Chinnabandirevu','Chintaguppa','Dabbanuthula','Dantenam','Dharmapuram','Dummugudem','Fowlerpeta','Gangolu','Gouravaram',
           'Govindapuram','Gurralabayalu','Jinnegattu','Kannapuram','Kasinagaram','Katayagudem','Kesavapatnam','Kommanapalle','Kotha Dummugudem','Kothagudem','Kothajinnalagudem','Kothapalle','Kothuru','Lachigudem','Lakshminagaram','Lakshmipuram','Lingapuram','Mahadevapuram','Manguvai','Marayagudem','Maredubaka','Mulakanapalle',
