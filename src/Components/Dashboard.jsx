@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Card, InputGroup, Dropdown, Table, Modal } from 'react-bootstrap';
 import { FaUser, FaLock, FaSignOutAlt } from 'react-icons/fa';
-
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const AdminDashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
@@ -22,6 +22,7 @@ const AdminDashboard = () => {
   const [editingCredential, setEditingCredential] = useState(null);
   const [editUsername, setEditUsername] = useState('');
   const [editPassword, setEditPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const [mandalVillages] = useState({
     'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli', 'Achuthapuram', 'Ayyavaripeta', 'Bandigumpu', 'Bandirevu', 'Boddugudem', 'Buruguvai', 'Buttaigudem', 'Chandrampalem',
@@ -345,117 +346,129 @@ const AdminDashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Card>
-            <Card.Body>
-              <h3>Village Credentials</h3>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Village</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(villageCredentials).map(([village, cred]) => (
-                    <tr key={village}>
-                      <td>{village}</td>
-                      <td>{cred.username}</td>
-                      <td>{cred.password}</td>
-                      <td>
-                        <Button variant="primary" size="sm" className="me-2" onClick={() => handleEditVillageCredentials(village)}>
-                          Edit
-                        </Button>
-                        <Button variant="danger" size="sm" onClick={() => handleDeleteVillageCredentials(village)}>
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <Card>
-            <Card.Body>
-              <h3>Mandal Credentials</h3>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Mandal</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(mandalCredentials).map(([mandal, cred]) => (
-                    <tr key={mandal}>
-                      <td>{mandal}</td>
-                      <td>{cred.username}</td>
-                      <td>{cred.password}</td>
-                      <td>
-                        <Button variant="primary" size="sm" className="me-2" onClick={() => handleEditMandalCredentials(mandal)}>
-                          Edit
-                        </Button>
-                        <Button variant="danger" size="sm" onClick={() => handleDeleteMandalCredentials(mandal)}>
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Modal show={showEditPopup} onHide={() => setShowEditPopup(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Credentials</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                value={editUsername}
-                onChange={(e) => setEditUsername(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={editPassword}
-                onChange={(e) => setEditPassword(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditPopup(false)}>
-            Cancel
-          </Button>
-          <Button variant="warning" onClick={() => {
-            setEditUsername(editingCredential.type === 'village' ? villageCredentials[editingCredential.name].username : mandalCredentials[editingCredential.name].username);
-            setEditPassword(editingCredential.type === 'village' ? villageCredentials[editingCredential.name].password : mandalCredentials[editingCredential.name].password);
-          }}>
-            Reset
-          </Button>
-          <Button variant="primary" onClick={handleUpdateCredentials}>
-            Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
+    <Row>
+  <Col>
+    <Card>
+      <Card.Body>
+        <h3>Village Credentials</h3>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Village</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(villageCredentials).map(([village, cred]) => (
+                <tr key={village}>
+                  <td>{village}</td>
+                  <td>{cred.username}</td>
+                  <td>{cred.password}</td>
+                  <td>
+                    <Button variant="primary" size="sm" className="me-2 mb-1" onClick={() => handleEditVillageCredentials(village)}>
+                      Edit
+                    </Button>
+                    <Button variant="danger" size="sm" onClick={() => handleDeleteVillageCredentials(village)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </Card.Body>
+    </Card>
+  </Col>
+</Row>
+<Row className="mt-4">
+  <Col>
+    <Card>
+      <Card.Body>
+        <h3>Mandal Credentials</h3>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Mandal</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(mandalCredentials).map(([mandal, cred]) => (
+                <tr key={mandal}>
+                  <td>{mandal}</td>
+                  <td>{cred.username}</td>
+                  <td>{cred.password}</td>
+                  <td>
+                    <Button variant="primary" size="sm" className="me-2 mb-1" onClick={() => handleEditMandalCredentials(mandal)}>
+                      Edit
+                    </Button>
+                    <Button variant="danger" size="sm" onClick={() => handleDeleteMandalCredentials(mandal)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </Card.Body>
+    </Card>
+  </Col>
+</Row>
+<Modal show={showEditPopup} onHide={() => setShowEditPopup(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Edit Credentials</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      <Form.Group className="mb-3">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type="text"
+          value={editUsername}
+          onChange={(e) => setEditUsername(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3">
+  <Form.Label>Password</Form.Label>
+  <InputGroup>
+    <Form.Control
+      type={showPassword ? "text" : "password"}
+      value={editPassword}
+      onChange={(e) => setEditPassword(e.target.value)}
+    />
+    <Button
+      variant="outline-secondary"
+      onClick={() => setShowPassword(!showPassword)}
+    >
+      {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </Button>
+  </InputGroup>
+</Form.Group>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowEditPopup(false)}>
+      Cancel
+    </Button>
+    <Button variant="warning" onClick={() => {
+      setEditUsername(editingCredential.type === 'village' ? villageCredentials[editingCredential.name].username : mandalCredentials[editingCredential.name].username);
+      setEditPassword(editingCredential.type === 'village' ? villageCredentials[editingCredential.name].password : mandalCredentials[editingCredential.name].password);
+    }}>
+      Reset
+    </Button>
+    <Button variant="primary" onClick={handleUpdateCredentials}>
+      Update
+    </Button>
+  </Modal.Footer>
+</Modal>
     </Container>
   );
 };
