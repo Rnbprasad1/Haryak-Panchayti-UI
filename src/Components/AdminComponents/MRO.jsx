@@ -19,11 +19,23 @@ const MROAdmin = () => {
   const [hasResponded, setHasResponded] = useState(false);
   const [iasDataArray, setIasDataArray] = useState([]);
   const { username, villages } = useParams();
-const [loggedInUsername, setLoggedInUsername] = useState(username);
+  const [loggedInUsername, setLoggedInUsername] = useState(username);
+  const [isMandal, setIsMandal] = useState(false);
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
- 
+  const [villageCredentials, setVillageCredentials] = useState({});
 
+  useEffect(() => {
+    const storedVillageCredentials = JSON.parse(localStorage.getItem('villageCredentials')) || {};
+    setVillageCredentials(storedVillageCredentials);
+  }, []);
+
+  useEffect(() => {
+    // Check if the logged-in user is a Mandal admin
+    setIsMandal(loggedInUsername === filterMandal);
+  }, [loggedInUsername, filterMandal]);
+
+  
   useEffect(() => {
     const villagesFromUrl = villages.split(',');
     setFilterVillages(villagesFromUrl);
@@ -55,12 +67,12 @@ const [loggedInUsername, setLoggedInUsername] = useState(username);
         return '';
     }
   };
-
   const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
+    const isMandalLogin = villages === filterMandal;
     return (
+      (isMandalLogin || filterVillages.includes(data.village)) &&
       data.mandal === filterMandal &&
-      filterVillages.includes(data.village) &&
       (data.token?.includes(searchQuery) ||
         data.mobile?.includes(searchQuery) ||
         data.name?.includes(searchQuery) ||
@@ -72,24 +84,24 @@ const [loggedInUsername, setLoggedInUsername] = useState(username);
 
   const mandals = {
 
-    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli','Achuthapuram','Ayyavaripeta','Bandigumpu','Bandirevu','Boddugudem','Buruguvai','Buttaigudem','Chandrampalem',
-      'Chelempalem','Chinna Nallakunta','Chinthalagudem','Chowdavaram','Devarapalle','Doramitta','Fergusanpeta','Gannavaram','Gogubaka','Gollagudem','Gollaguppa','Gommu Koyagudem',
-      'Gottugudem','Gundala','K. Narayanapuram','Kannaigudem','Kannapuram','Kapavaram','Kapugampalle','Kistaram','Kothagudem','Kusumanapalle','Lakshmidevipeta','Laxmipuram','Lingalapalle','Madhavaraopeta',
-      'Mummadivaru','Murumoor','Nallakunta','Nandigama','Narasingapeta','Nellipaka','Pandurangapuram','Pattucheera','Penuballe','Pinapalle','Viswapuram','Yerragunta'
+    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli', 'Achuthapuram', 'Ayyavaripeta', 'Bandigumpu', 'Bandirevu', 'Boddugudem', 'Buruguvai', 'Buttaigudem', 'Chandrampalem',
+      'Chelempalem', 'Chinna Nallakunta', 'Chinthalagudem', 'Chowdavaram', 'Devarapalle', 'Doramitta', 'Fergusanpeta', 'Gannavaram', 'Gogubaka', 'Gollagudem', 'Gollaguppa', 'Gommu Koyagudem',
+      'Gottugudem', 'Gundala', 'K. Narayanapuram', 'Kannaigudem', 'Kannapuram', 'Kapavaram', 'Kapugampalle', 'Kistaram', 'Kothagudem', 'Kusumanapalle', 'Lakshmidevipeta', 'Laxmipuram', 'Lingalapalle', 'Madhavaraopeta',
+      'Mummadivaru', 'Murumoor', 'Nallakunta', 'Nandigama', 'Narasingapeta', 'Nellipaka', 'Pandurangapuram', 'Pattucheera', 'Penuballe', 'Pinapalle', 'Viswapuram', 'Yerragunta'
     ],
-        
-    'Wazedu': ['Arguntapalle', 'Arlagudem','Cherukur','Chintoor','Edjarlapalli','Gummadidoddi','Kongala','Krishnapuram','Murmur','Nagaram','Peruru','Chandrupatla','Lingapeta','China Gangaram','Tekulagudem'],
-    'Venkatapuram': ['A Kathigudem', 'Bandagudem','Alubaka [G]','Alubaka [Z]','Ankannagudem','Bandagudem','Barlagudem','Bodapuram [G]','Chalamala','Chinagangaram','Chirtapalle','Doli','Edhira [G]','Ippagudem','K.Kondapuram [Z]',
-      'Kalipaka [G]','Koyabestagudem','Mahitapuram','Mallapuram','Marikala','Morram Vanigudem [G]','Nuguru','Palem','Pamunoor','Pujarigudem [Z]','Rachapalle','Ramavaram','Sudibaka','Tadapala','Uppedu','Veerabhadraram','Venkatapuram',
-      'Wadagudem','Zella'
+
+    'Wazedu': ['Arguntapalle', 'Arlagudem', 'Cherukur', 'Chintoor', 'Edjarlapalli', 'Gummadidoddi', 'Kongala', 'Krishnapuram', 'Murmur', 'Nagaram', 'Peruru', 'Chandrupatla', 'Lingapeta', 'China Gangaram', 'Tekulagudem'],
+    'Venkatapuram': ['A Kathigudem', 'Bandagudem', 'Alubaka [G]', 'Alubaka [Z]', 'Ankannagudem', 'Bandagudem', 'Barlagudem', 'Bodapuram [G]', 'Chalamala', 'Chinagangaram', 'Chirtapalle', 'Doli', 'Edhira [G]', 'Ippagudem', 'K.Kondapuram [Z]',
+      'Kalipaka [G]', 'Koyabestagudem', 'Mahitapuram', 'Mallapuram', 'Marikala', 'Morram Vanigudem [G]', 'Nuguru', 'Palem', 'Pamunoor', 'Pujarigudem [Z]', 'Rachapalle', 'Ramavaram', 'Sudibaka', 'Tadapala', 'Uppedu', 'Veerabhadraram', 'Venkatapuram',
+      'Wadagudem', 'Zella'
     ],
-    'Cherla': ['Chalamala', 'Chimalapadu','Bathinapalle','Bhumullanka','Bodanalli','C. Kathigudem','Cherla','Chimalapadu','China Midisileru','Chintaguppa','Chintakunta','Dandupeta','Devarapalle','Dosillapalle','Gampalle','Gannavaram','Gogubaka','Gommugudem','Gommupulliboinapalle','Jangalapalle',
-      'Jettigudem','Kaliveru','Kesavapuram','Kothapalle','Kothuru','Koyyuru','Kudunuru','Kurnapalle','Lingala','Lingapuram','Mamidigudem','Mogullapalle','Mummidaram','Peda Midisileru','Peddipalle','Puliboinapalle','Puligundala',
-      'Pusuguppa','Rallagudem','Vaddipet','Uyyalamadugu'
+    'Cherla': ['Chalamala', 'Chimalapadu', 'Bathinapalle', 'Bhumullanka', 'Bodanalli', 'C. Kathigudem', 'Cherla', 'Chimalapadu', 'China Midisileru', 'Chintaguppa', 'Chintakunta', 'Dandupeta', 'Devarapalle', 'Dosillapalle', 'Gampalle', 'Gannavaram', 'Gogubaka', 'Gommugudem', 'Gommupulliboinapalle', 'Jangalapalle',
+      'Jettigudem', 'Kaliveru', 'Kesavapuram', 'Kothapalle', 'Kothuru', 'Koyyuru', 'Kudunuru', 'Kurnapalle', 'Lingala', 'Lingapuram', 'Mamidigudem', 'Mogullapalle', 'Mummidaram', 'Peda Midisileru', 'Peddipalle', 'Puliboinapalle', 'Puligundala',
+      'Pusuguppa', 'Rallagudem', 'Vaddipet', 'Uyyalamadugu'
     ],
-    'Dummugudem': ['Achuthapuram', 'Bojjiguppa','Achuthapuram','Adavi Ramavaram','Anjubaka','Arlagudem','Bandarugudem','Bheemavaram','Bojjiguppa','Burra Vemula','Byragulapadu','Cherupalle','Chinnabandirevu','Chintaguppa','Dabbanuthula','Dantenam','Dharmapuram','Dummugudem','Fowlerpeta','Gangolu','Gouravaram',
-      'Govindapuram','Gurralabayalu','Jinnegattu','Kannapuram','Kasinagaram','Katayagudem','Kesavapatnam','Kommanapalle','Kotha Dummugudem','Kothagudem','Kothajinnalagudem','Kothapalle','Kothuru','Lachigudem','Lakshminagaram','Lakshmipuram','Lingapuram','Mahadevapuram','Manguvai','Marayagudem','Maredubaka','Mulakanapalle',
-      'Nadikudi','Narsapuram','Paidagudem'
+    'Dummugudem': ['Achuthapuram', 'Bojjiguppa', 'Achuthapuram', 'Adavi Ramavaram', 'Anjubaka', 'Arlagudem', 'Bandarugudem', 'Bheemavaram', 'Bojjiguppa', 'Burra Vemula', 'Byragulapadu', 'Cherupalle', 'Chinnabandirevu', 'Chintaguppa', 'Dabbanuthula', 'Dantenam', 'Dharmapuram', 'Dummugudem', 'Fowlerpeta', 'Gangolu', 'Gouravaram',
+      'Govindapuram', 'Gurralabayalu', 'Jinnegattu', 'Kannapuram', 'Kasinagaram', 'Katayagudem', 'Kesavapatnam', 'Kommanapalle', 'Kotha Dummugudem', 'Kothagudem', 'Kothajinnalagudem', 'Kothapalle', 'Kothuru', 'Lachigudem', 'Lakshminagaram', 'Lakshmipuram', 'Lingapuram', 'Mahadevapuram', 'Manguvai', 'Marayagudem', 'Maredubaka', 'Mulakanapalle',
+      'Nadikudi', 'Narsapuram', 'Paidagudem'
     ]
   };
 
@@ -155,10 +167,10 @@ const [loggedInUsername, setLoggedInUsername] = useState(username);
       }
 
       const updatedComments = [...previousComments, currentComment];
-      const updatedData = { 
-        ...selectedData, 
-        adminComments: updatedComments, 
-        actionTakenDate: currentActionTakenDate, 
+      const updatedData = {
+        ...selectedData,
+        adminComments: updatedComments,
+        actionTakenDate: currentActionTakenDate,
         actionTakenBy: username,
         status: status
       };
@@ -363,6 +375,17 @@ const [loggedInUsername, setLoggedInUsername] = useState(username);
                   </Form.Group>
                 </Col>
               </Row>
+              {villages === filterMandal && selectedData && (
+                <Form.Group className="mb-3">
+                  <Form.Label>Assigned To</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={villageCredentials[selectedData.village]?.username || ''}
+                    readOnly
+                  />
+                </Form.Group>
+              )}
+
               <Row>
                 <Col>
                   <Form.Group controlId="formIssueDescription">
@@ -456,7 +479,7 @@ const [loggedInUsername, setLoggedInUsername] = useState(username);
                       The issue has not been resolved within 1 minute. The ticket will be
                       escalated to the IAS.
                     </Alert>
-                       {!tokenSentToIAS && (
+                    {!tokenSentToIAS && (
                       <IAS
                         data={selectedData}
                         handleDataUpdate={handleDataUpdate}
