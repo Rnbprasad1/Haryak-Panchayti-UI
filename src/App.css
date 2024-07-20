@@ -34,7 +34,7 @@ input[type="file"] {
 /* Small screens */
 @media (max-width: 768px) {
   .App-header {
-    background-image: url('Assets/AP1.png');
+    background-image: url('Assets/AP.png');
     height: 100px; 
     width: 100%; 
     padding-top: 0px;
