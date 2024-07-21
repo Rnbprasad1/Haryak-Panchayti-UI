@@ -1,12 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal } from 'react-bootstrap';
+import React, { useState, useContext, useEffect } from 'react';
+import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal,Card } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const IAS = () => {
-  const [filterDistrict, setFilterDistrict] = useState('');
+  const { username, mandal } = useParams();
+  const navigate = useNavigate();
   const [filterMandal, setFilterMandal] = useState('');
   const [filterVillage, setFilterVillage] = useState('');
-  const [availableMandals, setAvailableMandals] = useState([]);
   const [availableVillages, setAvailableVillages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -14,6 +16,10 @@ const IAS = () => {
   const [adminComment, setAdminComment] = useState('');
   const [previousComments, setPreviousComments] = useState([]);
   const [isUpdateDisabled, setIsUpdateDisabled] = useState(false);
+  const [assignedTo, setAssignedTo] = useState('');
+  const [villages] = useState({});
+  const [filterStatus, setFilterStatus] = useState('');
+
 
   const {
     iasDataArray,
@@ -24,6 +30,26 @@ const IAS = () => {
     setIasDataArray,
     updateIASResponse
   } = useContext(DataContext);
+
+  const villageCredentials = JSON.parse(localStorage.getItem('villageCredentials') || '{}');
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  }
+  useEffect(() => {
+    if (mandal) {
+      const mandalList = decodeURIComponent(mandal).split(',');
+      setFilterMandal(mandalList[0]); // Set the first mandal as default
+    }
+  }, [mandal]);
+
+  useEffect(() => {
+    if (filterMandal) {
+      setAvailableVillages(mandals[filterMandal] || []);
+    }
+  }, [filterMandal]);
+
+
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -44,63 +70,29 @@ const IAS = () => {
 
   const filteredData = iasDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
+    const mandalMatch = mandal ? decodeURIComponent(mandal).split(',').includes(data.mandal) : true;
+    const statusMatch = filterStatus ? data.status === filterStatus : true;
 
-    if (filterDistrict && filterMandal && filterVillage) {
-      return (
-        data.district === filterDistrict &&
-        data.mandal === filterMandal &&
-        data.village === filterVillage &&
-        (data.token?.match(searchRegex) ||
-          data.mobile?.match(searchRegex) ||
-          data.name?.match(searchRegex) ||
-          data.aadhar?.match(searchRegex) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.match(searchRegex))
-      );
-    } else if (filterDistrict && filterMandal) {
-      return (
-        data.district === filterDistrict &&
-        data.mandal === filterMandal &&
-        (data.token?.match(searchRegex) ||
-          data.mobile?.match(searchRegex) ||
-          data.name?.match(searchRegex) ||
-          data.aadhar?.match(searchRegex) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.match(searchRegex))
-      );
-    } else if (filterDistrict) {
-      return (
-        data.district === filterDistrict &&
-        (data.token?.match(searchRegex) ||
-          data.mobile?.match(searchRegex) ||
-          data.name?.match(searchRegex) ||
-          data.aadhar?.match(searchRegex) ||
-          data.issueDescription?.match(searchRegex) ||
-          data.submittedDate?.match(searchRegex))
-      );
-    }
     return (
-      data.token?.match(searchRegex) ||
-      data.mobile?.match(searchRegex) ||
-      data.name?.match(searchRegex) ||
-      data.aadhar?.match(searchRegex) ||
-      data.issueDescription?.match(searchRegex) ||
-      data.submittedDate?.match(searchRegex)
+      mandalMatch &&
+      statusMatch &&
+      (filterVillage ? data.village === filterVillage : true) &&
+      (data.token?.match(searchRegex) ||
+        data.mobile?.match(searchRegex) ||
+        data.name?.match(searchRegex) ||
+        data.aadhar?.match(searchRegex) ||
+        data.issueDescription?.match(searchRegex) ||
+        data.submittedDate?.match(searchRegex))
     );
   });
 
-  const handleDistrictChange = (e) => {
-    const district = e.target.value;
-    setFilterDistrict(district);
-    setAvailableMandals(districts[district] || []);
-    setFilterMandal('');
-    setFilterVillage('');
-  };
+
+
 
   const handleMandalChange = (e) => {
-    const mandal = e.target.value;
-    setFilterMandal(mandal);
-    setAvailableVillages(mandals[mandal] || []);
+    const selectedMandal = e.target.value;
+    setFilterMandal(selectedMandal);
+    setAvailableVillages(mandals[selectedMandal] || []);
     setFilterVillage('');
   };
 
@@ -109,23 +101,43 @@ const IAS = () => {
     setFilterVillage(village);
   };
 
-  const districts = {
-    'Palnadu': ['Chilakaluripet', 'Narsaraopet'],
-    'Guntur': ['Tenali', 'Amaravathi'],
+  const handleStatusChange = (e) => {
+    const status = e.target.value;
+    setFilterStatus(status);
   };
 
   const mandals = {
-    'Chilakaluripet': ['Pothavaram', 'Purshothapatanam'],
-    'Narsarsaopet': ['Jonnalagadda', 'Palapadu'],
-    'Tenali': ['Burripalem', 'Nelapadu'],
-    'Amaravathi': ['Lingapuram', 'Unguturu'],
+    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli', 'Achuthapuram', 'Ayyavaripeta', 'Bandigumpu', 'Bandirevu', 'Boddugudem', 'Buruguvai', 'Buttaigudem', 'Chandrampalem',
+      'Chelempalem', 'Chinna Nallakunta', 'Chinthalagudem', 'Chowdavaram', 'Devarapalle', 'Doramitta', 'Fergusanpeta', 'Gannavaram', 'Gogubaka', 'Gollagudem', 'Gollaguppa', 'Gommu Koyagudem',
+      'Gottugudem', 'Gundala', 'K. Narayanapuram', 'Kannaigudem', 'Kannapuram', 'Kapavaram', 'Kapugampalle', 'Kistaram', 'Kothagudem', 'Kusumanapalle', 'Lakshmidevipeta', 'Laxmipuram', 'Lingalapalle', 'Madhavaraopeta',
+      'Mummadivaru', 'Murumoor', 'Nallakunta', 'Nandigama', 'Narasingapeta', 'Nellipaka', 'Pandurangapuram', 'Pattucheera', 'Penuballe', 'Pinapalle', 'Viswapuram', 'Yerragunta'
+    ],
+    'Wazedu': ['Arguntapalle', 'Arlagudem', 'Cherukur', 'Chintoor', 'Edjarlapalli', 'Gummadidoddi', 'Kongala', 'Krishnapuram', 'Murmur', 'Nagaram', 'Peruru', 'Chandrupatla', 'Lingapeta', 'China Gangaram', 'Tekulagudem'],
+    'Venkatapuram': ['A Kathigudem', 'Bandagudem', 'Alubaka [G]', 'Alubaka [Z]', 'Ankannagudem', 'Bandagudem', 'Barlagudem', 'Bodapuram [G]', 'Chalamala', 'Chinagangaram', 'Chirtapalle', 'Doli', 'Edhira [G]', 'Ippagudem', 'K.Kondapuram [Z]',
+      'Kalipaka [G]', 'Koyabestagudem', 'Mahitapuram', 'Mallapuram', 'Marikala', 'Morram Vanigudem [G]', 'Nuguru', 'Palem', 'Pamunoor', 'Pujarigudem [Z]', 'Rachapalle', 'Ramavaram', 'Sudibaka', 'Tadapala', 'Uppedu', 'Veerabhadraram', 'Venkatapuram',
+      'Wadagudem', 'Zella'
+    ],
+    'Cherla': ['Chalamala', 'Chimalapadu', 'Bathinapalle', 'Bhumullanka', 'Bodanalli', 'C. Kathigudem', 'Cherla', 'Chimalapadu', 'China Midisileru', 'Chintaguppa', 'Chintakunta', 'Dandupeta', 'Devarapalle', 'Dosillapalle', 'Gampalle', 'Gannavaram', 'Gogubaka', 'Gommugudem', 'Gommupulliboinapalle', 'Jangalapalle',
+      'Jettigudem', 'Kaliveru', 'Kesavapuram', 'Kothapalle', 'Kothuru', 'Koyyuru', 'Kudunuru', 'Kurnapalle', 'Lingala', 'Lingapuram', 'Mamidigudem', 'Mogullapalle', 'Mummidaram', 'Peda Midisileru', 'Peddipalle', 'Puliboinapalle', 'Puligundala',
+      'Pusuguppa', 'Rallagudem', 'Vaddipet', 'Uyyalamadugu'
+    ],
+    'Dummugudem': ['Achuthapuram', 'Bojjiguppa', 'Achuthapuram', 'Adavi Ramavaram', 'Anjubaka', 'Arlagudem', 'Bandarugudem', 'Bheemavaram', 'Bojjiguppa', 'Burra Vemula', 'Byragulapadu', 'Cherupalle', 'Chinnabandirevu', 'Chintaguppa', 'Dabbanuthula', 'Dantenam', 'Dharmapuram', 'Dummugudem', 'Fowlerpeta', 'Gangolu', 'Gouravaram',
+      'Govindapuram', 'Gurralabayalu', 'Jinnegattu', 'Kannapuram', 'Kasinagaram', 'Katayagudem', 'Kesavapatnam', 'Kommanapalle', 'Kotha Dummugudem', 'Kothagudem', 'Kothajinnalagudem', 'Kothapalle', 'Kothuru', 'Lachigudem', 'Lakshminagaram', 'Lakshmipuram', 'Lingapuram', 'Mahadevapuram', 'Manguvai', 'Marayagudem', 'Maredubaka', 'Mulakanapalle',
+      'Nadikudi', 'Narsapuram', 'Paidagudem'
+    ]
   };
+
+
 
   const handleShowModal = (data) => {
     setSelectedData(data);
     setAdminComment('');
     setPreviousComments(data.adminComments || []);
     setShowModal(true);
+
+    const villageUsername = villageCredentials[data.village]?.username || 'Not assigned';
+    setAssignedTo(villageUsername)
+
   };
 
   const handleCloseModal = () => {
@@ -136,49 +148,49 @@ const IAS = () => {
   };
 
   const handleUpdateStatus = (status) => {
-  if (selectedData) {
-    const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
-    const currentActionTakenDate = new Date().toISOString();
-    const currentComment = {
-      comment: adminComment,
-      role: 'IAS',
-      timestamp: new Date().toLocaleString(),
-    };
+    if (selectedData) {
+      const index = iasDataArray.findIndex((data) => data.token === selectedData.token);
+      const currentActionTakenDate = new Date().toISOString();
+      const currentComment = {
+        comment: adminComment,
+        role: username,
+        timestamp: new Date().toLocaleString(),
+      };
 
-    // Automatically set status to "In Progress" when admin comment is added
-    if (status === 'open' && adminComment.trim() !== '') {
-      status = 'In Progress';
+      if (status === 'open' && adminComment.trim() !== '') {
+        status = 'In Progress';
+      }
+
+      updateStatus(index, status, adminComment, true);
+      updateAdminResponse(index, adminComment, true);
+      updateActionTakenBy(index, username, true);
+      if (status === 'completed' || status === 'In Progress') {
+        updateActionTakenDate(index, currentActionTakenDate, true);
+        sendMessageToUser(selectedData.mobile, adminComment);
+      }
+      updateIASResponse(index, adminComment);
+
+      const updatedComments = [...previousComments, currentComment];
+      const updatedData = {
+        ...selectedData,
+        adminComments: updatedComments,
+        actionTakenDate: currentActionTakenDate,
+        actionTakenBy: username,
+        status: status,
+        iasResponse: adminComment
+      };
+
+      const updatedIasDataArray = [...iasDataArray];
+      updatedIasDataArray[index] = updatedData;
+
+      setIasDataArray(updatedIasDataArray);
+      setSelectedData(updatedData);
+      setPreviousComments(updatedComments);
+
+      handleCloseModal();
     }
+  };
 
-    updateStatus(index, status, adminComment, true);
-    updateAdminResponse(index, adminComment, true);
-    updateActionTakenBy(index, 'IAS', true);
-    if (status === 'completed' || status === 'In Progress') {
-      updateActionTakenDate(index, currentActionTakenDate, true);
-      sendMessageToUser(selectedData.mobile, adminComment);
-    }
-    updateIASResponse(index, adminComment);
-
-    const updatedComments = [...previousComments, currentComment];
-    const updatedData = {
-      ...selectedData,
-      adminComments: updatedComments,
-      actionTakenDate: currentActionTakenDate,
-      actionTakenBy: 'IAS',
-      status: status,
-      iasResponse: adminComment
-    };
-
-    const updatedIasDataArray = [...iasDataArray];
-    updatedIasDataArray[index] = updatedData;
-
-    setIasDataArray(updatedIasDataArray);
-    setSelectedData(updatedData);
-    setPreviousComments(updatedComments);
-
-    handleCloseModal();
-  }
-};
 
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
@@ -191,37 +203,78 @@ const IAS = () => {
     return parseDate(b.timestamp) - parseDate(a.timestamp);
   });
 
+  const statusCounts = {
+    open: 0,
+    'In Progress': 0,
+    completed: 0
+  };
+
+  const mandalCounts = {};
+
+  iasDataArray.forEach(data => {
+    statusCounts[data.status] = (statusCounts[data.status] || 0) + 1;
+    mandalCounts[data.mandal] = (mandalCounts[data.mandal] || 0) + 1;
+  });
+
+  const totalTickets = iasDataArray.length;
+
   return (
     <Container fluid>
-      <h2 className="mb-4">IAS Dashboard - Escalated Queries</h2>
+      <br></br><br></br>
+
+      <Row className='mb-3'>
+        <Col className="text-end">
+          <Button variant="danger" onClick={handleLogout}>
+            <FaSignOutAlt className="me-2" />
+            Logout
+          </Button>
+        </Col>
+        </Row>
+
+ <h2 className="mb-4 text-primary">{decodeURIComponent(filterMandal)} Analysis</h2>
+<Row className="mb-4">
+  <Col md={3} className="mb-3">
+    <Card className="text-center h-100 shadow-sm border-0">
+      <Card.Body className="d-flex flex-column justify-content-center">
+        <Card.Title className="text-muted">Total Tickets</Card.Title>
+        <Card.Text className="display-4 font-weight-bold text-primary">{filteredData.length}</Card.Text>
+        <i className="fas fa-ticket-alt fa-3x text-primary mt-2"></i>
+      </Card.Body>
+    </Card>
+  </Col>
+  {['open', 'In Progress', 'completed'].map((status) => {
+    const count = filteredData.filter(data => data.status === status).length;
+    return (
+      <Col md={3} key={status} className="mb-3">
+        <Card className="text-center h-100 shadow-sm border-0">
+          <Card.Body className="d-flex flex-column justify-content-center">
+            <Card.Title className="text-muted">{status}</Card.Title>
+            <Card.Text className="display-4 font-weight-bold" style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}>
+              {count}
+            </Card.Text>
+            <i className={`fas fa-${status === 'open' ? 'exclamation-circle' : status === 'In Progress' ? 'clock' : 'check-circle'} fa-3x mt-2`}
+                style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}></i>
+          </Card.Body>
+        </Card>
+      </Col>
+    );
+  })}
+</Row>
+      <h2 className="mb-4">{decodeURIComponent(mandal)} Dashboard - Escalated Queries</h2>
       <Row className="mb-3">
-        <Col xs={12} md={6} lg={3} className="mb-3">
-          <Form.Group controlId="formDistrict">
-            <Form.Label>Filter by District</Form.Label>
-            <Form.Control as="select" value={filterDistrict} onChange={handleDistrictChange}>
-              <option value="">All Districts</option>
-              {Object.keys(districts).map((district) => (
-                <option key={district} value={district}>
-                  {district}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
-        </Col>
-        <Col xs={12} md={6} lg={3} className="mb-3">
+        <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
-            <Form.Label>Filter by Mandal</Form.Label>
+            <Form.Label>Mandal</Form.Label>
             <Form.Control as="select" value={filterMandal} onChange={handleMandalChange}>
-              <option value="">All Mandals</option>
-              {availableMandals.map((mandal) => (
-                <option key={mandal} value={mandal}>
-                  {mandal}
+              {decodeURIComponent(mandal).split(',').map((m) => (
+                <option key={m} value={m}>
+                  {m}
                 </option>
               ))}
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col xs={12} md={6} lg={3} className="mb-3">
+        <Col xs={12} md={6} lg={4} className="mb-3">
           <Form.Group controlId="formVillage">
             <Form.Label>Filter by Village</Form.Label>
             <Form.Control as="select" value={filterVillage} onChange={handleVillageChange}>
@@ -234,7 +287,7 @@ const IAS = () => {
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col xs={12} md={6} lg={3} className="mb-3">
+        <Col xs={12} md={6} lg={4} className="mb-3">
           <Form.Group controlId="formSearch">
             <Form.Label>Search</Form.Label>
             <Form.Control
@@ -245,8 +298,20 @@ const IAS = () => {
             />
           </Form.Group>
         </Col>
-      </Row>
 
+        <Col md={3}>
+          <Form.Control
+            as="select"
+            value={filterStatus}
+            onChange={handleStatusChange}
+          >
+            <option value="">All Statuses</option>
+            <option value="open">Open</option>
+            <option value="In Progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </Form.Control>
+        </Col>
+      </Row>
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Ticket Details</Modal.Title>
@@ -356,6 +421,16 @@ const IAS = () => {
                   readOnly
                 />
               </Form.Group>
+              {selectedData && (
+                <Form.Group className="mb-3">
+                  <Form.Label>Assigned To</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={villageCredentials[selectedData.village]?.username || ''}
+                    readOnly
+                  />
+                </Form.Group>
+              )}
 
               <Form.Group controlId="formPreviousComments" className="mb-3">
                 <Form.Label>Previous Comments</Form.Label>
@@ -372,7 +447,7 @@ const IAS = () => {
                       <tbody>
                         {sortedComments.map((comment, index) => (
                           <tr key={index}>
-                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
+                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : username}</strong></td>
                             <td>{comment.comment}</td>
                             <td>{comment.timestamp}</td>
                           </tr>

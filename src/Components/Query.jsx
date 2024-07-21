@@ -1,24 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Form, Container, Row, Col, Button, Alert } from 'react-bootstrap';
+import { Form, Container, Row, Col, Button, Alert, Card } from 'react-bootstrap';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 import Footer1 from './Footer1';
+import Select from 'react-select';
 
 const Query = () => {
   const { handleQuerySubmit } = useContext(DataContext);
 
   const [districts, setDistricts] = useState({});
   const [mandals, setMandals] = useState({});
-  const [selectedDistrict, setSelectedDistrict] = useState('selectedDistrict');
-  const [selectedMandal, setSelectedMandal] = useState('selectedMandal');
-  const [availableMandals, setAvailableMandals] = useState([]);
-  const [availableVillages, setAvailableVillages] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [selectedMandal, setSelectedMandal] = useState(null);
+  const [selectedVillage, setSelectedVillage] = useState(null);
   const [formData, setFormData] = useState({
     name: 'Venky',
     mobile: '9346329784',
     email: 'venky@gmail.com',
     aadhar: '835299139595',
     issueDescription: '',
-    village: '',
     status: 'open',
     submittedDate: new Date().toISOString(),
   });
@@ -27,18 +26,9 @@ const Query = () => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState('');
 
-  const setInitialValues = (districtsData, mandalsData) => {
-    setAvailableMandals(districtsData['selectedDistrict'] || []);
-    const initialVillages = mandalsData['selectedMandal'] || [];
-    setAvailableVillages(initialVillages);
-    if (initialVillages.length > 0) {
-      setFormData(prevData => ({ ...prevData, village: initialVillages[0] }));
-    }
-  };
-
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = [ 'Bhadrachalam','Charla','Dummugudem','Dummugudem','Wazedu'];
+      const districtFiles = ['Bhadrachalam', 'Charla', 'Dummugudem', 'Dummugudem', 'Wazedu'];
       const districtsData = {};
       const mandalsData = {};
 
@@ -52,9 +42,13 @@ const Query = () => {
             const mandalName = mandal.MandalName.trim();
             try {
               const mandalData = await import(`../Components/Data/villages/${mandalName}.json`);
-              mandalsData[mandalName] = mandalData.Get_villages.map(village => village.VillageName.trim());
+              mandalsData[mandalName] = mandalData.Get_villages.map(village => ({
+                value: village.VillageName.trim(),
+                label: village.VillageName.trim(),
+                mandal: mandalName
+              }));
             } catch (mandalError) {
-              mandalsData[mandalName] = ["TEST VILLAGE"];
+              mandalsData[mandalName] = [{ value: "TEST VILLAGE", label: "TEST VILLAGE", mandal: mandalName }];
               console.error(`Error loading mandal data for ${mandalName}:`, mandalError);
             }
           }
@@ -64,33 +58,20 @@ const Query = () => {
       }
       setDistricts(districtsData);
       setMandals(mandalsData);
-      console.log("Loaded districts:", districtsData);
-      console.log("Loaded mandals:", mandalsData);
-      
-      setInitialValues(districtsData, mandalsData);
     };
 
     loadJsonData();
   }, []);
 
-  const handleDistrictChange = (e) => {
-    const district = e.target.value;
-    setSelectedDistrict(district);
-    const availableMandals = districts[district] || [];
-    console.log("Available mandals for district:", availableMandals);
-    setAvailableMandals(availableMandals);
-    setSelectedMandal('');
-    setAvailableVillages([]);
-    setFormData(prevData => ({ ...prevData, village: '' }));
+  const handleDistrictChange = (selectedOption) => {
+    setSelectedDistrict(selectedOption);
+    setSelectedMandal(null);
+    setSelectedVillage(null);
   };
 
-  const handleMandalChange = (e) => {
-    const mandal = e.target.value;
-    setSelectedMandal(mandal);
-    const villages = mandals[mandal] || [];
-    console.log("Available villages for mandal:", villages);
-    setAvailableVillages(villages);
-    setFormData(prevData => ({ ...prevData, village: villages.length > 0 ? villages[0] : '' }));
+  const handleVillageSelect = (selectedOption) => {
+    setSelectedVillage(selectedOption);
+    setSelectedMandal({ value: selectedOption.mandal, label: selectedOption.mandal });
   };
 
   const handleChange = (e) => {
@@ -106,14 +87,22 @@ const Query = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, mobile, email, aadhar, issueDescription, village } = formData;
-   
-    const generatedToken = generateToken(selectedDistrict, selectedMandal, village);
+    if (!selectedDistrict || !selectedMandal || !selectedVillage) {
+      alert("Please select Village before submitting.");
+      return;
+    }
+    const generatedToken = generateToken(selectedDistrict.value, selectedMandal.value, selectedVillage.value);
     setToken(generatedToken);
     setShowToken(true);
-    handleQuerySubmit({ ...formData, token: generatedToken, selectedDistrict, selectedMandal, file, fileName });
-    console.log(`Token: ${generatedToken}`);
-    console.log(`Send token to email: ${email} and mobile: ${mobile}`);
+    handleQuerySubmit({
+      ...formData,
+      token: generatedToken,
+      selectedDistrict: selectedDistrict.value,
+      selectedMandal: selectedMandal.value,
+      village: selectedVillage.value,
+      file,
+      fileName
+    });
   };
 
   const generateToken = (district, mandal, village) => {
@@ -126,134 +115,136 @@ const Query = () => {
     return `${stateCode}${districtCode}${mandalCode}${areaType}${villageCode}${randomDigits}`;
   };
 
+  const villageOptions = selectedDistrict
+    ? Object.values(mandals).flat().filter(village => districts[selectedDistrict.value].includes(village.mandal))
+    : [];
+
   return (
     <Container className="my-5">
       <Row className="justify-content-center">
-        <Col md={8}>
-          <div className="bg-white p-5 rounded shadow">
-            <h2 className="text-center mb-4">Query Form</h2>
-            <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="formState">
-                    <Form.Label>State</Form.Label>
-                    <Form.Control as="select" defaultValue="Telangana" disabled>
-                      <option>Telangana</option>
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="formDistrict">
-                    <Form.Label>District</Form.Label>
-                    <Form.Control as="select" value={selectedDistrict} onChange={handleDistrictChange}>
-                      <option value="">Select District</option>
-                      {Object.keys(districts).map((district) => (
-                        <option key={district} value={district}>
-                          {district}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-              </Row>
+        <Col md={10}>
+          <Card className="shadow-lg">
+            <Card.Header className="bg-primary text-white">
+              <h2 className="text-center mb-0">Query Submission Form</h2>
+            </Card.Header>
+            <Card.Body className="p-5">
+              <Form onSubmit={handleSubmit}>
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Form.Group controlId="formState">
+                      <Form.Label>State</Form.Label>
+                      <Form.Control as="select" defaultValue="Telangana" disabled>
+                        <option>Telangana</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formDistrict">
+                      <Form.Label>Assembly constituency <span className="text-danger">*</span></Form.Label>
+                      <Select
+                        value={selectedDistrict}
+                        onChange={handleDistrictChange}
+                        options={Object.keys(districts).map(district => ({ value: district, label: district }))}
+                        placeholder="Select constituency"
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="formMandal">
-                    <Form.Label>Mandal</Form.Label>
-                    <Form.Control as="select" value={selectedMandal} onChange={handleMandalChange} disabled={!selectedDistrict}>
-                      <option value="">Select Mandal</option>
-                      {availableMandals.map((mandal) => (
-                        <option key={mandal} value={mandal}>
-                          {mandal}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="village">
-                    <Form.Label>Village</Form.Label>
-                    <Form.Control as="select" value={formData.village} onChange={handleChange} disabled={!selectedMandal}>
-                      <option value="">Select Village</option>
-                      {availableVillages.map((village) => (
-                        <option key={village} value={village}>
-                          {village}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-              </Row>
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Form.Group controlId="formVillage">
+                     <Form.Label>Village <span className="text-danger">*</span></Form.Label>
+                      <Select
+                        value={selectedVillage}
+                        onChange={handleVillageSelect}
+                        options={villageOptions}
+                        placeholder="Search and select village"
+                        isSearchable
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formMandal">
+                      <Form.Label>Mandal <span className="text-danger">*</span></Form.Label>
+                      <Select
+                        value={selectedMandal}
+                        onChange={(option) => setSelectedMandal(option)}
+                        options={selectedDistrict ? districts[selectedDistrict.value].map(mandal => ({ value: mandal, label: mandal })) : []}
+                        placeholder="Select Mandal"
+                        isSearchable
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Form.Group controlId="name">
+                      <Form.Label>Name <span className="text-danger">*</span></Form.Label>
+                      <Form.Control type="text" placeholder="Enter your name" value={formData.name} onChange={handleChange} required />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="mobile">
+                      <Form.Label>Mobile Number <span className="text-danger">*</span></Form.Label>
+                      <Form.Control type="tel" placeholder="Enter your mobile number" value={formData.mobile} onChange={handleChange} required />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="name">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your name" value={formData.name} onChange={handleChange} />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="mobile">
-                    <Form.Label>Mobile Number</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your mobile number" value={formData.mobile} onChange={handleChange} />
-                  </Form.Group>
-                </Col>
-              </Row>
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Form.Group controlId="email">
+                      <Form.Label>Email <span className="text-danger">*</span></Form.Label>
+                      <Form.Control type="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} required />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="aadhar">
+                      <Form.Label>Aadhar Number <span className="text-danger">*</span></Form.Label>
+                      <Form.Control type="text" placeholder="Enter your Aadhar number" value={formData.aadhar} onChange={handleChange} required />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="aadhar">
-                    <Form.Label>Aadhar Number</Form.Label>
-                    <Form.Control type="text" placeholder="Enter your Aadhar number" value={formData.aadhar} onChange={handleChange} />
-                  </Form.Group>
-                </Col>
-              </Row>
+                <Form.Group controlId="issueDescription" className="mb-4">
+                  <Form.Label>Issue Description <span className="text-danger">*</span></Form.Label>
+                  <Form.Control as="textarea" rows={5} placeholder="Please describe your issue in detail" value={formData.issueDescription} onChange={handleChange} required />
+                </Form.Group>
 
-              <Form.Group controlId="issueDescription">
-                <Form.Label>Issue Description</Form.Label>
-                <Form.Control as="textarea" rows={3} placeholder="Describe your issue" value={formData.issueDescription} onChange={handleChange} />
-              </Form.Group>
+                <Row className="mb-4">
+                  <Col md={6}>
+                    <Form.Group controlId="formImage">
+                      <Form.Label>Upload Image</Form.Label>
+                      <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="formVideo">
+                      <Form.Label>Upload Video (optional, max 30 sec)</Form.Label>
+                      <Form.Control type="file" accept="video/*" onChange={handleFileUpload} />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="formImage">
-                    <Form.Label>Upload Image</Form.Label>
-                    <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="formVideo">
-                    <Form.Label>Upload Video (optional, max 30 sec)</Form.Label>
-                    <Form.Control type="file" accept="video/*" onChange={handleFileUpload} />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <div className="d-flex justify-content-end">
-                <Button variant="primary" type="submit" className="mt-3">
-                  Submit
-                </Button>
-              </div>
-              
-            </Form>
-            {showToken && (
-              <Alert variant="success" className="mt-3">
-                Your token is: {token}
-              </Alert>
-            )}
-          </div>
+                <div className="d-flex justify-content-center">
+                  <Button variant="primary" type="submit" size="lg" className="px-5">
+                    Submit Query
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+          {showToken && (
+            <Alert variant="success" className="mt-4">
+              <Alert.Heading>Query Submitted Successfully!</Alert.Heading>
+              <p className="mb-0">Your token number is: <strong>{token}</strong></p>
+              <p>Please keep this token for future reference.</p>
+            </Alert>
+          )}
         </Col>
       </Row>
-      <br />
       <Footer1 />
     </Container>
   );

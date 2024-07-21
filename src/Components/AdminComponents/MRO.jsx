@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal, DropdownButton } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal,Card } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import{FaSignOutAlt} from 'react-icons/fa';
 
 const MROAdmin = () => {
   const [filterMandal, setFilterMandal] = useState('');
@@ -19,23 +20,24 @@ const MROAdmin = () => {
   const [hasResponded, setHasResponded] = useState(false);
   const [iasDataArray, setIasDataArray] = useState([]);
   const { username, villages } = useParams();
+  const navigate = useNavigate();
   const [loggedInUsername, setLoggedInUsername] = useState(username);
-  const [isMandal, setIsMandal] = useState(false);
+  const [villageCredentials, setVillageCredentials] = useState({});
+  const [filterStatus, setFilterStatus] = useState('');
 
   const { formDataArray, updateStatus, updateAdminResponse, updateActionTakenDate, updateActionTakenBy, updateFormDataArray } = useContext(DataContext);
-  const [villageCredentials, setVillageCredentials] = useState({});
+  const { loggedInMandal } = useParams();
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  }
 
   useEffect(() => {
     const storedVillageCredentials = JSON.parse(localStorage.getItem('villageCredentials')) || {};
     setVillageCredentials(storedVillageCredentials);
   }, []);
 
-  useEffect(() => {
-    // Check if the logged-in user is a Mandal admin
-    setIsMandal(loggedInUsername === filterMandal);
-  }, [loggedInUsername, filterMandal]);
-
-  
   useEffect(() => {
     const villagesFromUrl = villages.split(',');
     setFilterVillages(villagesFromUrl);
@@ -67,12 +69,14 @@ const MROAdmin = () => {
         return '';
     }
   };
-  const filteredData = formDataArray.filter((data) => {
+
+ const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
-    const isMandalLogin = villages === filterMandal;
+    const statusMatch = filterStatus ? data.status === filterStatus : true;
     return (
-      (isMandalLogin || filterVillages.includes(data.village)) &&
       data.mandal === filterMandal &&
+      statusMatch &&
+      filterVillages.includes(data.village) &&
       (data.token?.includes(searchQuery) ||
         data.mobile?.includes(searchQuery) ||
         data.name?.includes(searchQuery) ||
@@ -83,7 +87,6 @@ const MROAdmin = () => {
   });
 
   const mandals = {
-
     'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli', 'Achuthapuram', 'Ayyavaripeta', 'Bandigumpu', 'Bandirevu', 'Boddugudem', 'Buruguvai', 'Buttaigudem', 'Chandrampalem',
       'Chelempalem', 'Chinna Nallakunta', 'Chinthalagudem', 'Chowdavaram', 'Devarapalle', 'Doramitta', 'Fergusanpeta', 'Gannavaram', 'Gogubaka', 'Gollagudem', 'Gollaguppa', 'Gommu Koyagudem',
       'Gottugudem', 'Gundala', 'K. Narayanapuram', 'Kannaigudem', 'Kannapuram', 'Kapavaram', 'Kapugampalle', 'Kistaram', 'Kothagudem', 'Kusumanapalle', 'Lakshmidevipeta', 'Laxmipuram', 'Lingalapalle', 'Madhavaraopeta',
@@ -152,42 +155,42 @@ const MROAdmin = () => {
         comment: adminResponse,
         role: username,
         timestamp: new Date().toLocaleString(),
-      };
+    };
 
-      if (status === 'open' && adminResponse.trim() !== '') {
-        status = 'In Progress';
-      }
-
-      updateStatus(index, status, adminResponse);
-      updateAdminResponse(index, adminResponse);
-      updateActionTakenBy(index, filterMandal + ' admin');
-      if (status === 'completed' || status === 'In Progress') {
-        updateActionTakenDate(index, currentActionTakenDate);
-        sendMessageToUser(selectedData.mobile, adminResponse);
-      }
-
-      const updatedComments = [...previousComments, currentComment];
-      const updatedData = {
-        ...selectedData,
-        adminComments: updatedComments,
-        actionTakenDate: currentActionTakenDate,
-        actionTakenBy: username,
-        status: status
-      };
-      const updatedFormDataArray = [...formDataArray];
-      updatedFormDataArray[index] = updatedData;
-
-      updateFormDataArray(updatedFormDataArray);
-
-      setIsUpdateDisabled(status === 'completed');
-      setSelectedData(updatedData);
-      setPreviousComments(updatedComments);
-      setTokenSentToIAS(false);
-      setHasResponded(true);
-
-      handleCloseModal();
+    if (status === 'open' && adminResponse.trim() !== '') {
+      status = 'In Progress';
     }
-  };
+
+    updateStatus(index, status, adminResponse);
+    updateAdminResponse(index, adminResponse);
+    updateActionTakenBy(index, loggedInMandal + ' admin');
+    if (status === 'completed' || status === 'In Progress') {
+      updateActionTakenDate(index, currentActionTakenDate);
+      sendMessageToUser(selectedData.mobile, adminResponse);
+    }
+
+    const updatedComments = [...previousComments, currentComment];
+    const updatedData = {
+      ...selectedData,
+      adminComments: updatedComments,
+      actionTakenDate: currentActionTakenDate,
+      actionTakenBy: username,
+      status: status
+    };
+    const updatedFormDataArray = [...formDataArray];
+    updatedFormDataArray[index] = updatedData;
+
+    updateFormDataArray(updatedFormDataArray);
+
+    setIsUpdateDisabled(status === 'completed');
+    setSelectedData(updatedData);
+    setPreviousComments(updatedComments);
+    setTokenSentToIAS(false);
+    setHasResponded(true);
+
+    handleCloseModal();
+  }
+};
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
@@ -196,7 +199,10 @@ const MROAdmin = () => {
     updateFormDataArray(updatedFormDataArray);
     setTokenSentToIAS(false);
   };
-
+  const handleStatusChange = (e) => {
+    const status = e.target.value;
+    setFilterStatus(status);
+  };
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
     const [day, month, year] = datePart.split('/').map(Number);
@@ -208,38 +214,109 @@ const MROAdmin = () => {
     return parseDate(b.timestamp) - parseDate(a.timestamp);
   });
 
+  const getTicketCounts = () => {
+    const counts = {
+      open: 0,
+      inProgress: 0,
+      completed: 0
+    };
+  
+    filteredData.forEach(data => {
+      if (data.status === 'open') counts.open++;
+      else if (data.status === 'In Progress') counts.inProgress++;
+      else if (data.status === 'completed') counts.completed++;
+    });
+  
+    return counts;
+  };
+  
+ 
+  const ticketCounts = getTicketCounts();
+
   return (
     <Container fluid>
+      <br></br><br></br>
+      <Row className='mb-3'>
+        <Col className="text-end">
+          <Button variant="danger" onClick={handleLogout}>
+            <FaSignOutAlt className="me-2" />
+            Logout
+          </Button>
+        </Col>
+        </Row> 
+
+      <h2 className="mb-4 text-primary">{decodeURIComponent(filterVillages)} Analysis</h2>
+      <Row className="mb-4">
+        <Col md={3} className="mb-3">
+          <Card className="text-center h-100 shadow-sm border-0">
+            <Card.Body className="d-flex flex-column justify-content-center">
+              <Card.Title className="text-muted">Total Tickets</Card.Title>
+              <Card.Text className="display-4 font-weight-bold text-primary">{filteredData.length}</Card.Text>
+              <i className="fas fa-ticket-alt fa-3x text-primary mt-2"></i>
+            </Card.Body>
+          </Card>
+        </Col>
+        {['open', 'In Progress', 'completed'].map((status) => {
+          const count = filteredData.filter(data => data.status === status).length;
+          return (
+            <Col md={3} key={status} className="mb-3">
+              <Card className="text-center h-100 shadow-sm border-0">
+                <Card.Body className="d-flex flex-column justify-content-center">
+                  <Card.Title className="text-muted">{status}</Card.Title>
+                  <Card.Text className="display-4 font-weight-bold" style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}>
+                    {count}
+                  </Card.Text>
+                  <i className={`fas fa-${status === 'open' ? 'exclamation-circle' : status === 'In Progress' ? 'clock' : 'check-circle'} fa-3x mt-2`}
+                      style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}></i>
+                </Card.Body>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+
+
+
       <Row className="mb-3">
         <Col>
           <h2>Submitted Queries</h2>
         </Col>
       </Row>
-      <Row className="mb-3">
-        <Col xs={12} md={4}>
+     <Row className="mb-3">
+     <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
             <Form.Label>Mandal</Form.Label>
             <Form.Control type="text" value={filterMandal} readOnly />
           </Form.Group>
         </Col>
-        <Col xs={12} md={4}>
-          <Form.Group controlId="formVillage">
-            <Form.Label>Filter by Village</Form.Label>
-            <DropdownButton id="dropdown-basic-button" title="Select Villages" disabled>
-              {availableVillages.map((village) => (
-                <Dropdown.Item key={village}>
-                  <Form.Check
-                    type="checkbox"
-                    id={`village-${village}`}
-                    label={village}
-                    checked={filterVillages.includes(village)}
-                    readOnly
-                  />
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-          </Form.Group>
-        </Col>
+       <Col xs={12} md={4}>
+  <Form.Group controlId="formVillage">
+    <Form.Label>Filter by Village</Form.Label>
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-village" disabled>
+        Select Villages
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        {availableVillages.map((village) => (
+          <Dropdown.Item 
+            key={village}
+            active={filterVillages.includes(village)}
+            disabled
+            onClick={() => {
+              if (filterVillages.includes(village)) {
+                setFilterVillages(filterVillages.filter(v => v !== village));
+              } else {
+                setFilterVillages([...filterVillages, village]);
+              }
+            }}
+          >
+            {village}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  </Form.Group>
+</Col>
         <Col xs={12} md={4}>
           <Form.Group controlId="formSearch">
             <Form.Label>Search</Form.Label>
@@ -251,6 +328,22 @@ const MROAdmin = () => {
             />
           </Form.Group>
         </Col>
+
+     <Col xs={12} md={4} className="mt-3">
+  <Form.Group controlId="formStatusFilter">
+    <Form.Label>Filter by Status</Form.Label>
+    <Form.Select
+      value={filterStatus}
+      onChange={handleStatusChange}
+      className="form-control-lg"
+    >
+      <option value="">All Status</option>
+      <option value="open">Open</option>
+      <option value="In Progress">In Progress</option>
+      <option value="completed">Completed</option>
+    </Form.Select>
+  </Form.Group>
+</Col>
       </Row>
 
       <div className="table-responsive">
@@ -375,17 +468,6 @@ const MROAdmin = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              {villages === filterMandal && selectedData && (
-                <Form.Group className="mb-3">
-                  <Form.Label>Assigned To</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={villageCredentials[selectedData.village]?.username || ''}
-                    readOnly
-                  />
-                </Form.Group>
-              )}
-
               <Row>
                 <Col>
                   <Form.Group controlId="formIssueDescription">
@@ -444,40 +526,40 @@ const MROAdmin = () => {
                 </Col>
               </Row>
 
-              <Form.Group controlId="formPreviousComments">
-                <Form.Label>Previous Comments</Form.Label>
-                {sortedComments && sortedComments.length > 0 ? (
-                  <div className="table-responsive">
-                    <Table striped bordered hover>
-                      <thead>
-                        <tr>
-                          <th>Role</th>
-                          <th>Comment</th>
-                          <th>Timestamp</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sortedComments.map((comment, index) => (
-                          <tr key={index}>
-                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role}</strong></td>
-                            <td>{comment.comment}</td>
-                            <td>{comment.timestamp}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                  </div>
-                ) : (
-                  <p>No previous comments available.</p>
-                )}
-              </Form.Group>
+         <Form.Group controlId="formPreviousComments">
+  <Form.Label>Previous Comments</Form.Label>
+  {sortedComments && sortedComments.length > 0 ? (
+    <div className="table-responsive">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Comment</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedComments.map((comment, index) => (
+            <tr key={index}>
+             <td><strong>{comment.role === "User" ? selectedData.name : (comment.role === "IAS" ? selectedData.mandal : comment.role)}</strong></td>
+              <td>{comment.comment}</td>
+              <td>{comment.timestamp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  ) : (
+    <p>No previous comments available.</p>
+  )}
+</Form.Group>
 
               {isTimeExceeded && !hasResponded && (
                 <Row>
                   <Col>
                     <Alert variant="danger">
                       The issue has not been resolved within 1 minute. The ticket will be
-                      escalated to the IAS.
+                      escalated to the {decodeURIComponent(filterMandal)} MRO.
                     </Alert>
                     {!tokenSentToIAS && (
                       <IAS
@@ -510,4 +592,3 @@ const MROAdmin = () => {
 };
 
 export default MROAdmin;
-

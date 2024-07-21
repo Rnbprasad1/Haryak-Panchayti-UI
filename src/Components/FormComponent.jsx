@@ -21,23 +21,23 @@ const handleLogin = (e) => {
   const villageCredentials = JSON.parse(localStorage.getItem('villageCredentials')) || {};
   const mandalCredentials = JSON.parse(localStorage.getItem('mandalCredentials')) || {};
 
+  const mandal = Object.keys(mandalCredentials).find(
+    (mandal) => mandalCredentials[mandal].username === username && mandalCredentials[mandal].password === password
+  );
+
   if (username === 'CM' && password === 'cm1') {
     navigate('/cm');
-  } else if (username === 'IAS' && password === 'ias1') {
-    navigate('/ias');
+  } else if (mandal) {
+    navigate(`/ias/${username}/${encodeURIComponent(Object.keys(mandalCredentials).filter(m => mandalCredentials[m].username === username).join(','))}`);
   } else if (username === 'admin' && password === 'admin123') {
     navigate('/admin');
   } else {
     const village = Object.keys(villageCredentials).find(
       (village) => villageCredentials[village].username === username && villageCredentials[village].password === password
     );
-    const mandal = Object.keys(mandalCredentials).find(
-      (mandal) => mandalCredentials[mandal].username === username && mandalCredentials[mandal].password === password
-    );
+   
     if (village) {
       navigate(`/mro/${username}/${encodeURIComponent(Object.keys(villageCredentials).filter(v => villageCredentials[v].username === username).join(','))}`);
-    } else if (mandal) {
-     navigate(`/mro/${username}/${encodeURIComponent(Object.keys(mandalCredentials).filter(m => mandalCredentials[m].username === username).join(','))}`);
     } else {
       setError('Invalid credentials. Please try again.');
     }
