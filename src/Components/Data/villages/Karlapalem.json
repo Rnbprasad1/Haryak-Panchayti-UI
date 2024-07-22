@@ -1,0 +1,26 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Buddam",
+        "Distance": "12 km"
+      },
+      {
+        "VillageName": "Ganapavaram",
+        "Distance": "17 km"
+      },
+      {
+        "VillageName": "Karlapalem",
+        "Distance": "9 km"
+      },
+      {
+        "VillageName": "Perali",
+        "Distance": "16 km"
+      },
+      {
+        "VillageName": "Yazali"
+      }
+    ]
+  }
+  

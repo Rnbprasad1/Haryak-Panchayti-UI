@@ -1,0 +1,59 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adivi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Ananthavaram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Gudur",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Kankipadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Kondapalli",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Nallapadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Penuganchiprolu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Sambepudi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Tadigadapa",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Vadlamudi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Vikramasingapuram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Yacharam",
+        "VillageName_Tel": null
+      }
+    ]
+  }
+  

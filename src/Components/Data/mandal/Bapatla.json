@@ -1,0 +1,131 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_mandals": [
+        {
+            "Mandal_Code": 1,
+            "MandalName": "Bapatla",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 2,
+            "MandalName": "Karlapalem",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 3,
+            "MandalName": "Martur",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 4,
+            "MandalName": "Parchur",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 5,
+            "MandalName": "Pittalavanipalem",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 6,
+            "MandalName": "Yeddanapudi",
+            "Division": "Bapatla"
+        },
+        {
+            "Mandal_Code": 7,
+            "MandalName": "Addanki",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 8,
+            "MandalName": "Ballikurava",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 9,
+            "MandalName": "Chinaganjam",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 10,
+            "MandalName": "Chirala",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 11,
+            "MandalName": "Inkollu",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 12,
+            "MandalName": "J. Panguluru",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 13,
+            "MandalName": "Karamchedu",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 14,
+            "MandalName": "Korisapadu",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 15,
+            "MandalName": "Santhamaguluru",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 16,
+            "MandalName": "Vetapalem",
+            "Division": "Chirala"
+        },
+        {
+            "Mandal_Code": 17,
+            "MandalName": "Amruthalur",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 18,
+            "MandalName": "Bhattiprolu",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 19,
+            "MandalName": "Cherukupalle",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 20,
+            "MandalName": "Kollur",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 21,
+            "MandalName": "Nagaram",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 22,
+            "MandalName": "Nizampatnam",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 23,
+            "MandalName": "Repalle",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 24,
+            "MandalName": "Tsundur",
+            "Division": "Repalle"
+        },
+        {
+            "Mandal_Code": 25,
+            "MandalName": "Vemuru",
+            "Division": "Repalle"
+        }
+    ]
+}

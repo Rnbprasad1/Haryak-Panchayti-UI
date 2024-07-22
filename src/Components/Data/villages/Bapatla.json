@@ -1,0 +1,78 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+        {
+            "Village_Code": "7581",
+            "VillageName": "Adivi"
+        },
+        {
+            "Village_Code": "1831",
+            "VillageName": "Appikatla"
+        },
+        {
+            "Village_Code": "8908",
+            "VillageName": "Bapatla East"
+        },
+        {
+            "Village_Code": "8719",
+            "VillageName": "Bapatla West"
+        },
+        {
+            "Village_Code": "1341",
+            "VillageName": "Bharthipudi"
+        },
+        {
+            "Village_Code": "4263",
+            "VillageName": "Cheruvu"
+        },
+        {
+            "Village_Code": "3433",
+            "VillageName": "Etheru"
+        },
+        {
+            "Village_Code": "1021",
+            "VillageName": "Gopapuram"
+        },
+        {
+            "Village_Code": "1698",
+            "VillageName": "Gudipudi"
+        },
+        {
+            "Village_Code": "1399",
+            "VillageName": "Jammulapalem"
+        },
+        {
+            "Village_Code": "1070",
+            "VillageName": "Jillellamudi"
+        },
+        {
+            "Village_Code": "4313",
+            "VillageName": "Kankatapalem"
+        },
+        {
+            "Village_Code": "8895",
+            "VillageName": "Maruproluvaripalem"
+        },
+        {
+            "Village_Code": "1634",
+            "VillageName": "Mulapalem"
+        },
+        {
+            "Village_Code": "8820",
+            "VillageName": "Murukondapadu"
+        },
+        {
+            "Village_Code": "5219",
+            "VillageName": "Narasayapalem"
+        },
+        {
+            "Village_Code": "57",
+            "VillageName": "Neredupalle"
+        },
+        {
+            "Village_Code": null,
+            "VillageName": "Poondla"
+        }
+    ]
+}

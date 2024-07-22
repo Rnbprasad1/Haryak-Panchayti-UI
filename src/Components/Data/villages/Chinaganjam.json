@@ -1,0 +1,47 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "5634",
+        "VillageName": "Ainavolu"
+      },
+      {
+        "Village_Code": "8794",
+        "VillageName": "Bheeramvaripalem"
+      },
+      {
+        "Village_Code": "3425",
+        "VillageName": "Chinthagunta"
+      },
+      {
+        "Village_Code": "7261",
+        "VillageName": "Gajulapalem"
+      },
+      {
+        "Village_Code": "4631",
+        "VillageName": "Kothapalle"
+      },
+      {
+        "Village_Code": "8976",
+        "VillageName": "Marripudi"
+      },
+      {
+        "Village_Code": "2143",
+        "VillageName": "Nagulapadu"
+      },
+      {
+        "Village_Code": "1290",
+        "VillageName": "Pathepuram"
+      },
+      {
+        "Village_Code": "4613",
+        "VillageName": "Prathipadu"
+      },
+      {
+        "Village_Code": "7882",
+        "VillageName": "Ravipadu"
+      }
+    ]
+  }
+  

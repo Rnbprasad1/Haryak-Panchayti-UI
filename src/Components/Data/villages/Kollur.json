@@ -1,0 +1,57 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adavipalem",
+        "GramPanchayat": "Adavipalem",
+        "Distance": "12 km"
+      },
+      {
+        "VillageName": "Bodavuru",
+        "GramPanchayat": "Bodavuru",
+        "Distance": "15 km"
+      },
+      {
+        "VillageName": "Chilakaluripet",
+        "GramPanchayat": "Chilakaluripet",
+        "Distance": "18 km"
+      },
+      {
+        "VillageName": "Gollapalli",
+        "GramPanchayat": "Gollapalli",
+        "Distance": "20 km"
+      },
+      {
+        "VillageName": "Kollur",
+        "GramPanchayat": "Kollur",
+        "Distance": "10 km"
+      },
+      {
+        "VillageName": "Muppavaram",
+        "GramPanchayat": "Muppavaram",
+        "Distance": "25 km"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "GramPanchayat": "Peddaganjam",
+        "Distance": "28 km"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "GramPanchayat": "Peddaganjam",
+        "Distance": "30 km"
+      },
+      {
+        "VillageName": "Reddigudem",
+        "GramPanchayat": "Reddigudem",
+        "Distance": "35 km"
+      },
+      {
+        "VillageName": "Sambepalle",
+        "GramPanchayat": "Sambepalle",
+        "Distance": "38 km"
+      }
+    ]
+  }
+  

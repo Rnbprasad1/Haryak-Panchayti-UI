@@ -1,0 +1,72 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Bobbe Palle",
+        "VillageName_Tel": "Bobbepalli",
+        "Nearest_Town": "Chilakaluripet (23 km)"
+      },
+      {
+        "VillageName": "Bolla Palle",
+        "VillageName_Tel": "Bollapalli",
+        "Nearest_Town": "Chilakaluripet (30 km)"
+      },
+      {
+        "VillageName": "Darsiagraharam",
+        "VillageName_Tel": "Darsi",
+        "Nearest_Town": "Chilakaluripet (20 km)"
+      },
+      {
+        "VillageName": "Dronadula",
+        "VillageName_Tel": "Dronadula",
+        "Nearest_Town": "Chilakaluripet (38 km)"
+      },
+      {
+        "VillageName": "Jangamaheswarapuram",
+        "VillageName_Tel": "Valaparla",
+        "Nearest_Town": "Chilakaluripet (35 km)"
+      },
+      {
+        "VillageName": "Jonna Thali Agraharam",
+        "VillageName_Tel": "Jonnathali",
+        "Nearest_Town": "Chilakaluripet (20 km)"
+      },
+      {
+        "VillageName": "Kolala Pudi",
+        "VillageName_Tel": "Kolalapudi",
+        "Nearest_Town": "Chilakaluripet (30 km)"
+      },
+      {
+        "VillageName": "Konanki",
+        "VillageName_Tel": "Chimmiribanda",
+        "Nearest_Town": "Chilakaluripet (30 km)"
+      },
+      {
+        "VillageName": "Lakkavaram Agraharam",
+        "VillageName_Tel": "Kolalapudi",
+        "Nearest_Town": "Chilakaluripet (23 km)"
+      },
+      {
+        "VillageName": "Martur",
+        "VillageName_Tel": "Martur",
+        "Nearest_Town": "Chilakaluripet (15 km)"
+      },
+      {
+        "VillageName": "Nagaraju Palle",
+        "VillageName_Tel": "Nagarajupalli",
+        "Nearest_Town": "Chilakaluripet (17 km)"
+      },
+      {
+        "VillageName": "Rajupalem",
+        "VillageName_Tel": "Degaramudi",
+        "Nearest_Town": "Chilakaluripet (15 km)"
+      },
+      {
+        "VillageName": "Valaparla",
+        "VillageName_Tel": "Valaparla",
+        "Nearest_Town": "Chilakaluripet (30 km)"
+      }
+    ]
+  }
+  

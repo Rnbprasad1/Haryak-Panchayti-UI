@@ -1,0 +1,67 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Ananthavaram",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Ananthavaram",
+        "Nearest_Town": "Nagaram (15 km)"
+      },
+      {
+        "VillageName": "Chinna Kunta",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Chinna Kunta",
+        "Nearest_Town": "Nagaram (18 km)"
+      },
+      {
+        "VillageName": "Devulapalli",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Devulapalli",
+        "Nearest_Town": "Nagaram (20 km)"
+      },
+      {
+        "VillageName": "Gundlapalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Gundlapalle",
+        "Nearest_Town": "Nagaram (22 km)"
+      },
+      {
+        "VillageName": "Kothapalli",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Kothapalli",
+        "Nearest_Town": "Nagaram (25 km)"
+      },
+      {
+        "VillageName": "Mamidipalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Mamidipalle",
+        "Nearest_Town": "Nagaram (30 km)"
+      },
+      {
+        "VillageName": "Nagaram",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Nagaram",
+        "Nearest_Town": "Nagaram (10 km)"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddaganjam",
+        "Nearest_Town": "Nagaram (35 km)"
+      },
+      {
+        "VillageName": "Reddigudem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Reddigudem",
+        "Nearest_Town": "Nagaram (40 km)"
+      },
+      {
+        "VillageName": "Sambepalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Sambepalle",
+        "Nearest_Town": "Nagaram (45 km)"
+      }
+    ]
+  }
+  
