@@ -38,13 +38,15 @@ input[type="file"] {
     height: 100px; 
     width: 100%; 
     padding-top: 0px;
+    
   }
 }
 
 /* Extra small screens */
 @media (max-width: 480px) {
   .App-header {
-    background-image: url('Assets/AP1.png'); /* Add your extra small banner image URL here */
+    background-image: url('Assets/AP1-copy1.png'); /* Add your extra small banner image URL here */
+    background-color: #f0f0f0;
     height: auto; 
     width: 100%; 
     background-size: contain; 
