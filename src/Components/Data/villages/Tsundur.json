@@ -1,0 +1,67 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adivi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Adivi",
+        "Nearest_Town": "Tsundur (10 km)"
+      },
+      {
+        "VillageName": "Bachina",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Bachina",
+        "Nearest_Town": "Tsundur (12 km)"
+      },
+      {
+        "VillageName": "Chandarlapadu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Chandarlapadu",
+        "Nearest_Town": "Tsundur (15 km)"
+      },
+      {
+        "VillageName": "Gollapudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Gollapudi",
+        "Nearest_Town": "Tsundur (18 km)"
+      },
+      {
+        "VillageName": "Ippur",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Ippur",
+        "Nearest_Town": "Tsundur (20 km)"
+      },
+      {
+        "VillageName": "Kondapalli",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Kondapalli",
+        "Nearest_Town": "Tsundur (22 km)"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddaganjam",
+        "Nearest_Town": "Tsundur (25 km)"
+      },
+      {
+        "VillageName": "Peddagudem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddagudem",
+        "Nearest_Town": "Tsundur (27 km)"
+      },
+      {
+        "VillageName": "Reddigudem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Reddigudem",
+        "Nearest_Town": "Tsundur (30 km)"
+      },
+      {
+        "VillageName": "Velivolu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Velivolu",
+        "Nearest_Town": "Tsundur (35 km)"
+      }
+    ]
+  }
+  

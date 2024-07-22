@@ -1,0 +1,39 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Ananthavaram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Enamadala",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Gannavaram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Jagarlamudi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Poluru",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Punuru",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Vinjanampadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Yeddanapudi",
+        "VillageName_Tel": null
+      }
+    ]
+  }
+  

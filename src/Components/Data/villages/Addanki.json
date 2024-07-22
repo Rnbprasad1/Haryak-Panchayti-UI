@@ -1,0 +1,83 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": 1,
+        "VillageName": "Addanki North"
+      },
+      {
+        "Village_Code": 2,
+        "VillageName": "Addanki South"
+      },
+      {
+        "Village_Code": 3,
+        "VillageName": "Bommanampadu"
+      },
+      {
+        "Village_Code": 4,
+        "VillageName": "Chakraya Palem"
+      },
+      {
+        "Village_Code": 5,
+        "VillageName": "Chinakotha Palle"
+      },
+      {
+        "Village_Code": 6,
+        "VillageName": "Dharmavaram"
+      },
+      {
+        "Village_Code": 7,
+        "VillageName": "Dhenuva Konda"
+      },
+      {
+        "Village_Code": 8,
+        "VillageName": "Gopalapuram"
+      },
+      {
+        "Village_Code": 9,
+        "VillageName": "Kalavakuru"
+      },
+      {
+        "Village_Code": 10,
+        "VillageName": "Kotikalapudi"
+      },
+      {
+        "Village_Code": 11,
+        "VillageName": "Kunkupadu"
+      },
+      {
+        "Village_Code": 12,
+        "VillageName": "Mani Keswaram"
+      },
+      {
+        "Village_Code": 13,
+        "VillageName": "Modepalle"
+      },
+      {
+        "Village_Code": 14,
+        "VillageName": "Mylavaram"
+      },
+      {
+        "Village_Code": 15,
+        "VillageName": "Nannurupadu"
+      },
+      {
+        "Village_Code": 16,
+        "VillageName": "Ramayapalem"
+      },
+      {
+        "Village_Code": 17,
+        "VillageName": "Uppalapadu"
+      },
+      {
+        "Village_Code": 18,
+        "VillageName": "Vemparala"
+      },
+      {
+        "Village_Code": 19,
+        "VillageName": "Thimmayapalem"
+      }
+    ]
+  }
+  

@@ -28,7 +28,9 @@ const Query = () => {
 
   useEffect(() => {
     const loadJsonData = async () => {
-      const districtFiles = ['Bhadrachalam', 'Charla', 'Dummugudem', 'Dummugudem', 'Wazedu'];
+      const districtFiles = [ 'Addanki', 'Amruthalur', 'Ballikurava', 'Bapatla', 'Bhattiprolu', 'Cherukupalle', 'Chinaganjam', 'Inkollu',
+        'J. Panguluru', 'Karamchedu', 'Karlapalem', 'Kollur', 'Korisapadu', 'Martur', 'Nagaram', 'Nizampatnam', 'Parchur',
+        'Pittalavanipalem', 'Repalle', 'Santhamaguluru', 'Tsundur', 'Vemuru', 'Vetapalem', 'Yeddanapudi'];
       const districtsData = {};
       const mandalsData = {};
 
@@ -106,7 +108,7 @@ const Query = () => {
   };
 
   const generateToken = (district, mandal, village) => {
-    const stateCode = 'TG';
+    const stateCode = 'AP';
     const districtCode = district.substring(0, 3).toUpperCase();
     const mandalCode = mandal.substring(0, 3).toUpperCase();
     const areaType = 'RU';
@@ -133,8 +135,8 @@ const Query = () => {
                   <Col md={6}>
                     <Form.Group controlId="formState">
                       <Form.Label>State</Form.Label>
-                      <Form.Control as="select" defaultValue="Telangana" disabled>
-                        <option>Telangana</option>
+                      <Form.Control as="select" defaultValue="Andhra Pradesh" disabled>
+                        <option>Andhra Pradesh</option>
                       </Form.Control>
                     </Form.Group>
                   </Col>
@@ -152,6 +154,18 @@ const Query = () => {
                 </Row>
 
                 <Row className="mb-4">
+                <Col md={6}>
+                    <Form.Group controlId="formMandal">
+                      <Form.Label>Mandal <span className="text-danger">*</span></Form.Label>
+                      <Select
+                        value={selectedMandal}
+                        onChange={(option) => setSelectedMandal(option)}
+                        options={selectedDistrict ? districts[selectedDistrict.value].map(mandal => ({ value: mandal, label: mandal })) : []}
+                        placeholder="Select Mandal"
+                        isSearchable
+                      />
+                    </Form.Group>
+                  </Col>
                   <Col md={6}>
                     <Form.Group controlId="formVillage">
                      <Form.Label>Village <span className="text-danger">*</span></Form.Label>
@@ -160,18 +174,6 @@ const Query = () => {
                         onChange={handleVillageSelect}
                         options={villageOptions}
                         placeholder="Search and select village"
-                        isSearchable
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Form.Group controlId="formMandal">
-                      <Form.Label>Mandal <span className="text-danger">*</span></Form.Label>
-                      <Select
-                        value={selectedMandal}
-                        onChange={(option) => setSelectedMandal(option)}
-                        options={selectedDistrict ? districts[selectedDistrict.value].map(mandal => ({ value: mandal, label: mandal })) : []}
-                        placeholder="Select Mandal"
                         isSearchable
                       />
                     </Form.Group>

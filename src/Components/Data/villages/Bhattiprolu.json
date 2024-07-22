@@ -1,0 +1,59 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "2001",
+        "VillageName": "Akkarampalle"
+      },
+      {
+        "Village_Code": "2002",
+        "VillageName": "Bhemavaram"
+      },
+      {
+        "Village_Code": "2003",
+        "VillageName": "Challapalli"
+      },
+      {
+        "Village_Code": "2004",
+        "VillageName": "Dandapadu"
+      },
+      {
+        "Village_Code": "2005",
+        "VillageName": "Gurazala"
+      },
+      {
+        "Village_Code": "2006",
+        "VillageName": "Koppolu"
+      },
+      {
+        "Village_Code": "2007",
+        "VillageName": "Mogallu"
+      },
+      {
+        "Village_Code": "2008",
+        "VillageName": "Nidumolu"
+      },
+      {
+        "Village_Code": "2009",
+        "VillageName": "Peddaganjam"
+      },
+      {
+        "Village_Code": "2010",
+        "VillageName": "Sankarapeta"
+      },
+      {
+        "Village_Code": "2011",
+        "VillageName": "Thota"
+      },
+      {
+        "Village_Code": "2012",
+        "VillageName": "Vemuru"
+      },
+      {
+        "Village_Code": "2013",
+        "VillageName": "Yernagudem"
+      }
+    ]
+  }
+  

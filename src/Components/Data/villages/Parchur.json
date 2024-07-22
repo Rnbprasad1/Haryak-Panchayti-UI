@@ -1,0 +1,91 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adusumalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 2064
+      },
+      {
+        "VillageName": "Bodawadamandagunta",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 1259
+      },
+      {
+        "VillageName": "Chennubhotla Palem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 642
+      },
+      {
+        "VillageName": "Cherukuru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 7080
+      },
+      {
+        "VillageName": "Devara Palle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 1930
+      },
+      {
+        "VillageName": "Edubadu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 1270
+      },
+      {
+        "VillageName": "Garnepudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 2777
+      },
+      {
+        "VillageName": "Gollapudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 1149
+      },
+      {
+        "VillageName": "Inagallu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 2538
+      },
+      {
+        "VillageName": "Nuthalapadu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 5822
+      },
+      {
+        "VillageName": "Parchur",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 13375
+      },
+      {
+        "VillageName": "Ramanayapalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 1932
+      },
+      {
+        "VillageName": "Upputur",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 7448
+      },
+      {
+        "VillageName": "Veeranna Palem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Parchur",
+        "Population": 5382
+      }
+    ]
+  }
+  

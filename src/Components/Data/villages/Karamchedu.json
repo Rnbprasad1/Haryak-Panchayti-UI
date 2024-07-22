@@ -1,0 +1,67 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "1001",
+        "VillageName": "Adivi"
+      },
+      {
+        "Village_Code": "1002",
+        "VillageName": "Appikatla"
+      },
+      {
+        "Village_Code": "1003",
+        "VillageName": "Bapatla East"
+      },
+      {
+        "Village_Code": "1004",
+        "VillageName": "Bapatla West"
+      },
+      {
+        "Village_Code": "1005",
+        "VillageName": "Bharthipudi"
+      },
+      {
+        "Village_Code": "1006",
+        "VillageName": "Cheruvu"
+      },
+      {
+        "Village_Code": "1007",
+        "VillageName": "Etheru"
+      },
+      {
+        "Village_Code": "1008",
+        "VillageName": "Gopapuram"
+      },
+      {
+        "Village_Code": "1009",
+        "VillageName": "Gudipudi"
+      },
+      {
+        "Village_Code": "1010",
+        "VillageName": "Jammulapalem"
+      },
+      {
+        "Village_Code": "1011",
+        "VillageName": "Jillellamudi"
+      },
+      {
+        "Village_Code": "1012",
+        "VillageName": "Kankatapalem"
+      },
+      {
+        "Village_Code": "1013",
+        "VillageName": "Maruproluvaripalem"
+      },
+      {
+        "Village_Code": "1014",
+        "VillageName": "Mulapalem"
+      },
+      {
+        "Village_Code": "1015",
+        "VillageName": "Murukondapadu"
+      }
+    ]
+  }
+  

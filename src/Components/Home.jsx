@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import apMapImage from '././Apmap.png';
+import apMapImage from '././ApMap.jpg';
 import Footer from './Footer';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 

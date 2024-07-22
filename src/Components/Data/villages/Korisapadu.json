@@ -1,0 +1,46 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adavipalem"
+      },
+      {
+        "VillageName": "Bikshapathi Palle"
+      },
+      {
+        "VillageName": "Chiluvur"
+      },
+      {
+        "VillageName": "Dollapadu"
+      },
+      {
+        "VillageName": "Goraganamudi"
+      },
+      {
+        "VillageName": "Kantipudi"
+      },
+      {
+        "VillageName": "Kollipara"
+      },
+      {
+        "VillageName": "Krishnapuram"
+      },
+      {
+        "VillageName": "Mogallur"
+      },
+      {
+        "VillageName": "Nallapadu"
+      },
+      {
+        "VillageName": "Peddaganjam"
+      },
+      {
+        "VillageName": "Peddaganjam"
+      },
+      {
+        "VillageName": "Thimmapuram"
+      }
+    ]
+  }
+  

@@ -1,0 +1,43 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Allur",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Alkapuram",
+        "Nearest_Town": "Ponnur (20 km)"
+      },
+      {
+        "VillageName": "Chandole",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Bhavanamvaripalem",
+        "Nearest_Town": "Ponnur (8 km)"
+      },
+      {
+        "VillageName": "Khajipalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Khajipalem",
+        "Nearest_Town": "Ponnur (15 km)"
+      },
+      {
+        "VillageName": "Komali",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Komali",
+        "Nearest_Town": "Ponnur (8 km)"
+      },
+      {
+        "VillageName": "Pittalavanipalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "G N Palem",
+        "Nearest_Town": "Ponnur (15 km)"
+      },
+      {
+        "VillageName": "Sangupalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Kodur",
+        "Nearest_Town": ""
+      }
+    ]
+  }
+  

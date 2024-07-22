@@ -87,25 +87,25 @@ const MROAdmin = () => {
   });
 
   const mandals = {
-    'Bhadrachalam': ['Bandigumpu', 'Gannavaram', 'Bhadrachalam', 'Anantharam', 'Buggapadu', 'Cherukupalli', 'Achuthapuram', 'Ayyavaripeta', 'Bandigumpu', 'Bandirevu', 'Boddugudem', 'Buruguvai', 'Buttaigudem', 'Chandrampalem',
-      'Chelempalem', 'Chinna Nallakunta', 'Chinthalagudem', 'Chowdavaram', 'Devarapalle', 'Doramitta', 'Fergusanpeta', 'Gannavaram', 'Gogubaka', 'Gollagudem', 'Gollaguppa', 'Gommu Koyagudem',
-      'Gottugudem', 'Gundala', 'K. Narayanapuram', 'Kannaigudem', 'Kannapuram', 'Kapavaram', 'Kapugampalle', 'Kistaram', 'Kothagudem', 'Kusumanapalle', 'Lakshmidevipeta', 'Laxmipuram', 'Lingalapalle', 'Madhavaraopeta',
-      'Mummadivaru', 'Murumoor', 'Nallakunta', 'Nandigama', 'Narasingapeta', 'Nellipaka', 'Pandurangapuram', 'Pattucheera', 'Penuballe', 'Pinapalle', 'Viswapuram', 'Yerragunta'
-    ],
-
-    'Wazedu': ['Arguntapalle', 'Arlagudem', 'Cherukur', 'Chintoor', 'Edjarlapalli', 'Gummadidoddi', 'Kongala', 'Krishnapuram', 'Murmur', 'Nagaram', 'Peruru', 'Chandrupatla', 'Lingapeta', 'China Gangaram', 'Tekulagudem'],
-    'Venkatapuram': ['A Kathigudem', 'Bandagudem', 'Alubaka [G]', 'Alubaka [Z]', 'Ankannagudem', 'Bandagudem', 'Barlagudem', 'Bodapuram [G]', 'Chalamala', 'Chinagangaram', 'Chirtapalle', 'Doli', 'Edhira [G]', 'Ippagudem', 'K.Kondapuram [Z]',
-      'Kalipaka [G]', 'Koyabestagudem', 'Mahitapuram', 'Mallapuram', 'Marikala', 'Morram Vanigudem [G]', 'Nuguru', 'Palem', 'Pamunoor', 'Pujarigudem [Z]', 'Rachapalle', 'Ramavaram', 'Sudibaka', 'Tadapala', 'Uppedu', 'Veerabhadraram', 'Venkatapuram',
-      'Wadagudem', 'Zella'
-    ],
-    'Cherla': ['Chalamala', 'Chimalapadu', 'Bathinapalle', 'Bhumullanka', 'Bodanalli', 'C. Kathigudem', 'Cherla', 'Chimalapadu', 'China Midisileru', 'Chintaguppa', 'Chintakunta', 'Dandupeta', 'Devarapalle', 'Dosillapalle', 'Gampalle', 'Gannavaram', 'Gogubaka', 'Gommugudem', 'Gommupulliboinapalle', 'Jangalapalle',
-      'Jettigudem', 'Kaliveru', 'Kesavapuram', 'Kothapalle', 'Kothuru', 'Koyyuru', 'Kudunuru', 'Kurnapalle', 'Lingala', 'Lingapuram', 'Mamidigudem', 'Mogullapalle', 'Mummidaram', 'Peda Midisileru', 'Peddipalle', 'Puliboinapalle', 'Puligundala',
-      'Pusuguppa', 'Rallagudem', 'Vaddipet', 'Uyyalamadugu'
-    ],
-    'Dummugudem': ['Achuthapuram', 'Bojjiguppa', 'Achuthapuram', 'Adavi Ramavaram', 'Anjubaka', 'Arlagudem', 'Bandarugudem', 'Bheemavaram', 'Bojjiguppa', 'Burra Vemula', 'Byragulapadu', 'Cherupalle', 'Chinnabandirevu', 'Chintaguppa', 'Dabbanuthula', 'Dantenam', 'Dharmapuram', 'Dummugudem', 'Fowlerpeta', 'Gangolu', 'Gouravaram',
-      'Govindapuram', 'Gurralabayalu', 'Jinnegattu', 'Kannapuram', 'Kasinagaram', 'Katayagudem', 'Kesavapatnam', 'Kommanapalle', 'Kotha Dummugudem', 'Kothagudem', 'Kothajinnalagudem', 'Kothapalle', 'Kothuru', 'Lachigudem', 'Lakshminagaram', 'Lakshmipuram', 'Lingapuram', 'Mahadevapuram', 'Manguvai', 'Marayagudem', 'Maredubaka', 'Mulakanapalle',
-      'Nadikudi', 'Narsapuram', 'Paidagudem'
-    ]
+    'Addanki': ['Addanki North', 'Addanki South', 'Bommanampadu', 'Chakraya Palem', 'Chinakotha Palle', 'Dharmavaram', 'Dhenuva Konda', 'Gopalapuram', 'Kalavakuru', 'Kotikalapudi', 'Kunkupadu', 'Mani Keswaram', 'Modepalle', 'Mylavaram', 'Nannurupadu', 'Ramayapalem', 'Uppalapadu', 'Vemparala', 'Thimmayapalem'],
+    'Bapatla': ['Adivi', 'Appikatla', 'Bapatla East', 'Bapatla West', 'Bharthipudi', 'Cheruvu', 'Etheru', 'Gopapuram', 'Gudipudi', 'Jammulapalem', 'Jillellamudi', 'Kankatapalem', 'Maruproluvaripalem', 'Mulapalem', 'Murukondapadu', 'Narasayapalem', 'Neredupalle', 'Poondla',],
+    'Karlapalem': ['Buddam', 'Ganapavaram', 'Karlapalem', 'Perali', 'Yazali'],
+    'Martur': ['Bobbe Palle', 'Bolla Palle', 'Darsiagraharam', 'Dronadula', 'Jangamaheswarapuram', 'Jonna Thali Agraharam', 'Kolala Pudi', 'Konanki', 'Lakkavaram Agraharam', 'Martur', 'Nagaraju Palle', 'Rajupalem', 'Valaparla',],
+    'Parchur': ['Adusumalle', 'Bodawadamandagunta', 'Chennubhotla Palem', 'Cherukuru', 'Devara Palle', 'Edubadu', 'Garnepudi', 'Gollapudi', 'Inagallu', 'Nuthalapadu', 'Parchur', 'Ramanayapalem', 'Upputur', 'Veeranna Palem'],
+    'Pittalavanipalem': ['Allur', 'Chandole', 'Khajipalem', 'Komali', 'Pittalavanipalem', 'Sangupalem',],
+    'Yeddanapudi': ['Ananthavaram', 'Enamadala', 'Gannavaram', 'Jagarlamudi', 'Poluru', 'Punuru', 'Vinjanampadu', 'Yeddanapudi'],
+    'Ballikurava': ['Annavaram', 'Chinamakkena', 'Ballikurava', 'Madduluru', 'Muppavaram', 'Vemavaram', 'Poluru', 'Tammavaram', 'Arumbaka', 'Inumella', 'Mellavagu', 'Nallapadu', 'Pedamakkena', 'Rudravaram', 'Tangedu', 'Venkatadripalem'],
+    'Chinaganjam': ['Ainavolu', 'Bheeramvaripalem', 'Chinthagunta', 'Gajulapalem', 'Kothapalle', 'Marripudi', 'Nagulapadu', 'Pathepuram', 'Prathipadu', 'Ravipadu'],
+    'Chirala': ['Chennupalli', 'Epuru', 'Irlapadu', 'Jandrapeta', 'Kothapeta', 'Perala', 'Ramachandrapuram', 'Sanjeevaiahpalem', 'Singarayakonda'],
+    'Inkollu': ['Chimakurthy', 'Darsi', 'Inkollu', 'Kandukur', 'Maddipadu', 'Santhanuthalapadu'],
+    'J. Panguluru': ['Alavalapadu', 'Budavada', 'Bytamanjulur', 'Chandalur', 'Janakavaram Panguluru', 'Kasyapuram', 'Konda Manjulur', 'Kondamur', 'Kotapadu', 'Muppavaram', 'Nuzendla Palle', 'Ramakuru', 'Reningavaram', 'Thurpu Koppera Padu', 'Thurpu Thakkella Padu'],
+    'Karamchedu': ['Adivi', 'Appikatla', 'Bapatla East', 'Bapatla West', 'Bharthipudi', 'Cheruvu', 'Etheru', 'Gopapuram', 'Gudipudi', 'Jammulapalem', 'Jillellamudi', 'Kankatapalem', 'Maruproluvaripalem', 'Mulapalem', 'Murukondapadu'],
+    'Korisapadu': ['Adavipalem', 'Bikshapathi Palle', 'Chiluvur', 'Dollapadu', 'Goraganamudi', 'Kantipudi', 'Kollipara', 'Krishnapuram', 'Mogallur', 'Nallapadu', 'Peddaganjam', 'Thimmapuram'],
+    'Santhamaguluru': ['Akkalapadu', 'Chandlavaripalem', 'Cheemakurthi', 'Kodur', 'Laxmipuram', 'Madhavaram', 'Manchikalapadu', 'Nidamanuru', 'Pedanandipadu', 'Peddaganjam', 'Santhamaguluru', 'Vadlamudi', 'Yerragondapalem'],
+    'Tsundur': ['Adivi', 'Bachina', 'Chandarlapadu', 'Gollapudi', 'Ippur', 'Kondapalli', 'Peddaganjam', 'Peddagudem', 'Reddigudem', 'Velivolu'],
+    'Vemuru': ['Chintalapudi', 'Goribidanapadu', 'Jonnalagadda', 'Kothapalli', 'Maddipadu', 'Peddaganjam', 'Reddigudem', 'Sambepalle', 'Vemuru'],
+    'Vetapalem': ['Ananthavaram', 'Gudur', 'Kankipadu', 'Kondapalli', 'Nallapadu', 'Penuganchiprolu', 'Peddaganjam', 'Sambepudi', 'Tadigadapa', 'Vadlamudi', 'Vikramasingapuram', 'Yacharam'],
+    'Yeddanapudi': ['Enamadala', 'Gannavaram', 'Jagarlamudi', 'Poluru', 'Punuru', 'Vinjanampadu', 'Yeddanapudi']
   };
 
   const handleShowModal = (data) => {

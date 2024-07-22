@@ -1,0 +1,47 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "3001",
+        "VillageName": "Cherukupalle"
+      },
+      {
+        "Village_Code": "3002",
+        "VillageName": "Chiranjivapuram"
+      },
+      {
+        "Village_Code": "3003",
+        "VillageName": "Gundugolanu"
+      },
+      {
+        "Village_Code": "3004",
+        "VillageName": "Kalaparru"
+      },
+      {
+        "Village_Code": "3005",
+        "VillageName": "Kothapeta"
+      },
+      {
+        "Village_Code": "3006",
+        "VillageName": "Peddaganjam"
+      },
+      {
+        "Village_Code": "3007",
+        "VillageName": "Peddaganjam"
+      },
+      {
+        "Village_Code": "3008",
+        "VillageName": "Reddigudem"
+      },
+      {
+        "Village_Code": "3009",
+        "VillageName": "Santhamaguluru"
+      },
+      {
+        "Village_Code": "3010",
+        "VillageName": "Thummalapalli"
+      }
+    ]
+  }
+  

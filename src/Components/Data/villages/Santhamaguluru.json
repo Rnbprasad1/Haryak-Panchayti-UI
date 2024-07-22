@@ -1,0 +1,59 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Akkalapadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Chandlavaripalem",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Cheemakurthi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Kodur",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Laxmipuram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Madhavaram",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Manchikalapadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Nidamanuru",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Pedanandipadu",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Santhamaguluru",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Vadlamudi",
+        "VillageName_Tel": null
+      },
+      {
+        "VillageName": "Yerragondapalem",
+        "VillageName_Tel": null
+      }
+    ]
+  }
+  

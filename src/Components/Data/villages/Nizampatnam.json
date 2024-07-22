@@ -1,0 +1,73 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Adivipalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Adivipalem",
+        "Nearest_Town": "Nizampatnam (15 km)"
+      },
+      {
+        "VillageName": "Bollapalli",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Bollapalli",
+        "Nearest_Town": "Nizampatnam (12 km)"
+      },
+      {
+        "VillageName": "Cherukupalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Cherukupalle",
+        "Nearest_Town": "Nizampatnam (20 km)"
+      },
+      {
+        "VillageName": "Dhulipudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Dhulipudi",
+        "Nearest_Town": "Nizampatnam (18 km)"
+      },
+      {
+        "VillageName": "Eletipalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Eletipalem",
+        "Nearest_Town": "Nizampatnam (22 km)"
+      },
+      {
+        "VillageName": "Koppolu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Koppolu",
+        "Nearest_Town": "Nizampatnam (25 km)"
+      },
+      {
+        "VillageName": "Nagaram",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Nagaram",
+        "Nearest_Town": "Nizampatnam (15 km)"
+      },
+      {
+        "VillageName": "Pamidimarru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pamidimarru",
+        "Nearest_Town": "Nizampatnam (20 km)"
+      },
+      {
+        "VillageName": "Pedapalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pedapalle",
+        "Nearest_Town": "Nizampatnam (17 km)"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddaganjam",
+        "Nearest_Town": "Nizampatnam (30 km)"
+      },
+      {
+        "VillageName": "Yelavarru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Yelavarru",
+        "Nearest_Town": "Nizampatnam (25 km)"
+      }
+    ]
+  }
+  

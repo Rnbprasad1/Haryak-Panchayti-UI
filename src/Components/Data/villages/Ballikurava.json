@@ -1,0 +1,71 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "7582",
+        "VillageName": "Annavaram"
+      },
+      {
+        "Village_Code": "1832",
+        "VillageName": "Chinamakkena"
+      },
+      {
+        "Village_Code": "8909",
+        "VillageName": "Ballikurava"
+      },
+      {
+        "Village_Code": "8720",
+        "VillageName": "Madduluru"
+      },
+      {
+        "Village_Code": "1342",
+        "VillageName": "Muppavaram"
+      },
+      {
+        "Village_Code": "4264",
+        "VillageName": "Vemavaram"
+      },
+      {
+        "Village_Code": "3434",
+        "VillageName": "Poluru"
+      },
+      {
+        "Village_Code": "1022",
+        "VillageName": "Tammavaram"
+      },
+      {
+        "Village_Code": "1699",
+        "VillageName": "Arumbaka"
+      },
+      {
+        "Village_Code": "1400",
+        "VillageName": "Inumella"
+      },
+      {
+        "Village_Code": "1071",
+        "VillageName": "Mellavagu"
+      },
+      {
+        "Village_Code": "4314",
+        "VillageName": "Nallapadu"
+      },
+      {
+        "Village_Code": "8896",
+        "VillageName": "Pedamakkena"
+      },
+      {
+        "Village_Code": "1635",
+        "VillageName": "Rudravaram"
+      },
+      {
+        "Village_Code": "8821",
+        "VillageName": "Tangedu"
+      },
+      {
+        "Village_Code": "5220",
+        "VillageName": "Venkatadripalem"
+      }
+    ]
+  }
+  

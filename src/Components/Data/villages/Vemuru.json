@@ -1,0 +1,61 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Chintalapudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Chintalapudi",
+        "Nearest_Town": "Vemuru (10 km)"
+      },
+      {
+        "VillageName": "Goribidanapadu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Goribidanapadu",
+        "Nearest_Town": "Vemuru (12 km)"
+      },
+      {
+        "VillageName": "Jonnalagadda",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Jonnalagadda",
+        "Nearest_Town": "Vemuru (15 km)"
+      },
+      {
+        "VillageName": "Kothapalli",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Kothapalli",
+        "Nearest_Town": "Vemuru (18 km)"
+      },
+      {
+        "VillageName": "Maddipadu",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Maddipadu",
+        "Nearest_Town": "Vemuru (20 km)"
+      },
+      {
+        "VillageName": "Peddaganjam",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddaganjam",
+        "Nearest_Town": "Vemuru (22 km)"
+      },
+      {
+        "VillageName": "Reddigudem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Reddigudem",
+        "Nearest_Town": "Vemuru (25 km)"
+      },
+      {
+        "VillageName": "Sambepalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Sambepalle",
+        "Nearest_Town": "Vemuru (30 km)"
+      },
+      {
+        "VillageName": "Vemuru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Vemuru",
+        "Nearest_Town": "Vemuru (5 km)"
+      }
+    ]
+  }
+  

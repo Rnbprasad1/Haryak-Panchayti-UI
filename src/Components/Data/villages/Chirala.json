@@ -1,0 +1,47 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "Village_Code": "1123",
+        "VillageName": "Chennupalli"
+      },
+      {
+        "Village_Code": "2456",
+        "VillageName": "Epuru"
+      },
+      {
+        "Village_Code": "3689",
+        "VillageName": "Irlapadu"
+      },
+      {
+        "Village_Code": "4812",
+        "VillageName": "Jandrapeta"
+      },
+      {
+        "Village_Code": "5234",
+        "VillageName": "Kothapeta"
+      },
+      {
+        "Village_Code": "6345",
+        "VillageName": "Kothapeta"
+      },
+      {
+        "Village_Code": "7567",
+        "VillageName": "Perala"
+      },
+      {
+        "Village_Code": "8798",
+        "VillageName": "Ramachandrapuram"
+      },
+      {
+        "Village_Code": "9123",
+        "VillageName": "Sanjeevaiahpalem"
+      },
+      {
+        "Village_Code": "1034",
+        "VillageName": "Singarayakonda"
+      }
+    ]
+  }
+  

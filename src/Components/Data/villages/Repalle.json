@@ -1,0 +1,73 @@
+{
+    "status": "Success",
+    "reason": "",
+    "Get_villages": [
+      {
+        "VillageName": "Allaparru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Allaparru",
+        "Nearest_Town": "Repalle (11 km)"
+      },
+      {
+        "VillageName": "Dhulipudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Dhulipudi",
+        "Nearest_Town": "Repalle (12 km)"
+      },
+      {
+        "VillageName": "Edupalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Edupalle",
+        "Nearest_Town": "Repalle (17 km)"
+      },
+      {
+        "VillageName": "Eletipalem",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Eletipalem",
+        "Nearest_Town": "Repalle (12 km)"
+      },
+      {
+        "VillageName": "Nagaram",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Nagaram",
+        "Nearest_Town": "Repalle (15 km)"
+      },
+      {
+        "VillageName": "Pamidimarru",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pamidimarru",
+        "Nearest_Town": "Repalle (9 km)"
+      },
+      {
+        "VillageName": "Pedamatlapudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pedamatlapudi",
+        "Nearest_Town": "Ponnur (22 km)"
+      },
+      {
+        "VillageName": "Pedapalle",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pedapalle",
+        "Nearest_Town": "Ponnur (22 km)"
+      },
+      {
+        "VillageName": "Peddavaram",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Peddavaram",
+        "Nearest_Town": "Repalle (17 km)"
+      },
+      {
+        "VillageName": "Pudiwada",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Pudiwada",
+        "Nearest_Town": "Repalle (18 km)"
+      },
+      {
+        "VillageName": "Siripudi",
+        "VillageName_Tel": null,
+        "Gram_Panchayat": "Siripudi",
+        "Nearest_Town": "Ponnur (20 km)"
+      }
+    ]
+  }
+  
