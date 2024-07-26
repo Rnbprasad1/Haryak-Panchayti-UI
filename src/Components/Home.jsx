@@ -15,12 +15,14 @@ const QueryDashboard = () => {
 
   useEffect(() => {
     const mandalCounts = formDataArray.reduce((acc, query) => {
-      acc[query.mandal] = (acc[query.mandal] || 0) + 1;
+      if (query.mandal) {
+        acc[query.mandal] = (acc[query.mandal] || 0) + 1;
+      }
       return acc;
     }, {});
 
     setQueriesData(mandalCounts);
-    setTotalQueries(formDataArray.length);
+    setTotalQueries(Object.values(mandalCounts).reduce((sum, count) => sum + count, 0));
   }, [formDataArray]);
 
   const pieChartData = {

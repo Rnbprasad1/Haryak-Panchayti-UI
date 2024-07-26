@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal,Card } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal, Card } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
@@ -20,7 +20,6 @@ const IAS = () => {
   const [villages] = useState({});
   const [filterStatus, setFilterStatus] = useState('');
 
-
   const {
     iasDataArray,
     updateStatus,
@@ -36,6 +35,7 @@ const IAS = () => {
     localStorage.removeItem('user');
     navigate('/login');
   }
+
   useEffect(() => {
     if (mandal) {
       const mandalList = decodeURIComponent(mandal).split(',');
@@ -48,8 +48,6 @@ const IAS = () => {
       setAvailableVillages(mandals[filterMandal] || []);
     }
   }, [filterMandal]);
-
-
 
   const sendMessageToUser = (mobileNumber, message) => {
     console.log(`Sending message "${message}" to mobile number ${mobileNumber}`);
@@ -85,9 +83,6 @@ const IAS = () => {
         data.submittedDate?.match(searchRegex))
     );
   });
-
-
-
 
   const handleMandalChange = (e) => {
     const selectedMandal = e.target.value;
@@ -127,8 +122,6 @@ const IAS = () => {
     ]
   };
 
-
-
   const handleShowModal = (data) => {
     setSelectedData(data);
     setAdminComment('');
@@ -137,7 +130,6 @@ const IAS = () => {
 
     const villageUsername = villageCredentials[data.village]?.username || 'Not assigned';
     setAssignedTo(villageUsername)
-
   };
 
   const handleCloseModal = () => {
@@ -191,7 +183,6 @@ const IAS = () => {
     }
   };
 
-
   const parseDate = (dateString) => {
     const [datePart, timePart] = dateString.split(', ');
     const [day, month, year] = datePart.split('/').map(Number);
@@ -229,37 +220,37 @@ const IAS = () => {
             Logout
           </Button>
         </Col>
-        </Row>
+      </Row>
 
- <h2 className="mb-4 text-primary">{decodeURIComponent(filterMandal)} Analysis</h2>
-<Row className="mb-4">
-  <Col md={3} className="mb-3">
-    <Card className="text-center h-100 shadow-sm border-0">
-      <Card.Body className="d-flex flex-column justify-content-center">
-        <Card.Title className="text-muted">Total Tickets</Card.Title>
-        <Card.Text className="display-4 font-weight-bold text-primary">{filteredData.length}</Card.Text>
-        <i className="fas fa-ticket-alt fa-3x text-primary mt-2"></i>
-      </Card.Body>
-    </Card>
-  </Col>
-  {['open', 'In Progress', 'completed'].map((status) => {
-    const count = filteredData.filter(data => data.status === status).length;
-    return (
-      <Col md={3} key={status} className="mb-3">
-        <Card className="text-center h-100 shadow-sm border-0">
-          <Card.Body className="d-flex flex-column justify-content-center">
-            <Card.Title className="text-muted">{status}</Card.Title>
-            <Card.Text className="display-4 font-weight-bold" style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}>
-              {count}
-            </Card.Text>
-            <i className={`fas fa-${status === 'open' ? 'exclamation-circle' : status === 'In Progress' ? 'clock' : 'check-circle'} fa-3x mt-2`}
-                style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}></i>
-          </Card.Body>
-        </Card>
-      </Col>
-    );
-  })}
-</Row>
+      <h2 className="mb-4 text-primary">{decodeURIComponent(filterMandal)} Analysis</h2>
+      <Row className="mb-4">
+        <Col md={3} className="mb-3">
+          <Card className="text-center h-100 shadow-sm border-0">
+            <Card.Body className="d-flex flex-column justify-content-center">
+              <Card.Title className="text-muted">Total Tickets</Card.Title>
+              <Card.Text className="display-4 font-weight-bold text-primary">{filteredData.length}</Card.Text>
+              <i className="fas fa-ticket-alt fa-3x text-primary mt-2"></i>
+            </Card.Body>
+          </Card>
+        </Col>
+        {['open', 'In Progress', 'completed'].map((status) => {
+          const count = filteredData.filter(data => data.status === status).length;
+          return (
+            <Col md={3} key={status} className="mb-3">
+              <Card className="text-center h-100 shadow-sm border-0">
+                <Card.Body className="d-flex flex-column justify-content-center">
+                  <Card.Title className="text-muted">{status}</Card.Title>
+                  <Card.Text className="display-4 font-weight-bold" style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}>
+                    {count}
+                  </Card.Text>
+                  <i className={`fas fa-${status === 'open' ? 'exclamation-circle' : status === 'In Progress' ? 'clock' : 'check-circle'} fa-3x mt-2`}
+                      style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}></i>
+                </Card.Body>
+                </Card>
+            </Col>
+          );
+        })}
+      </Row>
       <h2 className="mb-4">{decodeURIComponent(mandal)} Dashboard - Escalated Queries</h2>
       <Row className="mb-3">
         <Col xs={12} md={4}>
@@ -447,7 +438,7 @@ const IAS = () => {
                       <tbody>
                         {sortedComments.map((comment, index) => (
                           <tr key={index}>
-                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : username}</strong></td>
+                            <td><strong>{comment.role === "User" ? `(${selectedData.name})` : comment.role === "MRO" ? villageCredentials[selectedData.village]?.username : username}</strong></td>
                             <td>{comment.comment}</td>
                             <td>{comment.timestamp}</td>
                           </tr>
@@ -477,12 +468,18 @@ const IAS = () => {
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button
-            variant="primary" onClick={() => handleUpdateStatus(selectedData.status)}
-            disabled={isUpdateDisabled}
-          >
-            Update
-          </Button>
+        <Button
+  variant="primary"
+  onClick={() => {
+    handleUpdateStatus(selectedData.status);
+    if (selectedData.status === 'completed') {
+      setIsUpdateDisabled(true);
+    }
+  }}
+  disabled={isUpdateDisabled}
+>
+  Update
+</Button>
         </Modal.Footer>
       </Modal>
 
@@ -522,7 +519,7 @@ const IAS = () => {
                       '-'
                     )}
                   </td>
-                  <td>{data.actionTakenBy || '-'}</td>
+                  <td>{data.actionTakenBy ? (data.actionTakenBy === username ? username : villageCredentials[data.village]?.username) : '-'}</td>
                   <td>
                     <Dropdown>
                       <Dropdown.Toggle variant="primary" id={`dropdown-${index}`}>

@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal,Card } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Alert, Table, Dropdown, Modal, Card } from 'react-bootstrap';
 import { DataContext } from '../AdminComponents/DataContext';
 import IAS from './IAS';
 import { useParams, useNavigate } from 'react-router-dom';
-import{FaSignOutAlt} from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 const MROAdmin = () => {
   const [filterMandal, setFilterMandal] = useState('');
@@ -70,7 +70,7 @@ const MROAdmin = () => {
     }
   };
 
- const filteredData = formDataArray.filter((data) => {
+  const filteredData = formDataArray.filter((data) => {
     const searchRegex = new RegExp(searchQuery, 'i');
     const statusMatch = filterStatus ? data.status === filterStatus : true;
     return (
@@ -155,42 +155,42 @@ const MROAdmin = () => {
         comment: adminResponse,
         role: username,
         timestamp: new Date().toLocaleString(),
-    };
+      };
 
-    if (status === 'open' && adminResponse.trim() !== '') {
-      status = 'In Progress';
+      if (status === 'open' && adminResponse.trim() !== '') {
+        status = 'In Progress';
+      }
+
+      updateStatus(index, status, adminResponse);
+      updateAdminResponse(index, adminResponse);
+      updateActionTakenBy(index, loggedInMandal + ' admin');
+      if (status === 'completed' || status === 'In Progress') {
+        updateActionTakenDate(index, currentActionTakenDate);
+        sendMessageToUser(selectedData.mobile, adminResponse);
+      }
+
+      const updatedComments = [...previousComments, currentComment];
+      const updatedData = {
+        ...selectedData,
+        adminComments: updatedComments,
+        actionTakenDate: currentActionTakenDate,
+        actionTakenBy: username,
+        status: status
+      };
+      const updatedFormDataArray = [...formDataArray];
+      updatedFormDataArray[index] = updatedData;
+
+      updateFormDataArray(updatedFormDataArray);
+
+      setIsUpdateDisabled(status === 'completed');
+      setSelectedData(updatedData);
+      setPreviousComments(updatedComments);
+      setTokenSentToIAS(false);
+      setHasResponded(true);
+
+      handleCloseModal();
     }
-
-    updateStatus(index, status, adminResponse);
-    updateAdminResponse(index, adminResponse);
-    updateActionTakenBy(index, loggedInMandal + ' admin');
-    if (status === 'completed' || status === 'In Progress') {
-      updateActionTakenDate(index, currentActionTakenDate);
-      sendMessageToUser(selectedData.mobile, adminResponse);
-    }
-
-    const updatedComments = [...previousComments, currentComment];
-    const updatedData = {
-      ...selectedData,
-      adminComments: updatedComments,
-      actionTakenDate: currentActionTakenDate,
-      actionTakenBy: username,
-      status: status
-    };
-    const updatedFormDataArray = [...formDataArray];
-    updatedFormDataArray[index] = updatedData;
-
-    updateFormDataArray(updatedFormDataArray);
-
-    setIsUpdateDisabled(status === 'completed');
-    setSelectedData(updatedData);
-    setPreviousComments(updatedComments);
-    setTokenSentToIAS(false);
-    setHasResponded(true);
-
-    handleCloseModal();
-  }
-};
+  };
 
   const handleDataUpdate = (updatedData) => {
     const updatedFormDataArray = [...formDataArray];
@@ -220,17 +220,17 @@ const MROAdmin = () => {
       inProgress: 0,
       completed: 0
     };
-  
+
     filteredData.forEach(data => {
       if (data.status === 'open') counts.open++;
       else if (data.status === 'In Progress') counts.inProgress++;
       else if (data.status === 'completed') counts.completed++;
     });
-  
+
     return counts;
   };
-  
- 
+
+
   const ticketCounts = getTicketCounts();
 
   return (
@@ -243,7 +243,7 @@ const MROAdmin = () => {
             Logout
           </Button>
         </Col>
-        </Row> 
+      </Row>
 
       <h2 className="mb-4 text-primary">{decodeURIComponent(filterVillages)} Analysis</h2>
       <Row className="mb-4">
@@ -263,11 +263,11 @@ const MROAdmin = () => {
               <Card className="text-center h-100 shadow-sm border-0">
                 <Card.Body className="d-flex flex-column justify-content-center">
                   <Card.Title className="text-muted">{status}</Card.Title>
-                  <Card.Text className="display-4 font-weight-bold" style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}>
+                  <Card.Text className="display-4 font-weight-bold" style={{ color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745' }}>
                     {count}
                   </Card.Text>
                   <i className={`fas fa-${status === 'open' ? 'exclamation-circle' : status === 'In Progress' ? 'clock' : 'check-circle'} fa-3x mt-2`}
-                      style={{color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745'}}></i>
+                    style={{ color: status === 'open' ? '#dc3545' : status === 'In Progress' ? '#ffc107' : '#28a745' }}></i>
                 </Card.Body>
               </Card>
             </Col>
@@ -282,41 +282,39 @@ const MROAdmin = () => {
           <h2>Submitted Queries</h2>
         </Col>
       </Row>
-     <Row className="mb-3">
-     <Col xs={12} md={4}>
+      <Row className="mb-3">
+        <Col xs={12} md={4}>
           <Form.Group controlId="formMandal">
             <Form.Label>Mandal</Form.Label>
             <Form.Control type="text" value={filterMandal} readOnly />
           </Form.Group>
         </Col>
-       <Col xs={12} md={4}>
-  <Form.Group controlId="formVillage">
-    <Form.Label>Filter by Village</Form.Label>
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-village" disabled>
-        Select Villages
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {availableVillages.map((village) => (
-          <Dropdown.Item 
-            key={village}
-            active={filterVillages.includes(village)}
-            disabled
-            onClick={() => {
-              if (filterVillages.includes(village)) {
-                setFilterVillages(filterVillages.filter(v => v !== village));
-              } else {
-                setFilterVillages([...filterVillages, village]);
-              }
-            }}
-          >
-            {village}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
-  </Form.Group>
-</Col>
+        <Col xs={12} md={4}>
+          <Form.Group controlId="formVillage">
+            <Form.Label>Filter by Village</Form.Label>
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-village" disabled>
+                {filterVillages.length > 0 ? `${filterVillages.length} selected` : 'Select Villages'}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {availableVillages.map((village) => (
+                  <Dropdown.Item
+                    key={village}
+                    as="div"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Form.Check
+                      type="checkbox"
+                      label={village}
+                      checked={filterVillages.includes(village)}
+                      disabled
+                    />
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </Form.Group>
+        </Col>
         <Col xs={12} md={4}>
           <Form.Group controlId="formSearch">
             <Form.Label>Search</Form.Label>
@@ -329,21 +327,21 @@ const MROAdmin = () => {
           </Form.Group>
         </Col>
 
-     <Col xs={12} md={4} className="mt-3">
-  <Form.Group controlId="formStatusFilter">
-    <Form.Label>Filter by Status</Form.Label>
-    <Form.Select
-      value={filterStatus}
-      onChange={handleStatusChange}
-      className="form-control-lg"
-    >
-      <option value="">All Status</option>
-      <option value="open">Open</option>
-      <option value="In Progress">In Progress</option>
-      <option value="completed">Completed</option>
-    </Form.Select>
-  </Form.Group>
-</Col>
+        <Col xs={12} md={4} className="mt-3">
+          <Form.Group controlId="formStatusFilter">
+            <Form.Label>Filter by Status</Form.Label>
+            <Form.Select
+              value={filterStatus}
+              onChange={handleStatusChange}
+              className="form-control-lg"
+            >
+              <option value="">All Status</option>
+              <option value="open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </Form.Select>
+          </Form.Group>
+        </Col>
       </Row>
 
       <div className="table-responsive">
@@ -526,33 +524,33 @@ const MROAdmin = () => {
                 </Col>
               </Row>
 
-         <Form.Group controlId="formPreviousComments">
-  <Form.Label>Previous Comments</Form.Label>
-  {sortedComments && sortedComments.length > 0 ? (
-    <div className="table-responsive">
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Role</th>
-            <th>Comment</th>
-            <th>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedComments.map((comment, index) => (
-            <tr key={index}>
-             <td><strong>{comment.role === "User" ? selectedData.name : (comment.role === "IAS" ? selectedData.mandal : comment.role)}</strong></td>
-              <td>{comment.comment}</td>
-              <td>{comment.timestamp}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
-  ) : (
-    <p>No previous comments available.</p>
-  )}
-</Form.Group>
+              <Form.Group controlId="formPreviousComments">
+                <Form.Label>Previous Comments</Form.Label>
+                {sortedComments && sortedComments.length > 0 ? (
+                  <div className="table-responsive">
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Role</th>
+                          <th>Comment</th>
+                          <th>Timestamp</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sortedComments.map((comment, index) => (
+                          <tr key={index}>
+                            <td><strong>{comment.role === "User" ? selectedData.name : (comment.role === "IAS" ? selectedData.mandal : comment.role)}</strong></td>
+                            <td>{comment.comment}</td>
+                            <td>{comment.timestamp}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </div>
+                ) : (
+                  <p>No previous comments available.</p>
+                )}
+              </Form.Group>
 
               {isTimeExceeded && !hasResponded && (
                 <Row>

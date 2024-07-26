@@ -97,31 +97,31 @@ const Status = ({ enteredByName }) => {
     <Container fluid>
 
       <br></br>
-     <Row className="mb-4 justify-content-center">
-  <Col xs={12} sm={10} md={8} lg={6} xl={4}>
-    <Form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-      <Form.Group className="mb-0">
-        <InputGroup>
-          <Form.Control
-            type="text"
-            placeholder="Enter token number"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="border-end-0"
-          />
-          <Button
-            variant="outline-primary"
-            type="submit"
-            className="d-flex align-items-center"
-          >
-            <i className="bi bi-search me-2"></i>
-            Search
-          </Button>
-        </InputGroup>
-      </Form.Group>
-    </Form>
-  </Col>
-</Row>
+      <Row className="mb-4 justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+          <Form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
+            <Form.Group className="mb-0">
+              <InputGroup>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter token number"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="border-end-0"
+                />
+                <Button
+                  variant="outline-primary"
+                  type="submit"
+                  className="d-flex align-items-center"
+                >
+                  <i className="bi bi-search me-2"></i>
+                  Search
+                </Button>
+              </InputGroup>
+            </Form.Group>
+          </Form>
+        </Col>
+      </Row>
 
       {filteredData.length === 0 ? (
         <p>No data found.</p>
@@ -198,7 +198,7 @@ const Status = ({ enteredByName }) => {
               <Form.Control as="textarea" rows={3} value={adminComment} onChange={(e) => setAdminComment(e.target.value)} disabled={isUpdateDisabled} />
             </Form.Group>
             <Button variant="success" onClick={() => handleUpdateStatus('In Progress', adminComment)} disabled={isUpdateDisabled} className="mt-2">Update</Button>
-            
+
             <div className="mt-4">
               <h5>Previous Comments:</h5>
               {sortedComments.length > 0 ? (
@@ -233,7 +233,7 @@ const Status = ({ enteredByName }) => {
         </Modal>
       )}
       <br></br>
-  <br></br>    <Footer1 />
+      <br></br>    <Footer1 />
     </Container>
   );
 };
