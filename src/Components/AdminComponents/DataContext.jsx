@@ -15,13 +15,14 @@ export const DataProvider = ({ children }) => {
       adminComments: [],
       disabled: false,
     },
-    // Additional objects can be added here
+
   ];
 
   const [formDataArray, setFormDataArray] = useState(initialFormDataArray);
   const [iasDataArray, setIasDataArray] = useState([]);
 
   useEffect(() => {
+    console.log('Inside useEffect');
     const interval = setInterval(() => {
       setFormDataArray((prevData) => {
         return prevData.map((data) => {
@@ -33,7 +34,7 @@ export const DataProvider = ({ children }) => {
                 {
                   ...data,
                   isEscalated: true,
-                  adminComments: [...data.adminComments], // Preserve comments
+                  adminComments: [...data.adminComments],
                   disabled: true,
                 },
               ];
@@ -42,7 +43,7 @@ export const DataProvider = ({ children }) => {
                 ...data,
                 isEscalated: true,
                 timer: null,
-                adminComments: [...data.adminComments], // Preserve comments
+                adminComments: [...data.adminComments],
                 disabled: true,
               };
             }
@@ -98,12 +99,10 @@ export const DataProvider = ({ children }) => {
         });
       }
 
-      // Disable data if status is complete
       if (newStatus === 'complete') {
         updatedData[index].disabled = true;
       }
 
-      // Re-enable MRO if IAS responds and status is not complete
       if (isIAS && updatedData[index].isEscalated && newStatus !== 'complete') {
         updatedData[index].isEscalated = false;
         updatedData[index].disabled = false;
@@ -112,32 +111,22 @@ export const DataProvider = ({ children }) => {
       return updatedData;
     });
 
-    if (isIAS) {
-      setIasDataArray((prevData) => {
-        const updatedData = [...prevData];
-        const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
-        if (iasIndex !== -1) {
-          updatedData[iasIndex].status = newStatus;
-          if (
-            !updatedData[iasIndex].adminComments.find(
-              (comment) => comment.comment === adminResponse && comment.role === 'IAS'
-            )
-          ) {
-            updatedData[iasIndex].adminComments.push({
-              comment: adminResponse,
-              role: 'IAS',
-              timestamp: new Date().toLocaleString(),
-            });
-          }
 
-          // Disable data if status is complete
-          if (newStatus === 'complete') {
-            updatedData[iasIndex].disabled = true;
-          }
+    setIasDataArray((prevData) => {
+      const updatedData = [...prevData];
+      const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
+      if (iasIndex !== -1) {
+        updatedData[iasIndex] = {
+          ...updatedData[iasIndex],
+          status: newStatus,
+          adminComments: [...formDataArray[index].adminComments],
+        };
+        if (newStatus === 'complete') {
+          updatedData[iasIndex].disabled = true;
         }
-        return updatedData;
-      });
-    }
+      }
+      return updatedData;
+    });
   };
 
   const updateAdminResponse = (index, adminResponse, isIAS = false) => {
@@ -156,6 +145,10 @@ export const DataProvider = ({ children }) => {
           role: isIAS ? 'IAS' : 'MRO',
           timestamp: new Date().toLocaleString(),
         });
+
+        if (updatedData[index].status === 'open') {
+          updatedData[index].status = 'in progress';
+        }
       }
 
       if (isIAS && updatedData[index].isEscalated && updatedData[index].status !== 'complete') {
@@ -166,27 +159,22 @@ export const DataProvider = ({ children }) => {
       return updatedData;
     });
 
-    if (isIAS) {
-      setIasDataArray((prevData) => {
-        const updatedData = [...prevData];
-        const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
-        if (iasIndex !== -1) {
-          updatedData[iasIndex].adminResponse = adminResponse;
-          if (
-            !updatedData[iasIndex].adminComments.find(
-              (comment) => comment.comment === adminResponse && comment.role === 'IAS'
-            )
-          ) {
-            updatedData[iasIndex].adminComments.push({
-              comment: adminResponse,
-              role: 'IAS',
-              timestamp: new Date().toLocaleString(),
-            });
-          }
+
+    setIasDataArray((prevData) => {
+      const updatedData = [...prevData];
+      const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
+      if (iasIndex !== -1) {
+        updatedData[iasIndex] = {
+          ...updatedData[iasIndex],
+          adminResponse: adminResponse,
+          adminComments: [...formDataArray[index].adminComments],
+        };
+        if (updatedData[iasIndex].status === 'open') {
+          updatedData[iasIndex].status = 'in progress';
         }
-        return updatedData;
-      });
-    }
+      }
+      return updatedData;
+    });
   };
 
   const updateActionTakenDate = (index, actionTakenDate, isIAS = false) => {
@@ -196,16 +184,15 @@ export const DataProvider = ({ children }) => {
       return updatedData;
     });
 
-    if (isIAS) {
-      setIasDataArray((prevData) => {
-        const updatedData = [...prevData];
-        const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
-        if (iasIndex !== -1) {
-          updatedData[iasIndex].actionTakenDate = actionTakenDate;
-        }
-        return updatedData;
-      });
-    }
+
+    setIasDataArray((prevData) => {
+      const updatedData = [...prevData];
+      const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
+      if (iasIndex !== -1) {
+        updatedData[iasIndex].actionTakenDate = actionTakenDate;
+      }
+      return updatedData;
+    });
   };
 
   const updateActionTakenBy = (index, actionTakenBy, isIAS = false) => {
@@ -215,16 +202,15 @@ export const DataProvider = ({ children }) => {
       return updatedData;
     });
 
-    if (isIAS) {
-      setIasDataArray((prevData) => {
-        const updatedData = [...prevData];
-        const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
-        if (iasIndex !== -1) {
-          updatedData[iasIndex].actionTakenBy = actionTakenBy;
-        }
-        return updatedData;
-      });
-    }
+
+    setIasDataArray((prevData) => {
+      const updatedData = [...prevData];
+      const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
+      if (iasIndex !== -1) {
+        updatedData[iasIndex].actionTakenBy = actionTakenBy;
+      }
+      return updatedData;
+    });
   };
 
   const updateIASResponse = (index, iasResponse) => {
@@ -251,22 +237,18 @@ export const DataProvider = ({ children }) => {
       return updatedData;
     });
 
+
     setIasDataArray((prevData) => {
       const updatedData = [...prevData];
       const iasIndex = updatedData.findIndex((item) => item.token === formDataArray[index].token);
       if (iasIndex !== -1) {
-        updatedData[iasIndex].iasResponse = iasResponse;
-        if (
-          !updatedData[iasIndex].adminComments.find(
-            (comment) => comment.comment === iasResponse && comment.role === 'IAS'
-          )
-        ) {
-          updatedData[iasIndex].adminComments.push({
-            comment: iasResponse,
-            role: 'IAS',
-            timestamp: new Date().toLocaleString(),
-          });
-        }
+        updatedData[iasIndex] = {
+          ...updatedData[iasIndex],
+          iasResponse: iasResponse,
+          adminComments: [...formDataArray[index].adminComments],
+          isEscalated: false,
+          disabled: false,
+        };
       }
       return updatedData;
     });
