@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import apMapImage from '././ApMap.jpg';
+import apMapImage from '././Apmap.png';
 import Footer from './Footer';
 import { DataContext } from '../Components/AdminComponents/DataContext';
 
@@ -15,12 +15,14 @@ const QueryDashboard = () => {
 
   useEffect(() => {
     const mandalCounts = formDataArray.reduce((acc, query) => {
-      acc[query.mandal] = (acc[query.mandal] || 0) + 1;
+      if (query.mandal) {
+        acc[query.mandal] = (acc[query.mandal] || 0) + 1;
+      }
       return acc;
     }, {});
 
     setQueriesData(mandalCounts);
-    setTotalQueries(formDataArray.length);
+    setTotalQueries(Object.values(mandalCounts).reduce((sum, count) => sum + count, 0));
   }, [formDataArray]);
 
   const pieChartData = {
@@ -58,7 +60,7 @@ const QueryDashboard = () => {
         <Col md={6}>
           <div className="bg-white p-5 rounded shadow">
             <h4 className="text-center mb-4">Map</h4>
-            <img src={apMapImage} alt="Map" style={{ maxWidth: '100%', height: 'auto' }} />
+            <img src={'https://www.careernath.com/wp-content/uploads/2023/02/Andhra-pradesh-map.jpg'} alt="Map" style={{ maxWidth: '100%', height: 'auto' }} />
           </div>
         </Col>
       </Row>
